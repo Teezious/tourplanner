@@ -1,8 +1,9 @@
-package at.matthias.tourplanner;
+package at.matthias.tourplanner.views;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import at.matthias.tourplanner.viewmodels.MainViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
