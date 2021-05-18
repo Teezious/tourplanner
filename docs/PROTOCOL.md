@@ -11,6 +11,9 @@
 |            |      |
 |            |      |
 
+
+### Technical Steps
+
 - 07.03.2021
   - Probblems:
     - including JavaFX and getting it to run
@@ -33,11 +36,6 @@
   - Tasks:
     - fixed resource file problem (define resources in pom)
     - fixed items not being displayed in Listview
-
-
-
-### Technical Steps
-
 
  
 ### Design Choices

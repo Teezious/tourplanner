@@ -1,11 +1,9 @@
 package at.matthias.tourplanner.BL;
 
+import at.matthias.tourplanner.models.TourItem;
 import java.util.List;
 
-import at.matthias.tourplanner.models.TourItem;
-
-public interface AppManager {
+public interface Manager {
     public List<TourItem> GetItems();
     public List<TourItem> Search(String name);
-
 }
