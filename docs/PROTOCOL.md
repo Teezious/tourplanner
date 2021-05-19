@@ -8,7 +8,7 @@
 | :--------- | ---: |
 | 07.03.2021 | 3h   |
 | 03.05.2021 | 3h   |
-|            |      |
+| 18.05.2021 | 5h   |
 |            |      |
 
 
@@ -36,6 +36,7 @@
   - Tasks:
     - fixed resource file problem (define resources in pom)
     - fixed items not being displayed in Listview
+    - added window for adding tours
 
  
 ### Design Choices

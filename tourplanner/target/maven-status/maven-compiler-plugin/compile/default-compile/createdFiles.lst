@@ -5,8 +5,8 @@ at/matthias/tourplanner/DL/Database.class
 at/matthias/tourplanner/views/AddTourController.class
 at/matthias/tourplanner/views/Controller$1.class
 at/matthias/tourplanner/models/TourItem.class
-module-info.class
 at/matthias/tourplanner/BL/ManagerImpl.class
 at/matthias/tourplanner/BL/Manager.class
+at/matthias/tourplanner/DL/XMLReader.class
 at/matthias/tourplanner/Main.class
 at/matthias/tourplanner/BL/TourFactory.class

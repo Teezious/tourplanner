@@ -2,10 +2,10 @@
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/views/Controller.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/Main.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/models/TourItem.java
+/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/DL/XMLReader.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/BL/ManagerImpl.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/BL/TourFactory.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/viewmodels/MainViewModel.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/DL/DataAccess.java
-/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/module-info.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/DL/Database.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/BL/Manager.java
