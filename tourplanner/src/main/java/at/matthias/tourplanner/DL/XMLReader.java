@@ -32,7 +32,6 @@ public class XMLReader {
             String[] cut = path.split(":");
             path = cut[1];
         }
-        System.out.println(path);
         File file = new File(path);
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

@@ -1,3 +1,5 @@
+at/matthias/tourplanner/BL/Tourhandler.class
+at/matthias/tourplanner/views/EditTourController.class
 at/matthias/tourplanner/DL/DataAccess.class
 at/matthias/tourplanner/views/Controller.class
 at/matthias/tourplanner/viewmodels/MainViewModel.class

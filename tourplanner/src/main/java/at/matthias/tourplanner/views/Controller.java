@@ -2,9 +2,11 @@ package at.matthias.tourplanner.views;
 
 import at.matthias.tourplanner.BL.Manager;
 import at.matthias.tourplanner.BL.TourFactory;
+import at.matthias.tourplanner.BL.Tourhandler;
 import at.matthias.tourplanner.Main;
 import at.matthias.tourplanner.models.TourItem;
 import at.matthias.tourplanner.viewmodels.MainViewModel;
+import at.matthias.tourplanner.views.EditTourController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -26,37 +28,64 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Controller implements Initializable {
-
+    private final String ADDTOURPATH = "/fxml/addTour.fxml";
+    private final String EDITTOURPATH = "/fxml/editTour.fxml";
     // create custom viewmodel
     static final MainViewModel viewModel = new MainViewModel();
 
     // add fx:id and use intelliJ to create field in controller
-    @FXML public TextField searchBar;
-    @FXML public ListView<TourItem> tourList;
+    @FXML private TextField searchBar;
+    @FXML private ListView<TourItem> tourList;
     private ObservableList<TourItem> obsrvTourList;
     private TourItem currentTour;
     private Manager manager;
+    private Tourhandler tourhandler;
 
     public void searchAction(ActionEvent s) {
-        obsrvTourList.clear();
-        List<TourItem> items = manager.Search(searchBar.textProperty().getValue());
-        obsrvTourList.addAll(items);
+        updateListView(tourhandler.search(searchBar.textProperty().getValue()));
     }
 
     public void clearAction(ActionEvent c) {
-        obsrvTourList.clear();
         searchBar.textProperty().setValue("");
-        List<TourItem> items = manager.GetItems();
-        obsrvTourList.addAll(items);
+        updateListView(tourhandler.get());
     }
 
     public void addTour(ActionEvent a) {
-        switchWindow("/fxml/addTour.fxml");
+        switchWindow(ADDTOURPATH);
+    }
+
+    public void removeTour(ActionEvent a) {
+        tourhandler.remove(currentTour.getId());
+        updateListView(tourhandler.get());
+    }
+
+    public void editTour(ActionEvent a) {
+        if (currentTour != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource(EDITTOURPATH));
+                Parent root = loader.load();
+                EditTourController ed = loader.getController();
+                ed.setData(currentTour); // TODO parse touritem directly?
+                tourList.getScene().setRoot(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // TODO error window
+        }
+        updateListView(tourhandler.get());
+    }
+
+    public void updateListView(List<TourItem> items) {
+        obsrvTourList.clear();
+        obsrvTourList.addAll(items);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         manager = TourFactory.GetManager();
+        tourhandler = new Tourhandler();
         setupListView();
         formatCells();
         setCurrentItem();
@@ -64,7 +93,7 @@ public class Controller implements Initializable {
 
     private void setupListView() {
         obsrvTourList = FXCollections.observableArrayList();
-        obsrvTourList.addAll(manager.GetItems());
+        obsrvTourList.addAll(tourhandler.get());
         tourList.setItems(obsrvTourList);
     }
 
@@ -93,16 +122,12 @@ public class Controller implements Initializable {
 
     // TODO Never Reapeat functions...
     private void switchWindow(String path) {
+        Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(path));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setTitle("Add Tour");
-            stage.setScene(new Scene(root));
-            stage.show(); // open new window;
+            root = loader.load();
+            tourList.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }

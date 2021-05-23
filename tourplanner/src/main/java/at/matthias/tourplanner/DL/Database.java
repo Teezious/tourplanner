@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Database implements DataAccess {
+public class Database {
     private static final String SQLCREATEPATH = "/db/create_tables.sql";
     private static final String DBACCESSPATH = "/config/dbAccess.xml";
     private String dburl;
@@ -79,13 +79,13 @@ public class Database implements DataAccess {
             se.printStackTrace();
         }
     }
-    @Override
-    public List<TourItem> GetItems() {
-        return new ArrayList<>();
-    }
 
-    private String readSQL(String filename) throws IOException {
-        FileReader file = new FileReader(filename);
+    private String readSQL(String path) throws IOException {
+        if (path.contains("file:")) {
+            String[] cut = path.split(":");
+            path = cut[1];
+        }
+        FileReader file = new FileReader(path);
         StringBuilder statements = new StringBuilder();
         int i;
         while ((i = file.read()) != -1)

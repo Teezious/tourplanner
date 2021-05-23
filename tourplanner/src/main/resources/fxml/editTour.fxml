@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.AddTourController" >
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.EditTourController" >
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
@@ -49,10 +49,10 @@
 
                 <HBox alignment="CENTER" prefHeight="25.0" prefWidth="500.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#createTour" text="Create" />
+                        <Button mnemonicParsing="false" onAction="#save" text="Save" />
                     </children>
                <children>
-                  <Button mnemonicParsing="false" onAction="#cancelTour" text="Cancel" />
+                  <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" />
                </children>
             </HBox>
             </children>

@@ -40,12 +40,12 @@
                   <Insets left="1.0" right="1.0" top="3.0" />
                </HBox.margin>
             </Button>
-            <Button id="rem_tour_btn" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" text="-" textAlignment="CENTER">
+            <Button fx:id="RemoveTourBtn" id="rem_tour_btn" onAction="#removeTour" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" text="-" textAlignment="CENTER">
                <HBox.margin>
                   <Insets left="1.0" right="1.0" top="3.0" />
                </HBox.margin>
             </Button>
-            <Button id="cp_tour_btn" alignment="CENTER" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" text="*" textAlignment="CENTER">
+            <Button fx:id="EditTourBtn" id="cp_tour_btn" onAction="#editTour" alignment="CENTER" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" text="*" textAlignment="CENTER">
                <HBox.margin>
                   <Insets left="1.0" right="1.0" top="3.0" />
                </HBox.margin>

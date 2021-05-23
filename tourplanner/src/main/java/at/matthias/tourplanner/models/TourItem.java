@@ -9,18 +9,20 @@ public class TourItem {
     @Getter @Setter public String start;
     @Getter @Setter public String end;
     @Getter @Setter public float distance;
-    @Getter @Setter public String id;
+    @Getter @Setter public int id;
+    @Getter @Setter public String image;
 
     public TourItem(String name) {
         this.name = name;
     }
 
-    public TourItem(String name, String description, float distance, String start, String end, String id) {
+    public TourItem(int id, String name, String start, String end, String description, float distance, String image) {
         this.name = name;
         this.description = description;
         this.distance = distance;
         this.start = start;
         this.end = end;
         this.id = id;
+        this.image = image;
     }
 }
