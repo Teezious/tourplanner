@@ -9,7 +9,8 @@
 | 07.03.2021 | 3h   |
 | 03.05.2021 | 3h   |
 | 18.05.2021 | 5h   |
-|            |      |
+| 19.05.2021 | 2h   |
+| 23.05.2021 | 4h   |
 
 
 ### Technical Steps
@@ -37,6 +38,21 @@
     - fixed resource file problem (define resources in pom)
     - fixed items not being displayed in Listview
     - added window for adding tours
+- 19.05.2021
+  - Problems:
+    - Problem with path to DBConfig file and and DBCreateStatements file
+  - Tasks:
+    - fixed both path problems
+    - added db connection
+    - added db config reader
+    - added db sql script reader
+- 23.05.2021
+  - Problems:
+    - /
+  - Tasks:
+    - added tourhandler
+    - ability to add, edit and delete tours
+    - saving tours in database
 
  
 ### Design Choices
