@@ -8,3 +8,22 @@ CREATE TABLE IF NOT EXISTS "tours"
     "distance" FLOAT,
     "image" VARCHAR(128)
 );
+
+CREATE TABLE IF NOT EXISTS "logs"
+(
+    "id" SERIAL PRIMARY KEY,
+    "fk_tour_id" INT NOT NULL,
+    "date" DATE,
+    "time" TIME,
+    "distance" FLOAT,
+    "rating" INT,
+    "avg_speed" FLOAT,
+    "breaks" INT,
+    "degrees" INT,
+    "weather" INT,
+    "notes" VARCHAR(256),
+    CONSTRAINT fk_tour_id_log
+        FOREIGN KEY (fk_tour_id)
+            REFERENCES tours(id)
+            ON DELETE CASCADE
+);

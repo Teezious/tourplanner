@@ -5,6 +5,7 @@ import at.matthias.tourplanner.BL.TourFactory;
 import at.matthias.tourplanner.BL.Tourhandler;
 import at.matthias.tourplanner.Main;
 import at.matthias.tourplanner.models.TourItem;
+import at.matthias.tourplanner.viewmodels.ControllerViewModel;
 import at.matthias.tourplanner.viewmodels.MainViewModel;
 import at.matthias.tourplanner.views.EditTourController;
 import java.io.IOException;
@@ -40,6 +41,11 @@ public class Controller implements Initializable {
     private TourItem currentTour;
     private Manager manager;
     private Tourhandler tourhandler;
+    private ControllerViewModel ctrlview;
+
+    protected TourItem getCurrentTour() {
+        return this.currentTour;
+    }
 
     public void searchAction(ActionEvent s) {
         updateListView(tourhandler.search(searchBar.textProperty().getValue()));
@@ -85,10 +91,12 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         manager = TourFactory.GetManager();
+        ctrlview = new ControllerViewModel();
         tourhandler = new Tourhandler();
         setupListView();
         formatCells();
         setCurrentItem();
+        ctrlview.setController(this);
     }
 
     private void setupListView() {

@@ -11,6 +11,7 @@
 | 18.05.2021 | 5h   |
 | 19.05.2021 | 2h   |
 | 23.05.2021 | 4h   |
+| 25.05.2021 | 3h   |
 
 
 ### Technical Steps
@@ -53,6 +54,15 @@
     - added tourhandler
     - ability to add, edit and delete tours
     - saving tours in database
+- 23.05.2021
+  - Problems:
+    - /
+  - Tasks:
+    - edited mainWindow
+    - added tourInfos.fxml
+    - added LogItem
+    - added TourInfosController
+    - edited create_tables.sql to add Logs entry
 
  
 ### Design Choices
