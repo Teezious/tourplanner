@@ -14,14 +14,14 @@ CREATE TABLE IF NOT EXISTS "logs"
     "id" SERIAL PRIMARY KEY,
     "fk_tour_id" INT NOT NULL,
     "date" DATE,
-    "time" TIME,
-    "distance" FLOAT,
+    "time" INT,
+    "distance" INT,
     "rating" INT,
     "avg_speed" FLOAT,
     "breaks" INT,
     "degrees" INT,
-    "weather" INT,
-    "acivity" INT,
+    "weather" VARCHAR(64),
+    "activity" VARCHAR(64),
     CONSTRAINT fk_tour_id_log
         FOREIGN KEY (fk_tour_id)
             REFERENCES tours(id)

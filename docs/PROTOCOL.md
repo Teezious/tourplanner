@@ -4,6 +4,8 @@
 [GitHub](https://github.com/Teezious/tourplanner)
 
 ### Timetable
+
+
 | Date       | Time |
 | :--------- | ---: |
 | 07.03.2021 | 3h   |
@@ -12,9 +14,11 @@
 | 19.05.2021 | 2h   |
 | 23.05.2021 | 4h   |
 | 25.05.2021 | 3h   |
+| 26.05.2021 | 9h   |
 
 
 ### Technical Steps
+
 
 - 07.03.2021
   - Probblems:
@@ -63,6 +67,32 @@
     - added LogItem
     - added TourInfosController
     - edited create_tables.sql to add Logs entry
+- 25.05.2021
+  - Problems:
+    - /
+  - Tasks:
+    - added loghandler
+    - added Activities
+    - added Weather
+    - added likely temporary ControllerViewModel
+    - added AddLogController
+    - added addLog.fxml
+    - added editLog.fxml
+    - edited TourInfosController
+- 26.05.2021
+  - Problems:
+    - Nullpointer Exception when receiving LogList
+    - Type problems with spinners
+  - Tasks:
+    - fixed Nullpointerxception when receiving LogList (due to not instantiating loghandler *facepalm*)
+    - fixed type problems with spinners
+    - correct displaying of Logs
+    - correct displaying of tourdetails
+    - added EditLogController
+    - added Constructors to LogItem
+    - added ability do add logs
+    - added ability do delete logs
+    - added ability do edit logs
 
  
 ### Design Choices

@@ -60,7 +60,10 @@ public class Controller implements Initializable {
     }
 
     public void removeTour(ActionEvent a) {
-        tourhandler.remove(currentTour.getId());
+        if (currentTour != null) {
+            tourhandler.remove(currentTour.getId());
+            currentTour = null;
+        }
         updateListView(tourhandler.get());
     }
 

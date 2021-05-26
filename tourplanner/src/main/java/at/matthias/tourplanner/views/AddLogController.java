@@ -1,7 +1,10 @@
 package at.matthias.tourplanner.views;
 import at.matthias.tourplanner.BL.Loghandler;
+import at.matthias.tourplanner.models.LogItem;
+import at.matthias.tourplanner.viewmodels.ControllerViewModel;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,20 +21,29 @@ import javafx.stage.Stage;
 public class AddLogController implements Initializable {
     private final String MAINWINDOWPATH = "/fxml/mainWindow.fxml";
     @FXML private DatePicker date;
-    @FXML private TextField time;
-    @FXML private Spinner distance;
-    @FXML private Spinner rating;
-    @FXML private Spinner breaks;
-    @FXML private Spinner degrees;
-    @FXML private ChoiceBox weather;
-    @FXML private ChoiceBox activity;
+    @FXML private Spinner<Integer> time;
+    @FXML private Spinner<Integer> distance;
+    @FXML private Spinner<Integer> rating;
+    @FXML private Spinner<Integer> breaks;
+    @FXML private Spinner<Integer> degrees;
+    @FXML private ChoiceBox<String> weather;
+    @FXML private ChoiceBox<String> activity;
 
-    public void createLog(ActionEvent c) {
+    public void addLog(ActionEvent c) {
+        LocalDate providedDate = date.getValue();
+        Integer providedTime = time.getValue();
+        Integer providedDistance = distance.getValue();
+        Integer providedRating = rating.getValue();
+        Integer providedBreaks = breaks.getValue();
+        Integer providedDegrees = degrees.getValue();
+        String providedWeather = weather.getValue();
+        String providedAcitvity = activity.getValue();
+
         Loghandler handler = new Loghandler();
-        if (true) {
-            handler.add();
-            switchWindow(MAINWINDOWPATH);
-        }
+        LogItem log = new LogItem(providedDate, providedTime, providedDistance, providedRating, providedBreaks, providedDegrees,
+                                  providedWeather, providedAcitvity);
+        handler.add(ControllerViewModel.getController().getCurrentTour().getId(), log);
+        switchWindow(MAINWINDOWPATH);
         // TO DO else error msg?
     }
 

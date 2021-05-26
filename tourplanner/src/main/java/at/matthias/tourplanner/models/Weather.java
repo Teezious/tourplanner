@@ -7,5 +7,6 @@ public enum Weather {
     RAINY,
     FOGGY,
     HAIL,
-    WINDY;
+    WINDY,
+    SNOWY;
 }

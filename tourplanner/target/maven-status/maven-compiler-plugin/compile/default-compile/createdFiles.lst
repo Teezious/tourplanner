@@ -5,6 +5,7 @@ at/matthias/tourplanner/views/Controller.class
 at/matthias/tourplanner/DL/Database.class
 at/matthias/tourplanner/views/AddTourController.class
 at/matthias/tourplanner/views/Controller$1.class
+at/matthias/tourplanner/views/EditLogController.class
 at/matthias/tourplanner/models/Activity.class
 at/matthias/tourplanner/Main.class
 at/matthias/tourplanner/models/LogItem.class
