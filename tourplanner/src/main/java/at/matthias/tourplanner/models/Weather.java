@@ -1,3 +1,11 @@
 package at.matthias.tourplanner.models;
 
-public enum Weather { sunny, cloudy, thunder, rainy, foggy, hail, windy }
+public enum Weather {
+    SUNNY,
+    CLOUDY,
+    THUNDER,
+    RAINY,
+    FOGGY,
+    HAIL,
+    WINDY;
+}

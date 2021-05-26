@@ -5,14 +5,17 @@ at/matthias/tourplanner/views/Controller.class
 at/matthias/tourplanner/DL/Database.class
 at/matthias/tourplanner/views/AddTourController.class
 at/matthias/tourplanner/views/Controller$1.class
+at/matthias/tourplanner/models/Activity.class
 at/matthias/tourplanner/Main.class
 at/matthias/tourplanner/models/LogItem.class
 at/matthias/tourplanner/viewmodels/ControllerViewModel.class
 at/matthias/tourplanner/views/TourInfosController.class
 at/matthias/tourplanner/viewmodels/MainViewModel.class
+at/matthias/tourplanner/BL/Loghandler.class
 at/matthias/tourplanner/models/Weather.class
 at/matthias/tourplanner/models/TourItem.class
 at/matthias/tourplanner/BL/ManagerImpl.class
 at/matthias/tourplanner/BL/Manager.class
 at/matthias/tourplanner/DL/XMLReader.class
 at/matthias/tourplanner/BL/TourFactory.class
+at/matthias/tourplanner/views/AddLogController.class

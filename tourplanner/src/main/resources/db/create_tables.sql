@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS "logs"
     "breaks" INT,
     "degrees" INT,
     "weather" INT,
-    "notes" VARCHAR(256),
+    "acivity" INT,
     CONSTRAINT fk_tour_id_log
         FOREIGN KEY (fk_tour_id)
             REFERENCES tours(id)

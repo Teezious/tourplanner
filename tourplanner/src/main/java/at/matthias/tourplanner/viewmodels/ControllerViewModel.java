@@ -8,16 +8,20 @@ public class ControllerViewModel {
     private static Controller controller;
     private static TourInfosController tourInfosController;
 
-    public void setController(Controller ctrl) {
+    // TODO if null
+    private ControllerViewModel() {
+    }
+
+    public static void setController(Controller ctrl) {
         controller = ctrl;
     }
-    public Controller getController() {
+    public static Controller getController() {
         return controller;
     }
-    public TourInfosController getTourInfosController() {
+    public static TourInfosController getTourInfosController() {
         return tourInfosController;
     }
-    public void setTourInfosController(TourInfosController tourinfosctrl) {
+    public static void setTourInfosController(TourInfosController tourinfosctrl) {
         tourInfosController = tourinfosctrl;
     }
 }

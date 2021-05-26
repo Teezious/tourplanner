@@ -16,5 +16,7 @@ public class LogItem {
     @Getter @Setter private int breaks;
     @Getter @Setter private int degrees;
     @Getter @Setter private Weather weather;
-    @Getter @Setter private String notes;
+    @Getter @Setter private Activity activity;
+
+    // TODO Constructor
 }

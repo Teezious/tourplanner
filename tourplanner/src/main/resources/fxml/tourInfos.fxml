@@ -17,9 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308"
-    xmlns="http://javafx.com/javafx/15.0.1"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.TourInfosController">
+<AnchorPane maxHeight="1.7976931348623157E308" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.TourInfosController">
     <children>
         <GridPane layoutX="108.0" layoutY="153.0" prefHeight="344.0" prefWidth="416.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -56,10 +54,12 @@
                                                             <rowConstraints>
                                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                             </rowConstraints>
-                                                            <children>
-                                                                <VBox prefHeight="114.0" prefWidth="104.0">
-                                                                    <children>
-                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="20.0" prefWidth="225.0" text="Startpoint:">
+                                                        </GridPane>
+                                          <VBox prefHeight="145.0" prefWidth="414.0">
+                                             <children>
+                                                <HBox prefHeight="100.0" prefWidth="339.0">
+                                                   <children>
+                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Tourname:">
                                                                             <font>
                                                                                 <Font size="14.0" />
                                                                             </font>
@@ -67,66 +67,101 @@
                                                                                 <Insets bottom="1.0" top="1.0" />
                                                                             </padding>
                                                                         </Label>
-                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="20.0" prefWidth="269.0" text="Endpoint:">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <padding>
-                                                                                <Insets bottom="1.0" top="1.0" />
-                                                                            </padding>
-                                                                        </Label>
-                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="20.0" prefWidth="267.0" text="Distance:">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <padding>
-                                                                                <Insets bottom="1.0" top="1.0" />
-                                                                            </padding>
-                                                                        </Label>
-                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="20.0" prefWidth="218.0" text="Description:">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <padding>
-                                                                                <Insets bottom="1.0" top="1.0" />
-                                                                            </padding>
-                                                                        </Label>
-                                                                    </children>
-                                                                    <padding>
-                                                                        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
-                                                                    </padding>
-                                                                </VBox>
-                                                                <VBox prefHeight="115.0" prefWidth="249.0" GridPane.columnIndex="1">
-                                                                    <children>
                                                                         <Label fx:id="name">
                                                                             <font>
                                                                                 <Font size="14.0" />
                                                                             </font>
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                                        </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Startpoint:">
+                                                                            <font>
+                                                                                <Font size="14.0" />
+                                                                            </font>
+                                                                            <padding>
+                                                                                <Insets bottom="1.0" top="1.0" />
+                                                                            </padding>
                                                                         </Label>
                                                                         <Label fx:id="startpoint">
                                                                             <font>
                                                                                 <Font size="14.0" />
                                                                             </font>
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                                        </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Endpoint:">
+                                                                            <font>
+                                                                                <Font size="14.0" />
+                                                                            </font>
+                                                                            <padding>
+                                                                                <Insets bottom="1.0" top="1.0" />
+                                                                            </padding>
                                                                         </Label>
                                                                         <Label fx:id="endpoint">
                                                                             <font>
                                                                                 <Font size="14.0" />
                                                                             </font>
+                                                         <padding>
+                                                            <Insets left="10.0" />
+                                                         </padding>
+                                                                        </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Distance:">
+                                                                            <font>
+                                                                                <Font size="14.0" />
+                                                                            </font>
+                                                                            <padding>
+                                                                                <Insets bottom="1.0" top="1.0" />
+                                                                            </padding>
                                                                         </Label>
                                                                         <Label fx:id="length">
                                                                             <font>
                                                                                 <Font size="14.0" />
                                                                             </font>
+                                                         <padding>
+                                                            <Insets left="10.0" />
+                                                         </padding>
+                                                                        </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Description:">
+                                                                            <font>
+                                                                                <Font size="14.0" />
+                                                                            </font>
+                                                                            <padding>
+                                                                                <Insets bottom="1.0" top="1.0" />
+                                                                            </padding>
                                                                         </Label>
                                                                         <Label fx:id="description">
                                                                             <font>
                                                                                 <Font size="14.0" />
                                                                             </font>
+                                                         <padding>
+                                                            <Insets left="10.0" />
+                                                         </padding>
                                                                         </Label>
-                                                                    </children>
-                                                                </VBox>
-                                                            </children>
-                                                        </GridPane>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                             </padding>
+                                          </VBox>
                                                     </children>
                                                 </AnchorPane>
                                             </content>

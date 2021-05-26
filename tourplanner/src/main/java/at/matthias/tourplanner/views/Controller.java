@@ -41,7 +41,6 @@ public class Controller implements Initializable {
     private TourItem currentTour;
     private Manager manager;
     private Tourhandler tourhandler;
-    private ControllerViewModel ctrlview;
 
     protected TourItem getCurrentTour() {
         return this.currentTour;
@@ -91,12 +90,11 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         manager = TourFactory.GetManager();
-        ctrlview = new ControllerViewModel();
         tourhandler = new Tourhandler();
         setupListView();
         formatCells();
         setCurrentItem();
-        ctrlview.setController(this);
+        ControllerViewModel.setController(this);
     }
 
     private void setupListView() {
@@ -109,6 +107,7 @@ public class Controller implements Initializable {
         tourList.getSelectionModel().selectedItemProperty().addListener(((observVal, oldVal, newVal) -> {
             if (newVal != null && oldVal != newVal) {
                 currentTour = newVal;
+                ControllerViewModel.getTourInfosController().updateTourItem();
             }
         }));
     }

@@ -51,7 +51,6 @@ public class Tourhandler {
     }
 
     public void edit(int id, String name, String start, String end, String description) {
-        System.out.println("we editin");
         String image = getImage();
         float distance = calculateDistance(start, end); // TODO ?
         try (PreparedStatement ps = db.getConn().prepareStatement(EDITTOUR)) {
