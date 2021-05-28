@@ -39,33 +39,32 @@ public class Database {
         user = config.get("user");
         pw = config.get("password");
 
-        System.out.println(dburl + dbname + user + pw);
+        //System.out.println(dburl + dbname + user + pw);
 
         if (connectionSuccessful()) {
             try {
-                System.out.println("Connecting to database...");
+               // System.out.println("Connecting to database...");
                 conn = DriverManager.getConnection(dburl + dbname, user, pw);
             } catch (Exception e) {
                 e.printStackTrace();
-                System.err.println(e.getClass().getName() + ": " + e.getMessage());
                 System.exit(0);
             }
-            System.out.println("Connecting to Database successful");
+            //System.out.println("Connecting to Database successful");
         } else {
-            System.out.println("Connecting to database failed ");
+            System.err.println("Connecting to database failed ");
             System.exit(0);
         }
     }
     private void initCreateStatements() {
         try {
-            System.out.println("Creating tables...");
+           // System.out.println("Creating tables...");
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(readSQL(getClass().getResource(SQLCREATEPATH).toString()));
             stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Tables created successfully...");
+       // System.out.println("Tables created successfully...");
     }
     public Connection getConn() {
         return conn;

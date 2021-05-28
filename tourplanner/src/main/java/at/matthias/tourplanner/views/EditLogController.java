@@ -1,31 +1,23 @@
 package at.matthias.tourplanner.views;
 
 import at.matthias.tourplanner.BL.Loghandler;
-import at.matthias.tourplanner.models.Activity;
 import at.matthias.tourplanner.models.LogItem;
-import at.matthias.tourplanner.models.Weather;
-import at.matthias.tourplanner.viewmodels.ControllerViewModel;
+import at.matthias.tourplanner.viewmodels.EditLogViewmodel;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class EditLogController implements Initializable {
-    private final String MAINWINDOWPATH = "/fxml/mainWindow.fxml";
     private Loghandler loghandler;
-    private LogItem toEdit;
+
     @FXML private DatePicker date;
     @FXML private Spinner<Integer> time;
     @FXML private Spinner<Integer> distance;
@@ -34,8 +26,16 @@ public class EditLogController implements Initializable {
     @FXML private Spinner<Integer> degrees;
     @FXML private ChoiceBox<String> weather;
     @FXML private ChoiceBox<String> activity;
+    private EditLogViewmodel elv;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loghandler = new Loghandler();
+        elv = new EditLogViewmodel();
+    }
 
     public void save(ActionEvent c) {
+        LogItem toEdit = elv.getToEdit();
         if (toEdit != null) {
             toEdit.setDate(date.getValue());
             toEdit.setTime(time.getValue());
@@ -43,25 +43,18 @@ public class EditLogController implements Initializable {
             toEdit.setRating(rating.getValue());
             toEdit.setBreaks(breaks.getValue());
             toEdit.setDegrees(degrees.getValue());
-            toEdit.setWeather(Weather.valueOf(weather.getValue().toUpperCase()));
-            toEdit.setActivity(Activity.valueOf(activity.getValue().toUpperCase()));
+            toEdit.setWeather(weather.getValue());
+            toEdit.setActivity(activity.getValue());
             toEdit.calculateAvgSpeed();
-            loghandler.edit(toEdit);
-            switchWindow(MAINWINDOWPATH);
+            elv.saveEdit(toEdit);
         }
+        switchWindow(FormPaths.MAINWINDOWPATH);
 
         // TO DO else error msg?
     }
 
     public void cancel(ActionEvent c) {
-        switchWindow(MAINWINDOWPATH);
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        loghandler = new Loghandler();
-        toEdit = ControllerViewModel.getTourInfosController().getCurrentLog();
-        setData();
+        switchWindow(FormPaths.MAINWINDOWPATH);
     }
 
     private void switchWindow(String path) {
@@ -76,21 +69,15 @@ public class EditLogController implements Initializable {
         }
     }
 
-    public void setData() {
-        String weatherStr = toEdit.getWeather().toString().toLowerCase();
-        String activityStr = toEdit.getActivity().toString().toLowerCase();
-        String w1 = weatherStr.substring(0, 1).toUpperCase();
-        String a1 = activityStr.substring(0, 1).toUpperCase();
-        weatherStr = w1 + weatherStr.substring(1);
-        activityStr = a1 + activityStr.substring(1);
-
-        this.date.setValue(toEdit.getDate());
-        this.time.getValueFactory().setValue(toEdit.getTime());
-        this.distance.getValueFactory().setValue(toEdit.getDistance());
-        this.rating.getValueFactory().setValue(toEdit.getRating());
-        this.breaks.getValueFactory().setValue(toEdit.getBreaks());
-        this.degrees.getValueFactory().setValue(toEdit.getDegrees());
-        this.weather.setValue(weatherStr);
-        this.activity.setValue(activityStr);
+    public void setLog(LogItem log) {
+        elv.setToEdit(log);
+        this.date.setValue(log.getDate());
+        this.time.getValueFactory().setValue(log.getTime());
+        this.distance.getValueFactory().setValue(log.getDistance());
+        this.rating.getValueFactory().setValue(log.getRating());
+        this.breaks.getValueFactory().setValue(log.getBreaks());
+        this.degrees.getValueFactory().setValue(log.getDegrees());
+        this.weather.setValue(log.getWeather());
+        this.activity.setValue(log.getActivity());
     }
 }

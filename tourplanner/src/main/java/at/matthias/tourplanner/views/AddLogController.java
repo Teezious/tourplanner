@@ -1,7 +1,7 @@
 package at.matthias.tourplanner.views;
 import at.matthias.tourplanner.BL.Loghandler;
 import at.matthias.tourplanner.models.LogItem;
-import at.matthias.tourplanner.viewmodels.ControllerViewModel;
+import at.matthias.tourplanner.viewmodels.AddLogViewmodel;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -18,8 +18,8 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import lombok.Setter;
 public class AddLogController implements Initializable {
-    private final String MAINWINDOWPATH = "/fxml/mainWindow.fxml";
     @FXML private DatePicker date;
     @FXML private Spinner<Integer> time;
     @FXML private Spinner<Integer> distance;
@@ -28,6 +28,19 @@ public class AddLogController implements Initializable {
     @FXML private Spinner<Integer> degrees;
     @FXML private ChoiceBox<String> weather;
     @FXML private ChoiceBox<String> activity;
+    AddLogViewmodel alv;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        alv = new AddLogViewmodel();
+    }
+    public void setId(int id) {
+        alv.setId(id);
+    }
+
+    public void cancelLog(ActionEvent c) {
+        switchWindow(FormPaths.MAINWINDOWPATH);
+    }
 
     public void addLog(ActionEvent c) {
         LocalDate providedDate = date.getValue();
@@ -39,21 +52,11 @@ public class AddLogController implements Initializable {
         String providedWeather = weather.getValue();
         String providedAcitvity = activity.getValue();
 
-        Loghandler handler = new Loghandler();
-        LogItem log = new LogItem(providedDate, providedTime, providedDistance, providedRating, providedBreaks, providedDegrees,
-                                  providedWeather, providedAcitvity);
-        handler.add(ControllerViewModel.getController().getCurrentTour().getId(), log);
-        switchWindow(MAINWINDOWPATH);
+        alv.add(new LogItem(providedDate, providedTime, providedDistance, providedRating, providedBreaks, providedDegrees,
+                            providedWeather, providedAcitvity));
+
+        switchWindow(FormPaths.MAINWINDOWPATH);
         // TO DO else error msg?
-    }
-
-    public void cancelLog(ActionEvent c) {
-        switchWindow(MAINWINDOWPATH);
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // TODO
     }
 
     private void switchWindow(String path) {

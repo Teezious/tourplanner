@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -18,214 +16,259 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308"
-    xmlns="http://javafx.com/javafx/15.0.1"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.TourInfosController">
+<AnchorPane maxHeight="1.7976931348623157E308" prefWidth="434.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.TourInfosController">
     <children>
-        <GridPane layoutX="108.0" layoutY="153.0" prefHeight="344.0" prefWidth="416.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane>
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="340.0" minHeight="40.0" prefHeight="325.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="302.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <SplitPane dividerPositions="0.5379746835443038" orientation="VERTICAL" prefHeight="295.0" prefWidth="416.0">
-                    <items>
-                        <AnchorPane minHeight="27.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                            <children>
-                                <TabPane layoutX="14.0" layoutY="-45.0" prefHeight="147.0" prefWidth="414.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                    <tabs>
-                                        <Tab text="Route">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                    <children>
-                                                        <ImageView fx:id="image" fitHeight="145.0" fitWidth="416.0" pickOnBounds="true" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </Tab>
-                                        <Tab text="Details">
-                                            <content>
-                                                <AnchorPane>
-                                                    <children>
-                                                        <GridPane layoutX="48.0" layoutY="-10.0" prefHeight="128.0" prefWidth="414.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                            <columnConstraints>
-                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
-                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="160.0" />
-                                                            </columnConstraints>
-                                                            <rowConstraints>
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                            </rowConstraints>
-                                                        </GridPane>
-                                                        <VBox prefHeight="145.0" prefWidth="414.0">
-                                                            <children>
-                                                                <HBox prefHeight="100.0" prefWidth="339.0">
-                                                                    <children>
-                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Tourname:">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <padding>
-                                                                                <Insets bottom="1.0" top="1.0" />
-                                                                            </padding>
-                                                                        </Label>
-                                                                        <Label fx:id="name">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <HBox.margin>
-                                                                                <Insets left="10.0" />
-                                                                            </HBox.margin>
-                                                                        </Label>
-                                                                    </children>
-                                                                </HBox>
-                                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                                    <children>
-                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Startpoint:">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <padding>
-                                                                                <Insets bottom="1.0" top="1.0" />
-                                                                            </padding>
-                                                                        </Label>
-                                                                        <Label fx:id="startpoint">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <HBox.margin>
-                                                                                <Insets left="10.0" />
-                                                                            </HBox.margin>
-                                                                        </Label>
-                                                                    </children>
-                                                                </HBox>
-                                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                                    <children>
-                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Endpoint:">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <padding>
-                                                                                <Insets bottom="1.0" top="1.0" />
-                                                                            </padding>
-                                                                        </Label>
-                                                                        <Label fx:id="endpoint">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <padding>
-                                                                                <Insets left="10.0" />
-                                                                            </padding>
-                                                                        </Label>
-                                                                    </children>
-                                                                </HBox>
-                                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                                    <children>
-                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Distance:">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <padding>
-                                                                                <Insets bottom="1.0" top="1.0" />
-                                                                            </padding>
-                                                                        </Label>
-                                                                        <Label fx:id="length">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <padding>
-                                                                                <Insets left="10.0" />
-                                                                            </padding>
-                                                                        </Label>
-                                                                    </children>
-                                                                </HBox>
-                                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                                    <children>
-                                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Description:">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <padding>
-                                                                                <Insets bottom="1.0" top="1.0" />
-                                                                            </padding>
-                                                                        </Label>
-                                                                        <Label fx:id="description">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                            <padding>
-                                                                                <Insets left="10.0" />
-                                                                            </padding>
-                                                                        </Label>
-                                                                    </children>
-                                                                </HBox>
-                                                            </children>
-                                                            <padding>
-                                                                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                                                            </padding>
-                                                        </VBox>
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </Tab>
-                                    </tabs>
-                                </TabPane>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane minHeight="27.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                            <children>
-                                <GridPane layoutX="50.0" layoutY="50.0" prefHeight="163.0" prefWidth="414.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints maxHeight="35.0" minHeight="25.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="105.0" minHeight="25.0" prefHeight="103.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
+
+
+
+                <HBox prefHeight="63.0" prefWidth="424.0">
+                    <children>
+                        <TextField id="searchBar" fx:id="searchBar" prefHeight="30.0" prefWidth="300.0" text="Enter Tour">
+                            <HBox.margin>
+                                <Insets left="4.0" right="4.0" top="3.0" />
+                            </HBox.margin>
+                        </TextField>
+                        <Button id="search_btn" mnemonicParsing="false" onAction="#searchAction" prefHeight="25.0" prefWidth="50.0" text="O-" wrapText="true">
+                            <HBox.margin>
+                                <Insets left="4.0" right="4.0" top="3.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button id="clear_btn" mnemonicParsing="false" onAction="#clearAction" prefHeight="25.0" prefWidth="50.0" text="X" wrapText="true">
+                            <HBox.margin>
+                                <Insets left="4.0" right="4.0" top="3.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                    <GridPane.margin>
+                        <Insets top="20.0" />
+                    </GridPane.margin>
+                    <padding>
+                        <Insets bottom="5.0" />
+                    </padding>
+                </HBox>
+
+
+
+
+
+                <TabPane prefHeight="178.0" prefWidth="414.0" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="1">
+                    <tabs>
+                        <Tab text="Route">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="407.0">
                                     <children>
-                                        <HBox>
-                                            <children>
-                                                <Label prefHeight="26.0" prefWidth="309.0" text="Logs">
-                                                    <font>
-                                                        <Font size="14.0" />
-                                                    </font>
-                                                    <HBox.margin>
-                                                        <Insets left="5.0" right="3.0" top="3.0" />
-                                                    </HBox.margin>
-                                                    <padding>
-                                                        <Insets left="10.0" right="10.0" />
-                                                    </padding>
-                                                </Label>
-                                                <Button mnemonicParsing="false" onAction="#addLog" prefHeight="25.0" prefWidth="25.0" text="+">
-                                                    <HBox.margin>
-                                                        <Insets left="3.0" right="3.0" top="3.0" />
-                                                    </HBox.margin>
-                                                </Button>
-                                                <Button mnemonicParsing="false" onAction="#removeLog" prefHeight="25.0" prefWidth="25.0" text="-">
-                                                    <HBox.margin>
-                                                        <Insets left="3.0" right="3.0" top="3.0" />
-                                                    </HBox.margin>
-                                                </Button>
-                                                <Button mnemonicParsing="false" onAction="#editLog" prefHeight="25.0" prefWidth="25.0" text="*">
-                                                    <HBox.margin>
-                                                        <Insets left="3.0" right="15.0" top="3.0" />
-                                                    </HBox.margin>
-                                                </Button>
-                                            </children>
-                                        </HBox>
-                                        <TableView fx:id="logTable" prefHeight="47.0" prefWidth="414.0" GridPane.rowIndex="1">
-                                            <columns>
-                                            </columns>
-                                        </TableView>
+                              <VBox layoutX="13.0" layoutY="16.0" prefHeight="243.0" prefWidth="399.0">
+                                 <children>
+                                              <ImageView fx:id="image" pickOnBounds="true" preserveRatio="false" />
+                                 </children>
+                              </VBox>
                                     </children>
-                                </GridPane>
-                            </children>
-                        </AnchorPane>
-                    </items>
-                </SplitPane>
+                                    <padding>
+                                        <Insets bottom="50.0" left="70.0" right="50.0" top="70.0" />
+                                    </padding>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Details">
+                            <content>
+                                <AnchorPane prefHeight="303.0" prefWidth="424.0">
+                                    <children>
+                                        <GridPane layoutX="48.0" layoutY="-10.0" prefHeight="128.0" prefWidth="414.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="160.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                        </GridPane>
+                                        <VBox prefHeight="264.0" prefWidth="414.0">
+                                            <children>
+                                                <HBox prefHeight="100.0" prefWidth="339.0">
+                                                    <children>
+                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Tourname:">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                            <padding>
+                                                                <Insets bottom="1.0" top="1.0" />
+                                                            </padding>
+                                                        </Label>
+                                                        <Label fx:id="name">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                            <HBox.margin>
+                                                                <Insets left="10.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Startpoint:">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                            <padding>
+                                                                <Insets bottom="1.0" top="1.0" />
+                                                            </padding>
+                                                        </Label>
+                                                        <Label fx:id="startpoint">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                            <HBox.margin>
+                                                                <Insets left="10.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Endpoint:">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                            <padding>
+                                                                <Insets bottom="1.0" top="1.0" />
+                                                            </padding>
+                                                        </Label>
+                                                        <Label fx:id="endpoint">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="10.0" />
+                                                            </padding>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Distance:">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                            <padding>
+                                                                <Insets bottom="1.0" top="1.0" />
+                                                            </padding>
+                                                        </Label>
+                                                        <Label fx:id="length">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="10.0" />
+                                                            </padding>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Description:">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                            <padding>
+                                                                <Insets bottom="1.0" top="1.0" />
+                                                            </padding>
+                                                        </Label>
+                                                        <Label fx:id="description">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="10.0" />
+                                                            </padding>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                            </padding>
+                                        </VBox>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </padding>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Logs">
+                            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="27.0" minWidth="0.0" prefHeight="197.0" prefWidth="414.0">
+                                <children>
+                                    <GridPane layoutX="50.0" prefHeight="152.0" prefWidth="414.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints maxHeight="35.0" minHeight="25.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="25.0" prefHeight="103.0" vgrow="SOMETIMES" />
+                                        </rowConstraints>
+                                        <children>
+                                            <TableView fx:id="logTable" onMouseClicked="#selectLog" prefHeight="165.0" prefWidth="414.0" GridPane.rowIndex="1">
+                                                <columns>
+                                                </columns>
+                                            </TableView>
+                                            <HBox style="-fx-border-radius: 3; -fx-background-color: #e2e2e2; -fx-border-style: solid; -fx-border-color: #c8c8c8;">
+                                                <children>
+                                                    <Label prefHeight="26.0" prefWidth="309.0" text="Logs">
+                                                        <font>
+                                                            <Font size="14.0" />
+                                                        </font>
+                                                        <HBox.margin>
+                                                            <Insets bottom="5.0" left="5.0" right="3.0" top="5.0" />
+                                                        </HBox.margin>
+                                                        <padding>
+                                                            <Insets left="10.0" right="10.0" />
+                                                        </padding>
+                                                    </Label>
+                                                    <Button mnemonicParsing="false" onAction="#addLog" prefHeight="25.0" prefWidth="25.0" text="+">
+                                                        <HBox.margin>
+                                                            <Insets bottom="5.0" left="3.0" right="3.0" top="5.0" />
+                                                        </HBox.margin>
+                                                    </Button>
+                                                    <Button mnemonicParsing="false" onAction="#removeLog" prefHeight="25.0" prefWidth="25.0" text="-">
+                                                        <HBox.margin>
+                                                            <Insets bottom="5.0" left="3.0" right="3.0" top="5.0" />
+                                                        </HBox.margin>
+                                                    </Button>
+                                                    <Button mnemonicParsing="false" onAction="#editLog" prefHeight="25.0" prefWidth="25.0" text="*">
+                                                        <HBox.margin>
+                                                            <Insets bottom="5.0" left="3.0" right="15.0" top="5.0" />
+                                                        </HBox.margin>
+                                                    </Button>
+                                                </children>
+                                                <GridPane.margin>
+                                                    <Insets />
+                                                </GridPane.margin>
+                                            </HBox>
+                                        </children>
+                                    </GridPane>
+                                </children>
+                            </AnchorPane>
+                        </Tab>
+                    </tabs>
+                    <padding>
+                        <Insets bottom="5.0" />
+                    </padding>
+
+                </TabPane>
             </children>
         </GridPane>
+
+
     </children>
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="15.0" />

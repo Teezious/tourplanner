@@ -16,6 +16,7 @@
 | 25.05.2021 | 3h   |
 | 26.05.2021 | 9h   |
 | 27.05.2021 | 6h   |
+| 28.05.2021 | 15h  |
 
 
 ### Technical Steps
@@ -103,6 +104,18 @@
     - added RoutItem
     - ability to automatically add Images when adding Tour
     - ability to automatically remove associated images when removing Tour
+- 27.05.2021
+  - Problems:
+    - Controller alway null for some reason (took several hours)
+    - Problem setting up observers and updating data (took several hours)
+  - Tasks:
+    - solved problems
+    - updated project structure
+    - introduced viemodels and split controllers from viewmodels
+    - new fxml files (as this was somehow the only way to solve the controller problem) -> still WIP
+    - seperated BL and DAL more strict
+    - removed unneccessary import
+    - removed unneccessary files
 
  
 ### Design Choices
