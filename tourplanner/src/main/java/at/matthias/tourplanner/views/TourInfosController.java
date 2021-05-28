@@ -4,6 +4,7 @@ import at.matthias.tourplanner.BL.Loghandler;
 import at.matthias.tourplanner.models.LogItem;
 import at.matthias.tourplanner.models.TourItem;
 import at.matthias.tourplanner.viewmodels.ControllerViewModel;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -22,19 +23,31 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class TourInfosController implements Initializable {
     private final String ADDLOGPATH = "/fxml/addLog.fxml";
     private final String EDITLOGPATH = "/fxml/editLog.fxml";
     @FXML private ImageView image;
-    @FXML private TableView<LogItem> logTable;
     @FXML private Label name;
     @FXML private Label startpoint;
     @FXML private Label endpoint;
     @FXML private Label length;
     @FXML private Label description;
-    private ObservableList<LogItem> obsrvLogList;
+
+    @FXML private TableView<LogItem> logTable;
+    @FXML private TableColumn<LogItem, Integer> logIdCol;
+    @FXML private TableColumn<LogItem, LocalDate> dateCol;
+    @FXML private TableColumn<LogItem, String> timeCol;
+    @FXML private TableColumn<LogItem, Float> distanceCol;
+    @FXML private TableColumn<LogItem, Integer> ratingCol;
+    @FXML private TableColumn<LogItem, Float> avgSpeedCol;
+    @FXML private TableColumn<LogItem, Integer> breaksCol;
+    @FXML private TableColumn<LogItem, Integer> degreesCol;
+    @FXML private TableColumn<LogItem, String> weatherCol;
+    @FXML private TableColumn<LogItem, String> activityCol;
+
     Loghandler loghandler;
     TourItem currentTour;
     LogItem currentLog;
@@ -67,7 +80,7 @@ public class TourInfosController implements Initializable {
     public void updateTourItem() {
         currentTour = ControllerViewModel.getController().getCurrentTour();
         updateTourDetails();
-        updateLogTableView();
+        updateLogTable();
     }
 
     @Override
@@ -75,14 +88,13 @@ public class TourInfosController implements Initializable {
         currentTour = null;
         currentLog = null;
         loghandler = new Loghandler();
-        obsrvLogList = FXCollections.observableArrayList();
-        updateLogTableView();
         updateTourDetails();
+        updateLogTable();
         setCurrentItem();
         ControllerViewModel.setTourInfosController(this);
     }
 
-    public void updateLogTableView() {
+    public void updateLogTable() {
         if (currentTour != null) {
             this.logTable.getColumns().clear();
             TableColumn<LogItem, Integer> logIdCol = new TableColumn<>("LogId");
@@ -102,17 +114,15 @@ public class TourInfosController implements Initializable {
             breaksCol.setCellValueFactory(new PropertyValueFactory<>("Breaks"));
             TableColumn<LogItem, Integer> degreesCol = new TableColumn<>("degrees");
             degreesCol.setCellValueFactory(new PropertyValueFactory<>("Degrees"));
-            TableColumn<LogItem, String> weatherCol = new TableColumn<>("Weather"); // TODO STRINg
+            TableColumn<LogItem, String> weatherCol = new TableColumn<>("Weather");
             weatherCol.setCellValueFactory(new PropertyValueFactory<>("weather"));
-            TableColumn<LogItem, String> activityCol = new TableColumn<>("Activity"); // TODO STRINg
+            TableColumn<LogItem, String> activityCol = new TableColumn<>("Activity");
             activityCol.setCellValueFactory(new PropertyValueFactory<>("activity"));
 
             logTable.setItems(loghandler.get(currentTour.getId()));
             logTable.getColumns().addAll(logIdCol, dateCol, timeCol, distanceCol, ratingCol, avgSpeedCol, breaksCol, degreesCol,
                                          weatherCol, activityCol);
-        }
-
-        else {
+        } else {
             this.logTable.getColumns().clear();
         }
     }
@@ -134,7 +144,8 @@ public class TourInfosController implements Initializable {
             this.length.setText("");
             this.description.setText("");
         } else {
-            this.image.setImage(null); // TODO implement image stuff
+            File imgFile = new File(currentTour.getImage());
+            this.image.setImage(new Image(imgFile.toURI().toString())); // TODO implement image stuff
             this.name.setText(currentTour.getName());
             this.startpoint.setText(currentTour.getStart());
             this.endpoint.setText(currentTour.getEnd());

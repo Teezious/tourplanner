@@ -1,12 +1,17 @@
 package at.matthias.tourplanner.BL;
 
+import at.matthias.tourplanner.DL.APIcomm;
 import at.matthias.tourplanner.DL.Database;
 import at.matthias.tourplanner.models.TourItem;
 import at.matthias.tourplanner.views.Controller;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.*;
 
 public class Tourhandler {
@@ -18,22 +23,26 @@ public class Tourhandler {
     private static final String GETTOURS = "select id, name, startpoint, endpoint, description, distance, image from tours";
     private static final String GETTOURBYID =
         "select id, name, startpoint, endpoint, description, distance, image from tours where id = ?";
+    private static final String IMGPATH = "img/";
+    private static final String IMGPATHABSOLUTE =
+        "/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/img"; // TODO find solution for this
     private Database db;
+
     public Tourhandler() {
         db = new Database();
     }
 
     public void add(String name, String start, String end, String description) {
-        String image = getImage();
-        float distance = calculateDistance(start, end);
-
+        Maphandler maphandler = new Maphandler();
+        String imgId = UUID.randomUUID().toString();
+        String absImgPath = IMGPATHABSOLUTE + "/" + imgId + ".jpg";
         try (PreparedStatement ps = db.getConn().prepareStatement(CREATETOUR)) {
             ps.setString(1, name);
             ps.setString(2, start);
             ps.setString(3, end);
             ps.setString(4, description);
-            ps.setFloat(5, distance);
-            ps.setString(6, image);
+            ps.setFloat(5, maphandler.requestHandler(start, end, absImgPath).getDistance());
+            ps.setString(6, absImgPath);
             ps.executeUpdate();
 
         } catch (Exception e) {
@@ -41,9 +50,17 @@ public class Tourhandler {
         }
     }
 
-    public void remove(int id) {
+    public void remove(TourItem toBeRemoved) {
+        try {
+            if (Files.exists(Paths.get(toBeRemoved.getImage()))) {
+                Files.delete(Paths.get(toBeRemoved.getImage()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         try (PreparedStatement ps = db.getConn().prepareStatement(REMOVETOUR)) {
-            ps.setInt(1, id);
+            ps.setInt(1, toBeRemoved.getId());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,18 +68,19 @@ public class Tourhandler {
     }
 
     public void edit(int id, String name, String start, String end, String description) {
-        String image = getImage();
-        float distance = calculateDistance(start, end); // TODO ?
+        Maphandler maphandler = new Maphandler();
+        String imgId = UUID.randomUUID().toString();
+        String absImgPath = IMGPATHABSOLUTE + "/" + imgId + ".jpg";
+
         try (PreparedStatement ps = db.getConn().prepareStatement(EDITTOUR)) {
             ps.setString(1, name);
             ps.setString(2, start);
             ps.setString(3, end);
             ps.setString(4, description);
-            ps.setFloat(5, distance);
-            ps.setString(6, image);
+            ps.setFloat(5, maphandler.requestHandler(start, end, absImgPath).getDistance());
+            ps.setString(6, absImgPath);
             ps.setInt(7, id);
             ps.executeUpdate();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,15 +122,5 @@ public class Tourhandler {
     public List<TourItem> search(String name) {
         List<TourItem> tours = get();
         return tours.stream().filter(x -> x.getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList());
-    }
-
-    private float calculateDistance(String start, String end) {
-        // TODO
-        return 0.5f;
-    }
-
-    private String getImage() {
-        // TODO
-        return "URL";
     }
 }

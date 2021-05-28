@@ -15,6 +15,7 @@
 | 23.05.2021 | 4h   |
 | 25.05.2021 | 3h   |
 | 26.05.2021 | 9h   |
+| 27.05.2021 | 6h   |
 
 
 ### Technical Steps
@@ -93,6 +94,15 @@
     - added ability do add logs
     - added ability do delete logs
     - added ability do edit logs
+- 27.05.2021
+  - Problems:
+    - Creating img only possible with absolute path right now
+  - Tasks:
+    - added APIcomm
+    - added Maphandler
+    - added RoutItem
+    - ability to automatically add Images when adding Tour
+    - ability to automatically remove associated images when removing Tour
 
  
 ### Design Choices

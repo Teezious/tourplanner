@@ -26,4 +26,5 @@ hs_err_pid*
 *.lst
 .classpath
 .factorypath
+*.jpg
 target/

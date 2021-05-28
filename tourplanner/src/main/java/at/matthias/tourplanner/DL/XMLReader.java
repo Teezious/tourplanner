@@ -27,11 +27,11 @@ public class XMLReader {
     }
 
     public String readXMLElement(String path, String element) {
-        String result = null;
         if (path.contains("file:")) {
             String[] cut = path.split(":");
             path = cut[1];
-        }
+        };
+        String result = null;
         File file = new File(path);
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

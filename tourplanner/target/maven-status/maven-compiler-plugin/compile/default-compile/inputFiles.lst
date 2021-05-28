@@ -1,4 +1,5 @@
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/views/EditLogController.java
+/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/models/RouteItem.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/views/AddTourController.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/Main.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/models/TourItem.java
@@ -9,7 +10,9 @@
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/views/TourInfosController.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/views/AddLogController.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/views/Controller.java
+/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/BL/Maphandler.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/BL/Tourhandler.java
+/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/DL/APIcomm.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/DL/XMLReader.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/BL/Loghandler.java
 /home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/java/at/matthias/tourplanner/models/Weather.java

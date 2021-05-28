@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
@@ -17,7 +18,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.TourInfosController">
+<AnchorPane maxHeight="1.7976931348623157E308"
+    xmlns="http://javafx.com/javafx/15.0.1"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.TourInfosController">
     <children>
         <GridPane layoutX="108.0" layoutY="153.0" prefHeight="344.0" prefWidth="416.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -37,7 +40,7 @@
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
-                                                        <ImageView fx:id="image" fitHeight="131.0" fitWidth="416.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                        <ImageView fx:id="image" fitHeight="145.0" fitWidth="416.0" pickOnBounds="true" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -55,10 +58,10 @@
                                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                             </rowConstraints>
                                                         </GridPane>
-                                          <VBox prefHeight="145.0" prefWidth="414.0">
-                                             <children>
-                                                <HBox prefHeight="100.0" prefWidth="339.0">
-                                                   <children>
+                                                        <VBox prefHeight="145.0" prefWidth="414.0">
+                                                            <children>
+                                                                <HBox prefHeight="100.0" prefWidth="339.0">
+                                                                    <children>
                                                                         <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Tourname:">
                                                                             <font>
                                                                                 <Font size="14.0" />
@@ -71,14 +74,14 @@
                                                                             <font>
                                                                                 <Font size="14.0" />
                                                                             </font>
-                                                         <HBox.margin>
-                                                            <Insets left="10.0" />
-                                                         </HBox.margin>
+                                                                            <HBox.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </HBox.margin>
                                                                         </Label>
-                                                   </children>
-                                                </HBox>
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                   <children>
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                    <children>
                                                                         <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Startpoint:">
                                                                             <font>
                                                                                 <Font size="14.0" />
@@ -91,14 +94,14 @@
                                                                             <font>
                                                                                 <Font size="14.0" />
                                                                             </font>
-                                                         <HBox.margin>
-                                                            <Insets left="10.0" />
-                                                         </HBox.margin>
+                                                                            <HBox.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </HBox.margin>
                                                                         </Label>
-                                                   </children>
-                                                </HBox>
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                   <children>
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                    <children>
                                                                         <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Endpoint:">
                                                                             <font>
                                                                                 <Font size="14.0" />
@@ -111,14 +114,14 @@
                                                                             <font>
                                                                                 <Font size="14.0" />
                                                                             </font>
-                                                         <padding>
-                                                            <Insets left="10.0" />
-                                                         </padding>
+                                                                            <padding>
+                                                                                <Insets left="10.0" />
+                                                                            </padding>
                                                                         </Label>
-                                                   </children>
-                                                </HBox>
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                   <children>
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                    <children>
                                                                         <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Distance:">
                                                                             <font>
                                                                                 <Font size="14.0" />
@@ -131,14 +134,14 @@
                                                                             <font>
                                                                                 <Font size="14.0" />
                                                                             </font>
-                                                         <padding>
-                                                            <Insets left="10.0" />
-                                                         </padding>
+                                                                            <padding>
+                                                                                <Insets left="10.0" />
+                                                                            </padding>
                                                                         </Label>
-                                                   </children>
-                                                </HBox>
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                   <children>
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                    <children>
                                                                         <Label alignment="BASELINE_RIGHT" prefHeight="22.0" prefWidth="108.0" text="Description:">
                                                                             <font>
                                                                                 <Font size="14.0" />
@@ -151,17 +154,17 @@
                                                                             <font>
                                                                                 <Font size="14.0" />
                                                                             </font>
-                                                         <padding>
-                                                            <Insets left="10.0" />
-                                                         </padding>
+                                                                            <padding>
+                                                                                <Insets left="10.0" />
+                                                                            </padding>
                                                                         </Label>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                             <padding>
-                                                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                                             </padding>
-                                          </VBox>
+                                                                    </children>
+                                                                </HBox>
+                                                            </children>
+                                                            <padding>
+                                                                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                                            </padding>
+                                                        </VBox>
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -213,11 +216,6 @@
                                         </HBox>
                                         <TableView fx:id="logTable" prefHeight="47.0" prefWidth="414.0" GridPane.rowIndex="1">
                                             <columns>
-                                                <TableColumn prefWidth="75.0" text="C1" />
-                                                <TableColumn prefWidth="75.0" text="C2" />
-                                                <TableColumn prefWidth="75.0" text="C3" />
-                                                <TableColumn prefWidth="75.0" text="C4" />
-                                                <TableColumn prefWidth="75.0" text="C5" />
                                             </columns>
                                         </TableView>
                                     </children>
