@@ -6,17 +6,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.log4j.Logger;
 
 public class TourOverviewViewmodel implements SearchObserver {
     @Getter @Setter public TourItem currentTour;
     @Getter ObservableList<TourItem> tourList;
     private final List<TourObserver> tourObservers;
     private final List<SearchObserver> searchObservers;
+    Logger logger = Logger.getLogger("MAIN");
 
     public TourOverviewViewmodel() {
         tourList = FXCollections.observableArrayList();
         tourObservers = FXCollections.observableArrayList();
         searchObservers = FXCollections.observableArrayList();
+        logger.info("initializing TourOverviewViewmodel");
     }
 
     public void filterList(String search) {
