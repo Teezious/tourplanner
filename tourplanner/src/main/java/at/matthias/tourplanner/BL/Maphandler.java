@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.imageio.ImageIO;
+import org.apache.log4j.Logger;
 
 public class Maphandler {
     private final String MAPQUESTPATH = "/config/mapQuestAccess.xml";

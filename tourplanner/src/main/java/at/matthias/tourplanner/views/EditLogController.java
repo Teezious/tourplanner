@@ -14,10 +14,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
+import org.apache.log4j.Logger;
 
 public class EditLogController implements Initializable {
-    private Loghandler loghandler;
-
     @FXML private DatePicker date;
     @FXML private Spinner<Integer> time;
     @FXML private Spinner<Integer> distance;
@@ -27,16 +26,18 @@ public class EditLogController implements Initializable {
     @FXML private ChoiceBox<String> weather;
     @FXML private ChoiceBox<String> activity;
     private EditLogViewmodel elv;
+    private Logger logger = Logger.getLogger(EditLogController.class);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loghandler = new Loghandler();
         elv = new EditLogViewmodel();
+        logger.info("initializing EditLogController");
     }
 
     public void save(ActionEvent c) {
         LogItem toEdit = elv.getToEdit();
         if (toEdit != null) {
+            logger.info("saving edited Log");
             toEdit.setDate(date.getValue());
             toEdit.setTime(time.getValue());
             toEdit.setDistance(distance.getValue());
@@ -47,6 +48,8 @@ public class EditLogController implements Initializable {
             toEdit.setActivity(activity.getValue());
             toEdit.calculateAvgSpeed();
             elv.saveEdit(toEdit);
+        } else {
+            logger.error("Error saving edited Log! LogItem is null");
         }
         switchWindow(FormPaths.MAINWINDOWPATH);
 
@@ -54,10 +57,12 @@ public class EditLogController implements Initializable {
     }
 
     public void cancel(ActionEvent c) {
+        logger.info("cancelling Log Edit");
         switchWindow(FormPaths.MAINWINDOWPATH);
     }
 
     private void switchWindow(String path) {
+        logger.info("Switching to MainWindow");
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -65,19 +70,24 @@ public class EditLogController implements Initializable {
             root = loader.load();
             date.getScene().setRoot(root);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.info("Error Switching to MainWindow!" + e);
         }
     }
 
     public void setLog(LogItem log) {
+        logger.info("Setting Log Data");
         elv.setToEdit(log);
-        this.date.setValue(log.getDate());
-        this.time.getValueFactory().setValue(log.getTime());
-        this.distance.getValueFactory().setValue(log.getDistance());
-        this.rating.getValueFactory().setValue(log.getRating());
-        this.breaks.getValueFactory().setValue(log.getBreaks());
-        this.degrees.getValueFactory().setValue(log.getDegrees());
-        this.weather.setValue(log.getWeather());
-        this.activity.setValue(log.getActivity());
+        if (log != null) {
+            this.date.setValue(log.getDate());
+            this.time.getValueFactory().setValue(log.getTime());
+            this.distance.getValueFactory().setValue(log.getDistance());
+            this.rating.getValueFactory().setValue(log.getRating());
+            this.breaks.getValueFactory().setValue(log.getBreaks());
+            this.degrees.getValueFactory().setValue(log.getDegrees());
+            this.weather.setValue(log.getWeather());
+            this.activity.setValue(log.getActivity());
+        } else {
+            logger.error("Error setting Log Data! LogItem is null");
+        }
     }
 }

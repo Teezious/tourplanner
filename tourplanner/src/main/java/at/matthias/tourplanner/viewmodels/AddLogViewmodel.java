@@ -6,9 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class AddLogViewmodel {
-    @Getter @Setter private int id;
+    @Getter @Setter private int tourId;
     public void add(LogItem log) {
         Loghandler lh = new Loghandler();
-        lh.add(id, log);
+        lh.add(tourId, log);
     }
 }

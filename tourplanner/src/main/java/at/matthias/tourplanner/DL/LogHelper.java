@@ -3,6 +3,7 @@ package at.matthias.tourplanner.DL;
 import at.matthias.tourplanner.models.LogItem;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import org.apache.log4j.Logger;
 
 public class LogHelper extends Database {
     private static final String ADDLOG =
@@ -12,6 +13,7 @@ public class LogHelper extends Database {
         "update logs set date  = ?, time  = ?, distance  = ?, rating  = ?, avg_speed  = ?, breaks  = ?, degrees = ?, weather = ?, activity = ? where id = ?";
     private static final String GETLOGBYID =
         "select date, time, distance, rating, avg_speed, breaks, degrees, weather, activity, id from logs where fk_tour_id = ?";
+    private Logger logger = Logger.getLogger(LogHelper.class);
 
     public void add(int tourId, LogItem log) {
         try (PreparedStatement ps = getConn().prepareStatement(ADDLOG)) {
@@ -25,19 +27,27 @@ public class LogHelper extends Database {
             ps.setInt(8, log.getDegrees());
             ps.setString(9, log.getWeather());
             ps.setString(10, log.getActivity());
-            ps.executeUpdate();
+            if (ps.executeUpdate() != -1) {
+                logger.info("Successfully added Log");
+            } else {
+                logger.error("Error adding Log to Database!");
+            }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error adding Log!" + e);
         }
     }
 
     public void remove(int id) {
         try (PreparedStatement ps = getConn().prepareStatement(REMOVELOG)) {
             ps.setInt(1, id);
-            ps.executeUpdate();
+            if (ps.executeUpdate() != -1) {
+                logger.info("Successfully removed Log");
+            } else {
+                logger.error("Error removing Log in Database!");
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error removing Log!" + e);
         }
     }
 
@@ -53,20 +63,25 @@ public class LogHelper extends Database {
             ps.setString(8, log.getWeather().toString());
             ps.setString(9, log.getActivity().toString());
             ps.setInt(10, log.getId());
-            ps.executeUpdate();
+            if (ps.executeUpdate() != -1) {
+                logger.info("Successfully edited Log");
+            } else {
+                logger.error("Error editing Log in Database!");
+            }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error editing Tour!" + e);
         }
     }
 
-    public ResultSet get(int id) {
+    public ResultSet get(int tourId) {
         try (PreparedStatement ps = getConn().prepareStatement(GETLOGBYID)) {
-            ps.setInt(1, id);
+            ps.setInt(1, tourId);
+            logger.info("Getting Logs");
             return ps.executeQuery();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error getting Logs!" + e);
         }
         return null;
     }

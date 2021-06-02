@@ -15,10 +15,13 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import lombok.Getter;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class TourOverviewController implements Initializable, SearchObserver {
     @Getter private final TourOverviewViewmodel tovm;
     @FXML private ListView<TourItem> tourList;
+    Logger logger = Logger.getLogger(TourOverviewController.class);
 
     public TourOverviewController() {
         tovm = new TourOverviewViewmodel();
@@ -27,24 +30,28 @@ public class TourOverviewController implements Initializable, SearchObserver {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        logger.info("initializing TourOverviewController");
         tovm.updateList();
         updateListView();
         formatCells();
     }
     public void addTour(ActionEvent a) {
-        switchScene(FormPaths.ADDTOURPATH);
+        logger.info("adding Tour");
+        switchSceneAdd(FormPaths.ADDTOURPATH);
     }
 
     public void removeTour(ActionEvent a) {
+        logger.info("removing Tour");
         tovm.removeTour();
     }
 
     public void editTour(ActionEvent a) {
         TourItem currentTour = tovm.getCurrentTour();
+        logger.info("editing Tour");
         if (currentTour != null) {
             switchSceneEdit(FormPaths.EDITTOURPATH);
         } else {
-            // TODO error window
+            logger.info("Editing Tour unsuccessful!No Tour selected");
         }
         tovm.updateList();
         updateListView();
@@ -77,7 +84,8 @@ public class TourOverviewController implements Initializable, SearchObserver {
         }));
     }
 
-    private void switchScene(String path) {
+    private void switchSceneAdd(String path) {
+        logger.info("Switching Scene to AddTour");
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -85,11 +93,12 @@ public class TourOverviewController implements Initializable, SearchObserver {
             root = loader.load();
             tourList.getScene().setRoot(root);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error Switching Scene to AddTour!" + e);
         }
     }
 
     private void switchSceneEdit(String path) {
+        logger.info("Switching Scene to EditTour");
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -99,7 +108,7 @@ public class TourOverviewController implements Initializable, SearchObserver {
             EditTourController c = loader.getController();
             c.setTour(tovm.getCurrentTour());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error Switching Scene to EditTour!" + e);
         }
     }
 

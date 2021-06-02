@@ -5,12 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class EditTourViewmodel {
-   @Getter @Setter private int id; 
+    @Getter @Setter private int id;
 
-   public void saveEdit( String name, String start, String end, String description){
-    Tourhandler th = new Tourhandler();
-    th.edit( id, name, start, end, description);
-   }
-
-
+    public void saveEdit(String name, String start, String end, String description) {
+        Tourhandler th = new Tourhandler();
+        th.edit(id, name, start, end, description);
+    }
 }

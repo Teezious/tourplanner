@@ -8,6 +8,6 @@ public class FormPaths {
     public static final String EDITTOURPATH = "/fxml/editTour.fxml";
 
     private FormPaths() {
-        throw new IllegalArgumentException("Utility Class");
+        throw new IllegalArgumentException("Utility Class"); // TODO maybe put into seperate file
     }
 }

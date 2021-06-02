@@ -6,11 +6,15 @@ import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 public class XMLReader {
+
+    Logger logger = Logger.getLogger(XMLReader.class);
     public HashMap<String, String> readDbConfig(String path) {
+        logger.info("Reading DB Config");
         HashMap<String, String> dbConfig = new HashMap<>();
 
         String dburl = this.readXMLElement(path, "dburl");
@@ -41,7 +45,7 @@ public class XMLReader {
             result = document.getElementsByTagName(element).item(0).getTextContent();
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
+            logger.error("Error reading XMLELement!" + e);
         }
         return result;
     }

@@ -1,6 +1,5 @@
 package at.matthias.tourplanner.views;
 
-import at.matthias.tourplanner.BL.Loghandler;
 import at.matthias.tourplanner.models.LogItem;
 import at.matthias.tourplanner.models.TourItem;
 import at.matthias.tourplanner.viewmodels.TourInfosViewmodel;
@@ -25,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import lombok.Getter;
+import org.apache.log4j.Logger;
 
 public class TourInfosController implements TourObserver, Initializable {
 
@@ -37,6 +37,7 @@ public class TourInfosController implements TourObserver, Initializable {
     @FXML private TextField searchBar;
     @FXML private TableView<LogItem> logTable;
     @Getter private final TourInfosViewmodel tivm;
+    private Logger logger = Logger.getLogger(TourInfosController.class);
 
     public TourInfosController() {
         tivm = new TourInfosViewmodel();
@@ -45,6 +46,7 @@ public class TourInfosController implements TourObserver, Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        logger.info("initializing TourInfosController");
         updateTourDetails(tivm.getCurrentTour());
         updateLogTable(tivm.getCurrentTour());
     }
@@ -62,21 +64,24 @@ public class TourInfosController implements TourObserver, Initializable {
         if (tivm.getCurrentLog() != null) {
             switchSceneEditLog(FormPaths.EDITLOGPATH);
         } else {
-            System.out.println("no log selected");
+            logger.info("Editing Log failed! No log was selected");
         }
         updateLogTable(tivm.getCurrentTour());
     }
 
     public void searchAction(ActionEvent s) {
+        logger.info("New Search Action");
         tivm.newSearch(searchBar.textProperty().getValue());
     }
 
     public void clearAction(ActionEvent c) {
+        logger.info("Clearing Search");
         searchBar.textProperty().setValue("");
         tivm.newSearch(null);
     }
 
     public void updateLogTable(TourItem currentTour) {
+        logger.info("Updating Log Table");
         logTable.getColumns().clear();
         TableColumn<LogItem, Integer> logIdCol = new TableColumn<>("LogId");
         logIdCol.setCellValueFactory(new PropertyValueFactory<>("logId"));
@@ -104,6 +109,7 @@ public class TourInfosController implements TourObserver, Initializable {
             logTable.getColumns().addAll(logIdCol, dateCol, timeCol, distanceCol, ratingCol, avgSpeedCol, breaksCol, degreesCol,
                                          weatherCol, activityCol);
         } else {
+            logger.info("Log Table, No Tour selected");
             logTable.getColumns().clear();
         }
     }
@@ -117,7 +123,9 @@ public class TourInfosController implements TourObserver, Initializable {
     }
 
     private void updateTourDetails(TourItem currentTour) {
+        logger.info("updating Tour Details");
         if (currentTour == null) {
+            logger.info("Tour Details, No Tour selected");
             this.image.setImage(null);
             this.name.setText("");
             this.startpoint.setText("");
@@ -135,6 +143,7 @@ public class TourInfosController implements TourObserver, Initializable {
         }
     }
     private void switchSceneAddLog(String path) {
+        logger.info("Switching Scene to AddLog");
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -142,13 +151,14 @@ public class TourInfosController implements TourObserver, Initializable {
             root = loader.load();
             name.getScene().setRoot(root);
             AddLogController ac = loader.getController();
-            ac.setId(tivm.getCurrentTour().getId());
+            ac.setTourId(tivm.getCurrentTour().getId());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error Switching Scene to AddLog!" + e);
         }
     }
     private void switchSceneEditLog(String path) {
         Parent root;
+        logger.info("Switching Scene to EditLog");
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(path));
@@ -157,7 +167,7 @@ public class TourInfosController implements TourObserver, Initializable {
             EditLogController ec = loader.getController();
             ec.setLog(tivm.getCurrentLog());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error Switching Scene to EditLog!" + e);
         }
     }
     @Override

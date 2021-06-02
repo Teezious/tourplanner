@@ -1,6 +1,5 @@
 package at.matthias.tourplanner.views;
 
-import at.matthias.tourplanner.BL.Tourhandler;
 import at.matthias.tourplanner.viewmodels.AddTourViewmodel;
 import java.io.IOException;
 import java.net.URL;
@@ -12,16 +11,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import org.apache.log4j.Logger;
 public class AddTourController implements Initializable {
     @FXML private TextField name;
     @FXML private TextField start;
     @FXML private TextField end;
     @FXML private TextArea description;
     private AddTourViewmodel atvm;
+    private Logger logger = Logger.getLogger(AddTourController.class);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         atvm = new AddTourViewmodel();
+        logger.info("initializing AddTourController");
     }
 
     public void createTour(ActionEvent c) {
@@ -29,6 +31,8 @@ public class AddTourController implements Initializable {
         if (name.getText() != null && start.getText() != null && end.getText() != null) {
             atvm.add(name.getText(), start.getText(), end.getText(), description.getText());
             switchWindow(FormPaths.MAINWINDOWPATH);
+        } else {
+            logger.info("Some Fields seem to be empty! Adding Tour unsuccesful");
         }
         // TO DO else error msg?
     }
@@ -39,13 +43,14 @@ public class AddTourController implements Initializable {
 
     private void switchWindow(String path) {
         Parent root;
+        logger.info("Switching Scene to MainWindow");
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(path));
             root = loader.load();
             name.getScene().setRoot(root);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error switching to MainWindow" + e);
         }
     }
 }

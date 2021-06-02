@@ -1,5 +1,5 @@
 package at.matthias.tourplanner.viewmodels;
-
+import org.apache.log4j.Logger;
 
 public class MainViewmodel {
     private TourOverviewViewmodel tovm;

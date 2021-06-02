@@ -1,5 +1,4 @@
 package at.matthias.tourplanner.views;
-import at.matthias.tourplanner.BL.Loghandler;
 import at.matthias.tourplanner.models.LogItem;
 import at.matthias.tourplanner.viewmodels.AddLogViewmodel;
 import java.io.IOException;
@@ -10,15 +9,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import lombok.Setter;
+import org.apache.log4j.Logger;
+
 public class AddLogController implements Initializable {
     @FXML private DatePicker date;
     @FXML private Spinner<Integer> time;
@@ -29,16 +25,20 @@ public class AddLogController implements Initializable {
     @FXML private ChoiceBox<String> weather;
     @FXML private ChoiceBox<String> activity;
     AddLogViewmodel alv;
+    Logger logger = Logger.getLogger(AddLogController.class);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         alv = new AddLogViewmodel();
+        logger.info("initializing AddLogController");
     }
-    public void setId(int id) {
-        alv.setId(id);
+    public void setTourId(int id) {
+        logger.info("setting TourId");
+        alv.setTourId(id);
     }
 
     public void cancelLog(ActionEvent c) {
+        logger.info("Cancelling of Adding Log");
         switchWindow(FormPaths.MAINWINDOWPATH);
     }
 
@@ -60,6 +60,7 @@ public class AddLogController implements Initializable {
     }
 
     private void switchWindow(String path) {
+        logger.info("Switching Scene to MainWindow");
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -67,7 +68,7 @@ public class AddLogController implements Initializable {
             root = loader.load();
             date.getScene().setRoot(root);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error switching to MainWindow" + e);
         }
     }
 }

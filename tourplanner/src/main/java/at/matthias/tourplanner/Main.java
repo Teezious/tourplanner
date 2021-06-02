@@ -9,7 +9,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class Main extends Application {
-    private static final Logger LOGGER = LogManager.getLogger("File");
+    private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     @Override
     public void start(Stage primaryStage) throws Exception {

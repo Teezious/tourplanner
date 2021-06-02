@@ -1,14 +1,13 @@
 package at.matthias.tourplanner.BL;
 
-import at.matthias.tourplanner.DL.Database;
 import at.matthias.tourplanner.DL.LogHelper;
 import at.matthias.tourplanner.models.LogItem;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.log4j.Logger;
 
 public class Loghandler {
     private LogHelper logHelper;
