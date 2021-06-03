@@ -12,21 +12,23 @@ import javax.imageio.ImageIO;
 import org.apache.log4j.Logger;
 
 public class Maphandler {
-    private final String MAPQUESTPATH = "/config/mapQuestAccess.xml";
     private String url;
     private String key;
 
+    private static final Logger logger = Logger.getLogger(Maphandler.class);
+
     public Maphandler() {
         XMLReader reader = new XMLReader();
-
-        this.key = reader.readXMLElement(getClass().getResource(MAPQUESTPATH).toString(), "key");
-        this.url = reader.readXMLElement(getClass().getResource(MAPQUESTPATH).toString(), "url");
+        String path = reader.getPath("mapquest");
+        this.key = reader.readXMLElement(path, "key");
+        this.url = reader.readXMLElement(path, "url");
     }
 
     public RouteItem requestHandler(String start, String end, String imagePath) {
+        logger.info("new Map- and directionRequest");
         APIcomm client = new APIcomm();
-        URL request = createDirectionsURL(start, end);
-        RouteItem route = client.directionRequest(request);
+        var request = createDirectionsURL(start, end);      // TODO Split this
+        RouteItem route = client.directionRequest(request); // TODO Split this
 
         request = getMapURL(route.getSessionId());
         byte[] byteimg = client.imageRequest(request);
@@ -36,7 +38,7 @@ public class Maphandler {
             var imgFile = new File(imagePath);
             ImageIO.write(image, "JPG", imgFile);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error writing Image!" + e);
         }
         return route;
     }
@@ -46,7 +48,7 @@ public class Maphandler {
         try {
             request = new URL(this.url + "/directions/v2/route?key=" + this.key + "&from=" + start + "&to=" + end + "&unit=k");
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            logger.error("Error creating Directions URL!" + e);
         }
         return request;
     }
@@ -56,7 +58,7 @@ public class Maphandler {
         try {
             mapurl = new URL(this.url + "/staticmap/v5/map?key=" + this.key + "&session=" + sessionID + "&size=600,400");
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            logger.error("Error creating Map URL!" + e);
         }
         return mapurl;
     }

@@ -17,6 +17,9 @@
 | 26.05.2021 | 9h   |
 | 27.05.2021 | 6h   |
 | 28.05.2021 | 15h  |
+| 01.06.2021 | 2h   |
+| 02.06.2021 | 2h   |
+| 03.06.2021 | 4h   |
 
 
 ### Technical Steps
@@ -116,6 +119,34 @@
     - seperated BL and DAL more strict
     - removed unneccessary import
     - removed unneccessary files
+- 01.06.2021
+  - Problems:
+    - Setting up log4j config file
+  - Tasks:
+    - Setting up log4j config file
+    - getting logger to work
+    - writing first logs
+- 02.06.2021
+  - Problems:
+    - /
+  - Tasks:
+    - filling project with logs
+    - writing logs for most of the classes
+    - small refactoring
+    - making DB a singleton
+- 03.06.2021
+  - Problems:
+    - massive bug when trying to get DB connection
+    - Nullpointer Exception in Database class due to path failing in static class
+  - Tasks:
+    - writing last loggers
+    - bug fixing
+    - new paths.xml file
+    - paths are now read from paths.xml file
+    - fixing DB bug
+   
+- 
+
 
  
 ### Design Choices

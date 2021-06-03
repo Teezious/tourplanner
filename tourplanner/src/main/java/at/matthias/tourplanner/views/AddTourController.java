@@ -1,36 +1,36 @@
 package at.matthias.tourplanner.views;
 
+import at.matthias.tourplanner.DL.XMLReader;
 import at.matthias.tourplanner.viewmodels.AddTourViewmodel;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.apache.log4j.Logger;
-public class AddTourController implements Initializable {
+public class AddTourController {
     @FXML private TextField name;
     @FXML private TextField start;
     @FXML private TextField end;
     @FXML private TextArea description;
-    private AddTourViewmodel atvm;
-    private Logger logger = Logger.getLogger(AddTourController.class);
+    private final AddTourViewmodel atvm;
+    private static final Logger logger = Logger.getLogger(AddTourController.class);
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        atvm = new AddTourViewmodel();
+    public AddTourController() {
         logger.info("initializing AddTourController");
+        atvm = new AddTourViewmodel();
     }
 
     public void createTour(ActionEvent c) {
 
         if (name.getText() != null && start.getText() != null && end.getText() != null) {
             atvm.add(name.getText(), start.getText(), end.getText(), description.getText());
-            switchWindow(FormPaths.MAINWINDOWPATH);
+
+            XMLReader reader = new XMLReader();
+            switchWindow(reader.getPath("mainwindow"));
+
         } else {
             logger.info("Some Fields seem to be empty! Adding Tour unsuccesful");
         }
@@ -38,6 +38,8 @@ public class AddTourController implements Initializable {
     }
 
     public void cancelTour(ActionEvent c) {
+        XMLReader reader = new XMLReader();
+        switchWindow(reader.getPath("mainwindow"));
         switchWindow(FormPaths.MAINWINDOWPATH);
     }
 

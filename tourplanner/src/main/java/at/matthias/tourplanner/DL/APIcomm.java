@@ -12,6 +12,7 @@ import java.net.http.HttpResponse;
 import org.apache.log4j.Logger;
 
 public class APIcomm {
+    private static final Logger logger = Logger.getLogger(APIcomm.class);
 
     public RouteItem directionRequest(URL url) {
 
@@ -22,10 +23,14 @@ public class APIcomm {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder(url.toURI()).header("accept", "application/json").build();
             var response = client.send(request, HttpResponse.BodyHandlers.ofString()).body();
-            RouteItem model = om.readValue(response.substring(9), RouteItem.class); // What TODO here
-            return model;
-        } catch (IOException | URISyntaxException | InterruptedException e) {
-            e.printStackTrace();
+            RouteItem route = om.readValue(response.substring(9), RouteItem.class); // What TODO here
+            return route;
+        } catch (IOException | URISyntaxException e) {
+            logger.error("Error creating directionRequest!" + e);
+            return null;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            logger.error("Error creating directionRequest!" + e);
             return null;
         }
     }
@@ -41,8 +46,12 @@ public class APIcomm {
 
             return response;
 
-        } catch (InterruptedException | IOException | URISyntaxException e) {
-            e.printStackTrace();
+        } catch (IOException | URISyntaxException e) {
+            logger.error("Error creating imageRquest!" + e);
+            return new byte[0];
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            logger.error("Error creating imageRquest!" + e);
             return new byte[0];
         }
     }

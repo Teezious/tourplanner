@@ -13,7 +13,7 @@ public class TourOverviewViewmodel implements SearchObserver {
     @Getter ObservableList<TourItem> tourList;
     private final List<TourObserver> tourObservers;
     private final List<SearchObserver> searchObservers;
-    Logger logger = Logger.getLogger(TourOverviewViewmodel.class);
+    private static final Logger logger = Logger.getLogger(TourOverviewViewmodel.class);
 
     public TourOverviewViewmodel() {
         tourList = FXCollections.observableArrayList();
@@ -25,22 +25,38 @@ public class TourOverviewViewmodel implements SearchObserver {
     public void filterList(String search) {
 
         Tourhandler th = new Tourhandler();
+        List<TourItem> currenTourlist;
         if (search == null) {
+            currenTourlist = th.get();
             logger.info("clearing search");
-            tourList.clear();
-            tourList.addAll(th.get());
+
         } else {
+            currenTourlist = th.search(search);
             logger.info("new Search");
-            tourList.clear();
-            tourList.addAll(th.search(search));
+        }
+        if (currenTourlist != null) {
+            if (currenTourlist.isEmpty()) {
+                tourList.clear();
+            } else {
+                tourList.clear();
+                tourList.addAll(currenTourlist);
+            }
         }
     }
 
     public void updateList() {
         logger.info("updating Tourlist");
         Tourhandler th = new Tourhandler();
-        tourList.clear();
-        tourList.addAll(th.get());
+
+        List<TourItem> currenTourlist = th.get();
+        if (currenTourlist != null) {
+            if (currenTourlist.isEmpty()) {
+                tourList.clear();
+            } else {
+                tourList.clear();
+                tourList.addAll(currenTourlist);
+            }
+        }
     }
 
     public void selectTour(TourItem tour) {

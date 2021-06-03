@@ -1,21 +1,19 @@
 package at.matthias.tourplanner.views;
+import at.matthias.tourplanner.DL.XMLReader;
 import at.matthias.tourplanner.models.LogItem;
 import at.matthias.tourplanner.viewmodels.AddLogViewmodel;
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import org.apache.log4j.Logger;
 
-public class AddLogController implements Initializable {
+public class AddLogController {
     @FXML private DatePicker date;
     @FXML private Spinner<Integer> time;
     @FXML private Spinner<Integer> distance;
@@ -24,13 +22,12 @@ public class AddLogController implements Initializable {
     @FXML private Spinner<Integer> degrees;
     @FXML private ChoiceBox<String> weather;
     @FXML private ChoiceBox<String> activity;
-    AddLogViewmodel alv;
-    Logger logger = Logger.getLogger(AddLogController.class);
+    private final AddLogViewmodel alv;
+    private static final Logger logger = Logger.getLogger(AddLogController.class);
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        alv = new AddLogViewmodel();
+    public AddLogController() {
         logger.info("initializing AddLogController");
+        alv = new AddLogViewmodel();
     }
     public void setTourId(int id) {
         logger.info("setting TourId");
@@ -39,7 +36,8 @@ public class AddLogController implements Initializable {
 
     public void cancelLog(ActionEvent c) {
         logger.info("Cancelling of Adding Log");
-        switchWindow(FormPaths.MAINWINDOWPATH);
+        XMLReader reader = new XMLReader();
+        switchWindow(reader.getPath("mainwindow"));
     }
 
     public void addLog(ActionEvent c) {
@@ -55,7 +53,8 @@ public class AddLogController implements Initializable {
         alv.add(new LogItem(providedDate, providedTime, providedDistance, providedRating, providedBreaks, providedDegrees,
                             providedWeather, providedAcitvity));
 
-        switchWindow(FormPaths.MAINWINDOWPATH);
+        XMLReader reader = new XMLReader();
+        switchWindow(reader.getPath("mainwindow"));
         // TO DO else error msg?
     }
 

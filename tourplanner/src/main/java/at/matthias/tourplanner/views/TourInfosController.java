@@ -1,5 +1,6 @@
 package at.matthias.tourplanner.views;
 
+import at.matthias.tourplanner.DL.XMLReader;
 import at.matthias.tourplanner.models.LogItem;
 import at.matthias.tourplanner.models.TourItem;
 import at.matthias.tourplanner.viewmodels.TourInfosViewmodel;
@@ -7,9 +8,12 @@ import at.matthias.tourplanner.viewmodels.TourObserver;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,7 +41,7 @@ public class TourInfosController implements TourObserver, Initializable {
     @FXML private TextField searchBar;
     @FXML private TableView<LogItem> logTable;
     @Getter private final TourInfosViewmodel tivm;
-    private Logger logger = Logger.getLogger(TourInfosController.class);
+    private static final Logger logger = Logger.getLogger(TourInfosController.class);
 
     public TourInfosController() {
         tivm = new TourInfosViewmodel();
@@ -52,7 +56,8 @@ public class TourInfosController implements TourObserver, Initializable {
     }
 
     public void addLog(ActionEvent c) {
-        switchSceneAddLog(FormPaths.ADDLOGPATH);
+        XMLReader reader = new XMLReader();
+        switchSceneAddLog(reader.getPath("editlog"));
     }
 
     public void removeLog(ActionEvent c) {
@@ -62,7 +67,8 @@ public class TourInfosController implements TourObserver, Initializable {
 
     public void editLog(ActionEvent c) {
         if (tivm.getCurrentLog() != null) {
-            switchSceneEditLog(FormPaths.EDITLOGPATH);
+            XMLReader reader = new XMLReader();
+            switchSceneEditLog(reader.getPath("editlog"));
         } else {
             logger.info("Editing Log failed! No log was selected");
         }
@@ -105,9 +111,15 @@ public class TourInfosController implements TourObserver, Initializable {
         TableColumn<LogItem, String> activityCol = new TableColumn<>("Activity");
         activityCol.setCellValueFactory(new PropertyValueFactory<>("activity"));
         if (currentTour != null) {
-            logTable.setItems(tivm.getLogList());
-            logTable.getColumns().addAll(logIdCol, dateCol, timeCol, distanceCol, ratingCol, avgSpeedCol, breaksCol, degreesCol,
-                                         weatherCol, activityCol);
+            tivm.updateLogList();
+            ObservableList<LogItem> logList = tivm.getLogList();
+            if (logList.isEmpty()) {
+                logTable.getColumns().clear();
+            } else {
+                logTable.setItems(logList);
+                logTable.getColumns().addAll(logIdCol, dateCol, timeCol, distanceCol, ratingCol, avgSpeedCol, breaksCol,
+                                             degreesCol, weatherCol, activityCol);
+            }
         } else {
             logger.info("Log Table, No Tour selected");
             logTable.getColumns().clear();
@@ -133,8 +145,12 @@ public class TourInfosController implements TourObserver, Initializable {
             this.length.setText("");
             this.description.setText("");
         } else {
-            File imgFile = new File(currentTour.getImage());
-            this.image.setImage(new Image(imgFile.toURI().toString()));
+            if (Files.exists(Paths.get(currentTour.getImage()))) {
+                File imgFile = new File(currentTour.getImage());
+                this.image.setImage(new Image(imgFile.toURI().toString()));
+            } else {
+                this.image.setImage(null);
+            }
             this.name.setText(currentTour.getName());
             this.startpoint.setText(currentTour.getStart());
             this.endpoint.setText(currentTour.getEnd());

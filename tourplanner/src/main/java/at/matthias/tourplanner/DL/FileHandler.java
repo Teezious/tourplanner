@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import org.apache.log4j.Logger;
 
 public class FileHandler {
-    private static Logger logger = Logger.getLogger(FileHandler.class);
+    private static final Logger logger = Logger.getLogger(FileHandler.class);
 
     private FileHandler() {
         throw new IllegalArgumentException("Utility Class");
@@ -32,7 +32,7 @@ public class FileHandler {
             path = cut[1];
         }
         try (FileReader file = new FileReader(path);) {
-
+            logger.info("reading File...");
             int i;
             while ((i = file.read()) != -1) {
                 statements.append((char)i);
@@ -41,6 +41,7 @@ public class FileHandler {
         } catch (IOException e) {
             logger.error("Error reading File" + e);
         }
+        logger.warn("read String is null");
         return null;
     }
 }

@@ -1,22 +1,19 @@
 package at.matthias.tourplanner.views;
 
-import at.matthias.tourplanner.BL.Loghandler;
+import at.matthias.tourplanner.DL.XMLReader;
 import at.matthias.tourplanner.models.LogItem;
 import at.matthias.tourplanner.viewmodels.EditLogViewmodel;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import org.apache.log4j.Logger;
 
-public class EditLogController implements Initializable {
+public class EditLogController {
     @FXML private DatePicker date;
     @FXML private Spinner<Integer> time;
     @FXML private Spinner<Integer> distance;
@@ -25,11 +22,10 @@ public class EditLogController implements Initializable {
     @FXML private Spinner<Integer> degrees;
     @FXML private ChoiceBox<String> weather;
     @FXML private ChoiceBox<String> activity;
-    private EditLogViewmodel elv;
-    private Logger logger = Logger.getLogger(EditLogController.class);
+    private final EditLogViewmodel elv;
+    private static final Logger logger = Logger.getLogger(EditLogController.class);
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public EditLogController() {
         elv = new EditLogViewmodel();
         logger.info("initializing EditLogController");
     }
@@ -51,14 +47,16 @@ public class EditLogController implements Initializable {
         } else {
             logger.error("Error saving edited Log! LogItem is null");
         }
-        switchWindow(FormPaths.MAINWINDOWPATH);
+        XMLReader reader = new XMLReader();
+        switchWindow(reader.getPath("mainwindow"));
 
         // TO DO else error msg?
     }
 
     public void cancel(ActionEvent c) {
         logger.info("cancelling Log Edit");
-        switchWindow(FormPaths.MAINWINDOWPATH);
+        XMLReader reader = new XMLReader();
+        switchWindow(reader.getPath("mainwindow"));
     }
 
     private void switchWindow(String path) {

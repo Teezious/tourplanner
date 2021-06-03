@@ -5,12 +5,13 @@ import at.matthias.tourplanner.models.LogItem;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.Collections;
+import java.util.List;
 import org.apache.log4j.Logger;
 
 public class Loghandler {
     private LogHelper logHelper;
+    private static final Logger logger = Logger.getLogger(Loghandler.class);
     public Loghandler() {
         logHelper = new LogHelper();
     }
@@ -27,21 +28,21 @@ public class Loghandler {
         logHelper.edit(log);
     }
 
-    public ObservableList<LogItem> get(int id) {
+    public List<LogItem> get(int id) {
         ArrayList<LogItem> logs = new ArrayList<>();
-        ObservableList<LogItem> obsrvlog = FXCollections.observableArrayList();
+        ResultSet rs = logHelper.get(id);
+        if (rs != null) {
+            try {
 
-        try {
-            ResultSet rs = logHelper.get(id);
-            while (rs.next()) {
-                logs.add(new LogItem(rs.getDate(1).toLocalDate(), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getFloat(5),
-                                     rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(10)));
+                while (rs.next()) {
+                    logs.add(new LogItem(rs.getDate(1).toLocalDate(), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getFloat(5),
+                                         rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(10)));
+                }
+                return logs;
+            } catch (SQLException e) {
+                logger.error("Error reading Log Resultset!" + e);
             }
-        } catch (SQLException s) {
-            s.printStackTrace();
         }
-
-        obsrvlog.addAll(logs);
-        return obsrvlog;
+        return Collections.emptyList();
     }
 }

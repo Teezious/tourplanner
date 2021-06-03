@@ -13,12 +13,14 @@ import org.apache.log4j.Logger;
 public class TourInfosViewmodel implements TourObserver {
     @Getter @Setter public LogItem currentLog;
     @Getter @Setter public TourItem currentTour;
+    @Getter ObservableList<LogItem> logList;
     private final List<TourObserver> tourObservers;
     private final List<SearchObserver> observers;
-    Logger logger = Logger.getLogger(TourInfosViewmodel.class);
+    private static final Logger logger = Logger.getLogger(TourInfosViewmodel.class);
 
     public TourInfosViewmodel() {
         logger.info("initializing TourInfosViewModel");
+        logList = FXCollections.observableArrayList();
         tourObservers = FXCollections.observableArrayList();
         observers = FXCollections.observableArrayList();
     }
@@ -31,9 +33,22 @@ public class TourInfosViewmodel implements TourObserver {
         }
     }
 
-    public ObservableList<LogItem> getLogList() {
+    public void updateLogList() {
+        logger.info("updating current LogList");
         Loghandler lh = new Loghandler();
-        return lh.get(currentTour.getId());
+        if (currentTour != null) {
+            List<LogItem> currentLogList = lh.get(currentTour.getId());
+            if (currentLogList != null) {
+                if (currentLogList.isEmpty()) {
+                    logList.clear();
+                } else {
+                    logList.clear();
+                    logList.addAll(currentLogList);
+                }
+            }
+        } else {
+            logList.clear();
+        }
     }
 
     public void removeLog() {

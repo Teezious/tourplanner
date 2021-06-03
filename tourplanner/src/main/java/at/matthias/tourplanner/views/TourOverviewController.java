@@ -1,11 +1,13 @@
 package at.matthias.tourplanner.views;
 
+import at.matthias.tourplanner.DL.XMLReader;
 import at.matthias.tourplanner.models.TourItem;
 import at.matthias.tourplanner.viewmodels.SearchObserver;
 import at.matthias.tourplanner.viewmodels.TourOverviewViewmodel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +23,7 @@ import org.apache.log4j.Logger;
 public class TourOverviewController implements Initializable, SearchObserver {
     @Getter private final TourOverviewViewmodel tovm;
     @FXML private ListView<TourItem> tourList;
-    Logger logger = Logger.getLogger(TourOverviewController.class);
+    private static final Logger logger = Logger.getLogger(TourOverviewController.class);
 
     public TourOverviewController() {
         tovm = new TourOverviewViewmodel();
@@ -37,7 +39,8 @@ public class TourOverviewController implements Initializable, SearchObserver {
     }
     public void addTour(ActionEvent a) {
         logger.info("adding Tour");
-        switchSceneAdd(FormPaths.ADDTOURPATH);
+        XMLReader reader = new XMLReader();
+        switchSceneAdd(reader.getPath("addtour"));
     }
 
     public void removeTour(ActionEvent a) {
@@ -49,7 +52,9 @@ public class TourOverviewController implements Initializable, SearchObserver {
         TourItem currentTour = tovm.getCurrentTour();
         logger.info("editing Tour");
         if (currentTour != null) {
-            switchSceneEdit(FormPaths.EDITTOURPATH);
+            XMLReader reader = new XMLReader();
+            switchSceneEdit(reader.getPath("edittour"));
+
         } else {
             logger.info("Editing Tour unsuccessful!No Tour selected");
         }
@@ -66,7 +71,16 @@ public class TourOverviewController implements Initializable, SearchObserver {
     }
 
     public void updateListView() {
-        tourList.setItems(tovm.getTourList());
+        ObservableList<TourItem> currentList = tovm.getTourList();
+        if (currentList != null) {
+            if (currentList.isEmpty()) {
+                tourList.getItems().clear();
+            } else {
+                tourList.setItems(currentList);
+            }
+        } else {
+            tourList.getItems().clear();
+        }
     }
 
     private void formatCells() {

@@ -1,33 +1,30 @@
 package at.matthias.tourplanner.views;
 
 import at.matthias.tourplanner.BL.Tourhandler;
+import at.matthias.tourplanner.DL.XMLReader;
 import at.matthias.tourplanner.models.TourItem;
 import at.matthias.tourplanner.viewmodels.EditTourViewmodel;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.logging.LogManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.apache.log4j.Logger;
 
-public class EditTourController implements Initializable {
+public class EditTourController {
 
     @FXML private TextField name;
     @FXML private TextField start;
     @FXML private TextField end;
     @FXML private TextArea description;
     Tourhandler handler;
-    EditTourViewmodel etvm;
-    Logger logger = Logger.getLogger(EditTourController.class);
+    private final EditTourViewmodel etvm;
+    private static final Logger logger = Logger.getLogger(EditTourController.class);
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public EditTourController() {
+        logger.info("initializing EditTourController");
         etvm = new EditTourViewmodel();
     }
 
@@ -49,7 +46,8 @@ public class EditTourController implements Initializable {
         if (etvm.getId() != -1 && name.getText() != null && start.getText() != null && end.getText() != null) {
             logger.info("Saving Tour Edit");
             etvm.saveEdit(name.getText(), start.getText(), end.getText(), description.getText());
-            switchScene(FormPaths.MAINWINDOWPATH);
+            XMLReader reader = new XMLReader();
+            switchScene(reader.getPath("mainwindow"));
         } else {
             logger.info("Some fields have been left out");
         }
@@ -59,7 +57,8 @@ public class EditTourController implements Initializable {
 
     public void cancel(ActionEvent c) {
         logger.info("cancelling Edit");
-        switchScene(FormPaths.MAINWINDOWPATH);
+        XMLReader reader = new XMLReader();
+        switchScene(reader.getPath("mainwindow"));
     }
 
     private void switchScene(String path) {

@@ -2,53 +2,62 @@ package at.matthias.tourplanner.DL;
 
 import java.sql.*;
 import java.util.HashMap;
+import java.util.Map;
+import lombok.Getter;
 import org.apache.log4j.Logger;
 
 public class Database {
-    private static final String SQLCREATEPATH = "/db/create_tables.sql";
-    private static final String DBACCESSPATH = "/config/dbAccess.xml";
-
-    private static Connection conn = null;
-    private static Logger logger = Logger.getLogger(Database.class);
+    @Getter static Connection conn = null;
+    private static final Logger logger = Logger.getLogger(Database.class);
 
     protected Database() {
+        while (conn == null) {
+            logger.info("Connections is still null");
+            initConnection();
+        }
+        initCreateStatements();
     }
 
     private static void initConnection() {
-        XMLReader xmlReader = new XMLReader();
-        HashMap<String, String> config = xmlReader.readDbConfig(Connection.class.getResource(DBACCESSPATH).toString());
+        XMLReader reader = new XMLReader();
+        Map<String, String> config = reader.readDbConfig(reader.getPath("dbaccess"));
+        if (true) {
+            String dburl = config.get("dburl");
+            String dbname = config.get("dbname");
+            String user = config.get("user");
+            String pw = config.get("password");
 
-        String dburl = config.get("dburl");
-        String dbname = config.get("dbname");
-        String user = config.get("user");
-        String pw = config.get("password");
-
-        try {
             logger.info("Connecting to database...");
-
-            conn = DriverManager.getConnection(dburl + dbname, user, pw);
-        } catch (Exception e) {
-            logger.error("Error connecting to Database" + e);
+            try {
+                conn = DriverManager.getConnection(dburl + dbname, user, pw);
+                logger.info("Connecting to Database successful");
+            } catch (Exception e) {
+                logger.error("Error connecting to Database" + e);
+            }
+        } else {
+            logger.error("Access String is null");
         }
-        logger.info("Connecting to Database successful");
     }
 
     private static void initCreateStatements() {
-        try (Statement stmt = conn.createStatement()) {
-            logger.info("Creating tables...");
-            stmt.executeUpdate(FileHandler.read(Connection.class.getResource(SQLCREATEPATH).toString()));
-        } catch (Exception e) {
-            logger.error("Error creating tables" + e);
+        if (conn != null) {
+            try (Statement stmt = conn.createStatement()) {
+                logger.info("Creating tables...");
+                XMLReader reader = new XMLReader();
+                String path = reader.getPath("sqlcreate");
+                String sqlCreate = FileHandler.read(path);
+                if (sqlCreate != null) {
+                    stmt.executeUpdate(sqlCreate);
+                    logger.info("Tables created successfully...");
+                } else {
+                    logger.error("SQL Create String is null");
+                }
+            } catch (Exception e) {
+                logger.error("Error creating tables! " + e);
+            }
+        } else {
+            logger.error("Connection is null! Failed to create tables");
         }
-        logger.info("Tables created successfully...");
-    }
-    public static Connection getConn() {
-        logger.info("getting Database Connection");
-        if (conn == null) {
-            initCreateStatements();
-            initConnection();
-        }
-        return conn;
     }
     public static void close() {
         logger.info("closing Database Connection");
