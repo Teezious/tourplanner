@@ -9,14 +9,5 @@
     <mainwindow>/fxml/mainWindow.fxml</mainwindow>
     <addtour>/fxml/addTour.fxml</addtour>
     <edittour>/fxml/editTour.fxml</edittour>
-    <mapquestabsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/config/mapQuestAccess.xml</mapquestabsolute>
-    <imageabsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/img/</imageabsolute>
-    <sqlcreateabsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/db/create_tables.sql</sqlcreateabsolute>
-    <sqldropabsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/db/drop_tables.sql</sqldropabsolute>
-    <dbaccessabsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/config/dbAccess.xml</dbaccessabsolute>
-    <addlogabsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/fxml/addLog.fxml</addlogabsolute>
-    <editlogabsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/fxml/editLog.fxml</editlogabsolute>
-    <mainwindowabsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/fxml/mainWindow.fxml</mainwindowabsolute>
-    <addtourabsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/fxml/addTour.fxml</addtourabsolute>
-    <edittourabsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/fxml/editTour.fxml</edittourabsolute>
+    <report>/resources/report/</report>
 </paths>

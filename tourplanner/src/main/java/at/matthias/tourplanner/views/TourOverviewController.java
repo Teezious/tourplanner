@@ -62,6 +62,10 @@ public class TourOverviewController implements Initializable, SearchObserver {
         updateListView();
     }
 
+    public void makeFavorite(ActionEvent a) {
+        // TODO
+    }
+
     public void selectTour(MouseEvent m) {
         TourItem currentTour = tourList.getSelectionModel().getSelectedItem();
         if (currentTour == null) {

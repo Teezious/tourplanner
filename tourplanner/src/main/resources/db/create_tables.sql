@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS "tours"
     "endpoint" VARCHAR(32),
     "description" VARCHAR(256),
     "distance" FLOAT,
-    "image" VARCHAR(128)
+    "image" VARCHAR(128),
+    "favorite" BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS "logs"

@@ -100,8 +100,8 @@ public class TourInfosController implements TourObserver, Initializable {
         distanceCol.setCellValueFactory(new PropertyValueFactory<>("distance"));
         TableColumn<LogItem, Integer> ratingCol = new TableColumn<>("Rating");
         ratingCol.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        TableColumn<LogItem, Float> avgSpeedCol = new TableColumn<>("Average speed");
-        avgSpeedCol.setCellValueFactory(new PropertyValueFactory<>("avgSpd"));
+        TableColumn<LogItem, Float> speedCol = new TableColumn<>("Speed");
+        speedCol.setCellValueFactory(new PropertyValueFactory<>("speed"));
         TableColumn<LogItem, Integer> breaksCol = new TableColumn<>("breaks");
         breaksCol.setCellValueFactory(new PropertyValueFactory<>("Breaks"));
         TableColumn<LogItem, Integer> degreesCol = new TableColumn<>("degrees");
@@ -117,8 +117,8 @@ public class TourInfosController implements TourObserver, Initializable {
                 logTable.getColumns().clear();
             } else {
                 logTable.setItems(logList);
-                logTable.getColumns().addAll(logIdCol, dateCol, timeCol, distanceCol, ratingCol, avgSpeedCol, breaksCol,
-                                             degreesCol, weatherCol, activityCol);
+                logTable.getColumns().addAll(logIdCol, dateCol, timeCol, distanceCol, ratingCol, speedCol, breaksCol, degreesCol,
+                                             weatherCol, activityCol);
             }
         } else {
             logger.info("Log Table, No Tour selected");

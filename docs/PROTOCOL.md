@@ -20,6 +20,7 @@
 | 01.06.2021 | 2h   |
 | 02.06.2021 | 2h   |
 | 03.06.2021 | 4h   |
+| 03.06.2021 | 6h   |
 
 
 ### Technical Steps
@@ -144,8 +145,17 @@
     - new paths.xml file
     - paths are now read from paths.xml file
     - fixing DB bug
+- 04.06.2021
+  - Problems:
+    - getting started with itextpdf and jfreechart library proved to be difficult
+  - Tasks:
+    - added Buttons to export, import, report and UNIQUE FEATURE (favorite toure)
+    - added functionality to file report
+    - added Reporthandler
+    - added Charthandler
+    - Other Minor changes
    
-- 
+
 
 
  

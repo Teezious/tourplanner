@@ -25,7 +25,7 @@ public class LogHelper extends Database {
                 ps.setInt(3, log.getTime());
                 ps.setInt(4, log.getDistance());
                 ps.setInt(5, log.getRating());
-                ps.setFloat(6, log.getAvgSpd());
+                ps.setFloat(6, log.getSpeed());
                 ps.setInt(7, log.getBreaks());
                 ps.setInt(8, log.getDegrees());
                 ps.setString(9, log.getWeather());
@@ -70,7 +70,7 @@ public class LogHelper extends Database {
                 ps.setInt(2, log.getTime());
                 ps.setInt(3, log.getDistance());
                 ps.setInt(4, log.getRating());
-                ps.setFloat(5, log.getAvgSpd());
+                ps.setFloat(5, log.getSpeed());
                 ps.setInt(6, log.getBreaks());
                 ps.setInt(7, log.getDegrees());
                 ps.setString(8, log.getWeather().toString());

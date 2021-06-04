@@ -5,6 +5,7 @@ at/matthias/tourplanner/viewmodels/AddLogViewmodel.class
 at/matthias/tourplanner/Main.class
 at/matthias/tourplanner/viewmodels/TourOverviewViewmodel.class
 at/matthias/tourplanner/models/LogItem.class
+at/matthias/tourplanner/BL/Reporthandler.class
 at/matthias/tourplanner/DL/TourHelper.class
 at/matthias/tourplanner/BL/Maphandler.class
 at/matthias/tourplanner/viewmodels/MainViewmodel.class
@@ -16,10 +17,10 @@ at/matthias/tourplanner/views/TourOverviewController.class
 at/matthias/tourplanner/DL/APIcomm.class
 at/matthias/tourplanner/BL/Tourhandler.class
 at/matthias/tourplanner/views/EditTourController.class
-at/matthias/tourplanner/views/FormPaths.class
 at/matthias/tourplanner/DL/Database.class
 at/matthias/tourplanner/views/AddTourController.class
 at/matthias/tourplanner/viewmodels/SearchObserver.class
+at/matthias/tourplanner/BL/Charthandler.class
 at/matthias/tourplanner/models/RouteItem.class
 at/matthias/tourplanner/viewmodels/EditLogViewmodel.class
 at/matthias/tourplanner/viewmodels/AddTourViewmodel.class

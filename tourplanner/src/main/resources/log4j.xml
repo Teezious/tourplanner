@@ -11,10 +11,10 @@
         <param name="append" value="true" />
         <param name="maxFileSize" value="10KB" />
         <param name="maxBackupIndex" value="5" />
-
-        <param name="file" value="tourplanner.log" />
+        <param name="file" value="${logFilename}_tourplanner.log" />
+        <param name="DatePattern" value=".yyyy-MM-dd" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+            <param name="ConversionPattern" value="%d{yyyy-MMM-dd HH:mm:ss,SSS} [%t] %c %x%n  %-5p %m%n" />
         </layout>
     </appender>
     <root>

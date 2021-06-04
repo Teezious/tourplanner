@@ -8,11 +8,32 @@
   <artifactId>tourplanner</artifactId>
   <version>0.1.0</version>
 
+  <properties>
+    <itext.version>7.1.0</itext.version>
+    <slf4j.version>1.7.30</slf4j.version>
+  </properties>
+
   <name>tourplanner</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <dependencies>
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itext7-core</artifactId>
+      <version>${itext.version}</version>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>io</artifactId>
+      <version>${itext.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>layout</artifactId>
+      <version>${itext.version}</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -50,8 +71,21 @@
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
     </dependency>
-
-
+    <dependency>
+      <groupId>org.jfree</groupId>
+      <artifactId>jfreechart</artifactId>
+      <version>1.5.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -111,7 +145,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
+          <version>3.8.1</version>
           <configuration>
             <annotationProcessorPaths>
               <path>
@@ -120,8 +154,8 @@
                 <version>1.18.20</version>
               </path>
             </annotationProcessorPaths>
-            <source>11</source>
-            <target>11</target>
+            <source>14</source>
+            <target>14</target>
           </configuration>
         </plugin>
       </plugins>

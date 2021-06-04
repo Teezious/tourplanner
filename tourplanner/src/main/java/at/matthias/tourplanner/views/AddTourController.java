@@ -40,7 +40,6 @@ public class AddTourController {
     public void cancelTour(ActionEvent c) {
         XMLReader reader = new XMLReader();
         switchWindow(reader.getPath("mainwindow"));
-        switchWindow(FormPaths.MAINWINDOWPATH);
     }
 
     private void switchWindow(String path) {

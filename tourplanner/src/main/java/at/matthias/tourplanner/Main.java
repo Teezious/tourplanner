@@ -1,5 +1,8 @@
 package at.matthias.tourplanner;
 
+import java.lang.System;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,11 +12,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class Main extends Application {
-    private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        LOGGER.info("Starting Application");
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/mainWindow.fxml"));
         Parent root = loader.load();
@@ -23,6 +24,9 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        Date date = new Date();
+        String LogDate = new SimpleDateFormat("dd.MM.yyyy-H:m").format(date);
+        System.setProperty("logFilename", LogDate);
         launch(args);
     }
 }

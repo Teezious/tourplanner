@@ -10,18 +10,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.MainController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/15.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.MainController">
    <children>
       <MenuBar prefHeight="29.0" prefWidth="1055.0" GridPane.columnSpan="2">
          <menus>
-            <Menu mnemonicParsing="false" text="File">
+            <Menu mnemonicParsing="false" text="Tour">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" text="Import" />
+                  <MenuItem mnemonicParsing="false" text="Export" />
+                  <MenuItem mnemonicParsing="false" text="Report" onAction="#fileReport" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">

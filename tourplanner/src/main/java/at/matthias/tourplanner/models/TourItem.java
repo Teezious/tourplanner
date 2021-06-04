@@ -11,6 +11,7 @@ public class TourItem {
     @Getter @Setter public float distance;
     @Getter @Setter public int id;
     @Getter @Setter public String image;
+    @Getter @Setter public boolean favorite;
 
     public TourItem(String name) {
         this.name = name;
@@ -24,5 +25,6 @@ public class TourItem {
         this.end = end;
         this.id = id;
         this.image = image;
+        this.favorite = false;
     }
 }

@@ -29,7 +29,6 @@
             <children>
 
 
-
                 <HBox prefHeight="63.0" prefWidth="424.0">
                     <children>
                         <TextField id="searchBar" fx:id="searchBar" prefHeight="30.0" prefWidth="300.0" text="Enter Tour">

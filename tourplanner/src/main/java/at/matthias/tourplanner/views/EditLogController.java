@@ -42,7 +42,7 @@ public class EditLogController {
             toEdit.setDegrees(degrees.getValue());
             toEdit.setWeather(weather.getValue());
             toEdit.setActivity(activity.getValue());
-            toEdit.calculateAvgSpeed();
+            toEdit.calculateSpeed();
             elv.saveEdit(toEdit);
         } else {
             logger.error("Error saving edited Log! LogItem is null");
