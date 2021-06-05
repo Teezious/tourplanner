@@ -20,7 +20,8 @@
 | 01.06.2021 | 2h   |
 | 02.06.2021 | 2h   |
 | 03.06.2021 | 4h   |
-| 03.06.2021 | 6h   |
+| 04.06.2021 | 6h   |
+| 05.06.2021 | 3h   |
 
 
 ### Technical Steps
@@ -154,6 +155,12 @@
     - added Reporthandler
     - added Charthandler
     - Other Minor changes
+- 05.06.2021
+  - Problems:
+    - problems with image path
+  - Tasks:
+    - added feature to add a favorite tour
+    - favorite tour is differently colored in the listview
    
 
 

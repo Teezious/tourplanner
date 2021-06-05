@@ -19,7 +19,7 @@ public class Maphandler {
 
     public Maphandler() {
         XMLReader reader = new XMLReader();
-        String path = reader.getPath("mapquest");
+        String path = reader.getFullPath("mapquest");
         this.key = reader.readXMLElement(path, "key");
         this.url = reader.readXMLElement(path, "url");
     }
@@ -29,17 +29,27 @@ public class Maphandler {
         APIcomm client = new APIcomm();
         var request = createDirectionsURL(start, end);      // TODO Split this
         RouteItem route = client.directionRequest(request); // TODO Split this
-
+        logger.warn(imagePath + " in requesthandler");
         request = getMapURL(route.getSessionId());
         byte[] byteimg = client.imageRequest(request);
+        if (byteimg != null) {
+            try {
 
-        try {
-            BufferedImage image = ImageIO.read(new ByteArrayInputStream(byteimg));
-            var imgFile = new File(imagePath);
-            ImageIO.write(image, "JPG", imgFile);
-        } catch (IOException e) {
-            logger.error("Error writing Image!" + e);
+                BufferedImage image = ImageIO.read(new ByteArrayInputStream(byteimg));
+
+                if (image != null) {
+                    var imgFile = new File(imagePath);
+                    ImageIO.write(image, "JPG", imgFile);
+                } else {
+                    logger.warn("Image is null");
+                }
+            }
+
+            catch (IOException e) {
+                logger.error("Error writing Image!" + e);
+            }
         }
+
         return route;
     }
 

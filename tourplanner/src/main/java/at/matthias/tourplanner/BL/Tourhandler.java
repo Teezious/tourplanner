@@ -14,20 +14,20 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
 public class Tourhandler {
-    private TourHelper tourHelper;
+    private final TourHelper tourHelper = new TourHelper();
     private static final Logger logger = Logger.getLogger(Tourhandler.class);
 
-    public Tourhandler() {
-        tourHelper = new TourHelper();
+    public void makeFavorite(int tourId) {
+        tourHelper.makeFavorite(tourId);
     }
 
     public void add(String name, String start, String end, String description) {
         Maphandler maphandler = new Maphandler();
         String imgId = UUID.randomUUID().toString();
         XMLReader reader = new XMLReader();
-        String absImgPath = reader.getPath("image") + imgId + ".jpg";
+        String absImgPath = reader.getFullPath("image") + imgId + ".jpg";
         Float distance = maphandler.requestHandler(start, end, absImgPath).getDistance();
-        tourHelper.add(name, start, end, description, distance, absImgPath);
+        tourHelper.add(name, start, end, description, distance, imgId, false);
     }
 
     public void remove(TourItem toBeRemoved) {
@@ -39,9 +39,9 @@ public class Tourhandler {
         Maphandler maphandler = new Maphandler();
         String imgId = UUID.randomUUID().toString();
         XMLReader reader = new XMLReader();
-        String absImgPath = reader.getPath("image") + imgId + ".jpg";
+        String absImgPath = reader.getFullPath("image") + imgId + ".jpg";
         Float distance = maphandler.requestHandler(start, end, absImgPath).getDistance();
-        tourHelper.edit(id, name, start, end, description, distance, absImgPath);
+        tourHelper.edit(id, name, start, end, description, distance, imgId);
     }
 
     public List<TourItem> get() {
@@ -50,9 +50,12 @@ public class Tourhandler {
         if (rs != null) {
             try {
                 while (rs.next()) {
-                    items.add(new TourItem(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-                                           rs.getFloat(6), rs.getString(7)));
+                    TourItem t = new TourItem(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                                              rs.getFloat(6), rs.getString(7), rs.getBoolean(8));
+                    items.add(t);
+                    logger.warn("Name: " + t.getName() + "IMG Path: " + t.getImage());
                 }
+
                 return items;
             } catch (SQLException e) {
                 logger.error("Error reading TourItems Resultset!" + e);
@@ -69,7 +72,7 @@ public class Tourhandler {
             try {
                 while (rs.next()) {
                     tour = new TourItem(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-                                        rs.getFloat(6), rs.getString(7));
+                                        rs.getFloat(6), rs.getString(7), rs.getBoolean(8));
                 }
             } catch (SQLException e) {
                 logger.error("Error reading TourItem Resultset!" + e);
@@ -79,22 +82,11 @@ public class Tourhandler {
     }
 
     public List<TourItem> search(String name) {
-        ArrayList<TourItem> tours = new ArrayList<>();
-        ResultSet rs = tourHelper.get();
-        if (rs != null) {
-            try {
-                while (rs.next()) {
-                    tours.add(new TourItem(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-                                           rs.getFloat(6), rs.getString(7)));
-                }
-            } catch (SQLException e) {
-                logger.error("Error reading TourItem Resultset in Search!" + e);
-            }
-            if (name != null) {
-                return tours.stream()
-                    .filter(x -> x.getName().toLowerCase().contains(name.toLowerCase()))
-                    .collect(Collectors.toList());
-            }
+        List<TourItem> tours = get();
+        if (name != null) {
+            return tours.stream()
+                .filter(x -> x.getName().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toList());
         }
         return Collections.emptyList();
     }

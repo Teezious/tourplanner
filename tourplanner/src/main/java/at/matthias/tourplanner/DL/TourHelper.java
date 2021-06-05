@@ -8,17 +8,20 @@ import org.apache.log4j.Logger;
 
 public class TourHelper extends Database {
     private static final String CREATETOUR =
-        "Insert into tours (name, startpoint, endpoint, description, distance, image) values(?,?,?,?,?,?)";
+        "Insert into tours (name, startpoint, endpoint, description, distance, image, favorite) values(?,?,?,?,?,?,?)";
     private static final String REMOVETOUR = "delete from tours where id = ?";
     private static final String EDITTOUR =
         "update tours set name  = ?, startpoint  = ?, endpoint  = ?, description  = ?, distance  = ?, image  = ?  where id = ?";
-    private static final String GETTOURS = "select id, name, startpoint, endpoint, description, distance, image from tours";
+    private static final String GETTOURS =
+        "select id, name, startpoint, endpoint, description, distance, image, favorite from tours";
     private static final String GETTOURBYID =
-        "select id, name, startpoint, endpoint, description, distance, image from tours where id = ?";
-
+        "select id, name, startpoint, endpoint, description, distance, image, favorite from tours where id = ?";
+    private static final String EDITFAVORITE =
+        "update tours set favorite = not (select favorite from tours where id = ?) where id = ?";
     private static final Logger logger = Logger.getLogger(TourHelper.class);
 
-    public void add(String name, String start, String end, String description, Float distance, String absImgPath) {
+    public void add(String name, String start, String end, String description, Float distance, String absImgPath,
+                    boolean favorite) {
         Connection conn = getConn();
         if (conn != null) {
             try (PreparedStatement ps = getConn().prepareStatement(CREATETOUR)) {
@@ -28,6 +31,7 @@ public class TourHelper extends Database {
                 ps.setString(4, description);
                 ps.setFloat(5, distance);
                 ps.setString(6, absImgPath);
+                ps.setBoolean(7, favorite);
                 if (ps.executeUpdate() != -1) {
                     logger.info("Successfully added Tour");
                 } else {
@@ -128,5 +132,24 @@ public class TourHelper extends Database {
             logger.error("Error getting Tour!" + e);
         }
         return null;
+    }
+
+    public void makeFavorite(int tourId) {
+        Connection conn = getConn();
+        if (conn != null) {
+            try (PreparedStatement ps = getConn().prepareStatement(EDITFAVORITE)) {
+                ps.setInt(1, tourId);
+                ps.setInt(2, tourId);
+                if (ps.executeUpdate() != -1) {
+                    logger.info("Successfully edited Favorite Status");
+                } else {
+                    logger.error("Error editing Favorite Status!");
+                }
+            } catch (Exception e) {
+                logger.error("Error Favorite Status!" + e);
+            }
+        } else {
+            logger.error("Error Favorite Status! Connection is null");
+        }
     }
 }

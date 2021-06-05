@@ -57,7 +57,7 @@ public class TourInfosController implements TourObserver, Initializable {
 
     public void addLog(ActionEvent c) {
         XMLReader reader = new XMLReader();
-        switchSceneAddLog(reader.getPath("editlog"));
+        switchSceneAddLog(reader.getPath("addlog"));
     }
 
     public void removeLog(ActionEvent c) {
@@ -145,8 +145,10 @@ public class TourInfosController implements TourObserver, Initializable {
             this.length.setText("");
             this.description.setText("");
         } else {
-            if (Files.exists(Paths.get(currentTour.getImage()))) {
-                File imgFile = new File(currentTour.getImage());
+            String imgPath = new XMLReader().getFullPath("image") + currentTour.getImage() + ".jpg";
+            logger.warn(imgPath);
+            if (Files.exists(Paths.get(imgPath))) {
+                File imgFile = new File(imgPath);
                 this.image.setImage(new Image(imgFile.toURI().toString()));
             } else {
                 this.image.setImage(null);

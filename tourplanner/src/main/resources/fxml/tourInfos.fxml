@@ -243,7 +243,7 @@
                                                             <Insets bottom="5.0" left="3.0" right="3.0" top="5.0" />
                                                         </HBox.margin>
                                                     </Button>
-                                                    <Button mnemonicParsing="false" onAction="#editLog" prefHeight="25.0" prefWidth="25.0" text="*">
+                                                    <Button mnemonicParsing="false" onAction="#editLog" prefHeight="25.0" prefWidth="25.0" text="[]">
                                                         <HBox.margin>
                                                             <Insets bottom="5.0" left="3.0" right="15.0" top="5.0" />
                                                         </HBox.margin>

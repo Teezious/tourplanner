@@ -62,7 +62,7 @@
                         <Insets left="3.0" right="3.0" top="2.0" />
                      </HBox.margin>
                         </Button>
-                        <Button id="cp_tour_btn" fx:id="EditTourBtn" alignment="CENTER" mnemonicParsing="false" onAction="#editTour" prefHeight="25.0" prefWidth="25.0" text="[]" textAlignment="CENTER">
+                        <Button id="edit_tour_btn" fx:id="EditTourBtn" alignment="CENTER" mnemonicParsing="false" onAction="#editTour" prefHeight="25.0" prefWidth="25.0" text="[]" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets left="3.0" right="3.0" top="2.0" />
                      </HBox.margin>

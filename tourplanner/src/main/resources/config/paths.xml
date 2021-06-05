@@ -10,4 +10,5 @@
     <addtour>/fxml/addTour.fxml</addtour>
     <edittour>/fxml/editTour.fxml</edittour>
     <report>/resources/report/</report>
+    <imageAbsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/img/</imageAbsolute>
 </paths>

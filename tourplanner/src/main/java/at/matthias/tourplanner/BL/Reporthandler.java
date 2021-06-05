@@ -21,6 +21,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,30 +46,36 @@ public class Reporthandler {
         if (t != null) {
             tour = t;
             logs = new Loghandler().get(tour.getId());
-            String path = new XMLReader().getPath("report") + tour.getName() + tour.getId() + ".pdf";
+            String subPath = new XMLReader().getFullPath("report");
+            String path = subPath + tour.getName() + tour.getId() + ".pdf";
             try {
                 logger.info("Creating document...");
                 fontBold = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
                 font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
                 PdfDocument pdf = new PdfDocument(new PdfWriter(path));
-                Document doc = new Document(pdf);
-                addTitlePage(doc);
-                addImage(doc);
-                addTourData(doc);
-                if (logs != null && !logs.isEmpty()) {
-                    doc.add(new AreaBreak());
-                    addSpeed(doc);
-                    addTime(doc);
-                    addBreaks(doc);
-                    doc.add(new AreaBreak());
-                    doc.add(chartToImg(Charthandler.generateActivityChart(logs)));
-                    doc.add(new AreaBreak());
-                    doc.add(chartToImg(Charthandler.generateWeatherChart(logs)));
-                    doc.add(new AreaBreak());
-                    doc.add(chartToImg(Charthandler.generateDegreesChart(logs)));
-                }
+                if (pdf != null) {
+                    Document doc = new Document(pdf);
+                    if (doc != null) {
 
-                doc.close();
+                        addTitlePage(doc);
+                        addImage(doc);
+                        addTourData(doc);
+                        if (logs != null && !logs.isEmpty()) {
+                            doc.add(new AreaBreak());
+                            addSpeed(doc);
+                            addTime(doc);
+                            addBreaks(doc);
+                            doc.add(new AreaBreak());
+                            doc.add(chartToImg(Charthandler.generateActivityChart(logs)));
+                            doc.add(new AreaBreak());
+                            doc.add(chartToImg(Charthandler.generateWeatherChart(logs)));
+                            doc.add(new AreaBreak());
+                            doc.add(chartToImg(Charthandler.generateDegreesChart(logs)));
+                        }
+
+                        doc.close();
+                    }
+                }
             } catch (Exception e) {
                 logger.error("Error creating PDF file! " + e);
             }
@@ -86,11 +94,13 @@ public class Reporthandler {
 
     private static void addImage(Document doc) throws MalformedURLException {
         logger.info("Adding Map image");
-        String imageFile = tour.getImage();
-        ImageData data = ImageDataFactory.create(imageFile);
-        Image img = new Image(data);
-        doc.add(img);
-        doc.add(new Paragraph(" "));
+        String imgPath = new XMLReader().getFullPath("image") + tour.getImage() + ".jpg";
+        if (Files.exists(Paths.get(imgPath))) {
+            ImageData data = ImageDataFactory.create(imgPath);
+            Image img = new Image(data);
+            doc.add(img);
+            doc.add(new Paragraph(" "));
+        }
     }
 
     private static void addTourData(Document doc) {
@@ -98,6 +108,7 @@ public class Reporthandler {
         doc.add(new Paragraph("Name: " + tour.getName()).setFont(font).setFontSize(14));
         doc.add(new Paragraph("Start: " + tour.getStart()).setFont(font).setFontSize(14));
         doc.add(new Paragraph("End: " + tour.getEnd()).setFont(font).setFontSize(14));
+        doc.add(new Paragraph("Distance: " + tour.getDescription()).setFont(font).setFontSize(14));
         doc.add(new Paragraph("Description: " + tour.getDescription()).setFont(font).setFontSize(14));
         doc.add(new Paragraph(" "));
     }

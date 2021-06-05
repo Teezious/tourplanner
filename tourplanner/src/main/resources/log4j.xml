@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
-<log4j:configuration debug="true"
+<log4j:configuration debug="false"
     xmlns:log4j='http://jakarta.apache.org/log4j/'>
     <appender name="console" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.PatternLayout">
@@ -12,13 +12,12 @@
         <param name="maxFileSize" value="10KB" />
         <param name="maxBackupIndex" value="5" />
         <param name="file" value="${logFilename}_tourplanner.log" />
-        <param name="DatePattern" value=".yyyy-MM-dd" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{yyyy-MMM-dd HH:mm:ss,SSS} [%t] %c %x%n  %-5p %m%n" />
         </layout>
     </appender>
     <root>
-        <level value="DEBUG" />
+        <level value="INFO" />
         <appender-ref ref="console" />
         <appender-ref ref="file" />
     </root>

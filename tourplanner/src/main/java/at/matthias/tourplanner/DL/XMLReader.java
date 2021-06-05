@@ -33,50 +33,84 @@ public class XMLReader {
     }
 
     public String readXMLElement(String path, String element) {
-        if (path.contains("file:")) {
-            String[] cut = path.split(":");
-            path = cut[1];
-        }
         String result = null;
-        File file = new File(path);
-        logger.info("reading new XMLelement");
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder db = factory.newDocumentBuilder();
-            Document document = db.parse(file);
-            result = document.getElementsByTagName(element).item(0).getTextContent();
+        if (path != null && element != null) {
+            if (path.contains("file:")) {
+                String[] cut = path.split(":");
+                path = cut[1];
+            }
 
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            logger.error("Error reading XMLELement!" + e);
+            File file = new File(path);
+            logger.info("reading new XMLelement");
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            try {
+                DocumentBuilder db = factory.newDocumentBuilder();
+                Document document = db.parse(file);
+                result = document.getElementsByTagName(element).item(0).getTextContent();
+
+            } catch (ParserConfigurationException | SAXException | IOException e) {
+                logger.error("Error reading XMLELement!" + e);
+            }
         }
         return result;
     }
 
-    public String getPath(String element) {
-        String path = this.getClass().getResource("/config/paths.xml").toString();
+    public String getFullPath(String element) {
         String fullPath = null;
-        if (path.contains("file:")) {
-            String[] cut = path.split(":");
-            path = cut[1];
-        }
-        String result = null;
-        File file = new File(path);
-        logger.info("reading new XMLelement");
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder db = factory.newDocumentBuilder();
-            Document document = db.parse(file);
-            result = document.getElementsByTagName(element).item(0).getTextContent();
+        if (element != null) {
+            String path = this.getClass().getResource("/config/paths.xml").toString();
 
-            fullPath = this.getClass().getResource(result).toString();
-            if (fullPath.contains("file:")) {
-                String[] cut = fullPath.split(":");
-                fullPath = cut[1];
+            if (path.contains("file:")) {
+                String[] cut = path.split(":");
+                path = cut[1];
+            }
+            String result = null;
+            File file = new File(path);
+            logger.info("reading new XMLelement");
+            if (file != null) {
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                try {
+                    DocumentBuilder db = factory.newDocumentBuilder();
+                    Document document = db.parse(file);
+                    result = document.getElementsByTagName(element).item(0).getTextContent();
+
+                    fullPath = this.getClass().getResource(result).toString();
+                    if (fullPath.contains("file:")) {
+                        String[] cut = fullPath.split(":");
+                        fullPath = cut[1];
+                    }
+
+                } catch (ParserConfigurationException | SAXException | IOException e) {
+                    logger.error("Error reading XMLELement!" + e);
+                }
+            }
+        }
+
+        return fullPath;
+    }
+    public String getPath(String element) {
+        String result = null;
+        if (element != null) {
+            String path = this.getClass().getResource("/config/paths.xml").toString();
+            if (path.contains("file:")) {
+                String[] cut = path.split(":");
+                path = cut[1];
             }
 
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            logger.error("Error reading XMLELement!" + e);
+            File file = new File(path);
+            logger.info("reading new XMLelement");
+            if (file != null) {
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                try {
+                    DocumentBuilder db = factory.newDocumentBuilder();
+                    Document document = db.parse(file);
+                    result = document.getElementsByTagName(element).item(0).getTextContent();
+                } catch (ParserConfigurationException | SAXException | IOException e) {
+                    logger.error("Error reading XMLELement!" + e);
+                }
+            }
         }
-        return fullPath;
+
+        return result;
     }
 }

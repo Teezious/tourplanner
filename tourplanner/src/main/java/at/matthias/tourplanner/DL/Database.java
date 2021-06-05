@@ -20,7 +20,7 @@ public class Database {
 
     private static void initConnection() {
         XMLReader reader = new XMLReader();
-        Map<String, String> config = reader.readDbConfig(reader.getPath("dbaccess"));
+        Map<String, String> config = reader.readDbConfig(reader.getFullPath("dbaccess"));
         if (true) {
             String dburl = config.get("dburl");
             String dbname = config.get("dbname");
@@ -44,7 +44,7 @@ public class Database {
             try (Statement stmt = conn.createStatement()) {
                 logger.info("Creating tables...");
                 XMLReader reader = new XMLReader();
-                String path = reader.getPath("sqlcreate");
+                String path = reader.getFullPath("sqlcreate");
                 String sqlCreate = FileHandler.read(path);
                 if (sqlCreate != null) {
                     stmt.executeUpdate(sqlCreate);

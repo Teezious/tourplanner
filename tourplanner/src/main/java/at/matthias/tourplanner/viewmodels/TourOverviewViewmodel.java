@@ -22,6 +22,16 @@ public class TourOverviewViewmodel implements SearchObserver {
         logger.info("initializing TourOverviewViewmodel");
     }
 
+    public void makeFavorite() {
+        logger.info("New favorite Tour");
+        if (currentTour != null) {
+            Tourhandler th = new Tourhandler();
+            th.makeFavorite(currentTour.getId());
+        } else {
+            logger.info("Select Tour to make favorite");
+        }
+    }
+
     public void filterList(String search) {
 
         Tourhandler th = new Tourhandler();
