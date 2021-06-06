@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
-<?import javafx.collections.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.* ?>
-<?import javafx.scene.layout.* ?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-    xmlns="http://javafx.com/javafx/15.0.2"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.EditLogController">
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.EditLogController">
     <columnConstraints>
         <ColumnConstraints />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -34,68 +27,68 @@
         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
     </padding>
     <children>
-        <VBox prefHeight="309.0" prefWidth="500.0" GridPane.columnIndex="1">
+        <VBox prefHeight="309.0" prefWidth="500.0" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES">
             <children>
-                <HBox>
+                <HBox VBox.vgrow="SOMETIMES">
                     <children>
                         <Label prefHeight="18.0" prefWidth="65.0" text="Date: " />
                         <DatePicker fx:id="date" />
                     </children>
                 </HBox>
-                <HBox>
+                <HBox VBox.vgrow="SOMETIMES">
                     <children>
                         <Label prefHeight="18.0" prefWidth="65.0" text="Time: " />
                         <Spinner fx:id="time">
                             <valueFactory>
-                                <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="600"/>
+                                <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="60" max="1200" min="0" />
                             </valueFactory>
                         </Spinner>
                     </children>
 
                 </HBox>
-                <HBox>
+                <HBox VBox.vgrow="SOMETIMES">
                     <children>
                         <Label prefHeight="18.0" prefWidth="65.0" text="Distance: " />
 
                         <Spinner fx:id="distance">
                             <valueFactory>
-                                <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="300"/>
+                                <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="60" max="1200" min="0" />
                             </valueFactory>
                         </Spinner>
 
                     </children>
                 </HBox>
-                <HBox>
+                <HBox VBox.vgrow="SOMETIMES">
                     <children>
                         <Label prefHeight="18.0" prefWidth="65.0" text="Rating: " />
                         <Spinner fx:id="rating">
                             <valueFactory>
-                                <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10"/>
+                                <SpinnerValueFactory.IntegerSpinnerValueFactory max="10" min="0" />
                             </valueFactory>
                         </Spinner>
                     </children>
                 </HBox>
-                <HBox>
+                <HBox VBox.vgrow="SOMETIMES">
                     <children>
                         <Label prefHeight="18.0" prefWidth="65.0" text="Breaks: " />
                         <Spinner fx:id="breaks">
                             <valueFactory>
-                                <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10"/>
+                                <SpinnerValueFactory.IntegerSpinnerValueFactory max="10" min="0" />
                             </valueFactory>
                         </Spinner>
                     </children>
                 </HBox>
-                <HBox>
+                <HBox VBox.vgrow="SOMETIMES">
                     <children>
                         <Label prefHeight="18.0" prefWidth="65.0" text="Degrees: " />
                         <Spinner fx:id="degrees">
                             <valueFactory>
-                                <SpinnerValueFactory.IntegerSpinnerValueFactory min="-100" max="50"/>
+                                <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="15" max="50" min="-100" />
                             </valueFactory>
                         </Spinner>
                     </children>
                 </HBox>
-                <HBox>
+                <HBox VBox.vgrow="SOMETIMES">
                     <children>
                         <Label prefHeight="18.0" prefWidth="65.0" text="Weather: " />
                         <ChoiceBox fx:id="weather" prefWidth="150.0" value="Sunny">
@@ -115,7 +108,7 @@
 
                     </children>
                 </HBox>
-                <HBox>
+                <HBox VBox.vgrow="SOMETIMES">
                     <children>
                         <Label prefHeight="18.0" prefWidth="65.0" text="Activity: " />
                         <ChoiceBox fx:id="activity" prefWidth="150.0" value="Running">
@@ -134,7 +127,7 @@
                     </children>
                 </HBox>
 
-                <HBox alignment="CENTER" prefHeight="37.0" prefWidth="485.0">
+                <HBox alignment="CENTER" prefHeight="37.0" prefWidth="485.0" VBox.vgrow="SOMETIMES">
                     <children>
                         <Button mnemonicParsing="false" onAction="#save" text="Save" />
                     </children>

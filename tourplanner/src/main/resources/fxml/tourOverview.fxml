@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -12,72 +11,69 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="182.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.TourOverviewController">
+<GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="300.0" minWidth="150.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.TourOverviewController">
+   <columnConstraints>
+      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="170.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="50.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="200.0" vgrow="ALWAYS" />
+   </rowConstraints>
    <children>
-      <GridPane alignment="CENTER" layoutX="66.0" layoutY="-26.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="312.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="0.0" prefWidth="124.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="366.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="366.0" minHeight="10.0" prefHeight="265.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <HBox alignment="TOP_CENTER" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
          <children>
-                  <HBox prefHeight="47.0" prefWidth="132.0">
-                     <children>
-                        <Label id="tour_label" alignment="CENTER" graphicTextGap="2.0" prefHeight="25.0" prefWidth="127.0" text="Tours">
-                           <HBox.margin>
-                              <Insets bottom="3.0" left="1.0" right="1.0" top="3.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
-               <GridPane.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </GridPane.margin>
-                  </HBox>
-                  <VBox fillWidth="false" prefHeight="167.0" prefWidth="132.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="2147483647">
-               <children>
-                        <ListView fx:id="tourList" onMouseClicked="#selectTour" prefHeight="248.0" prefWidth="132.0">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin></ListView>
-               </children>
-               <GridPane.margin>
-                  <Insets bottom="14.0" top="8.0" />
-               </GridPane.margin>
-                  </VBox>
-            <HBox prefHeight="45.0" prefWidth="132.0" GridPane.rowIndex="1">
-               <children>
-                        <Button id="add_tour_btn" fx:id="AddTourBtn" alignment="CENTER" mnemonicParsing="false" onAction="#addTour" text="+">
-                     <HBox.margin>
-                        <Insets left="3.0" right="3.0" top="2.0" />
-                     </HBox.margin>
-                        </Button>
-                        <Button id="rem_tour_btn" fx:id="RemoveTourBtn" mnemonicParsing="false" onAction="#removeTour" prefHeight="25.0" prefWidth="25.0" text="-" textAlignment="CENTER">
-                     <HBox.margin>
-                        <Insets left="3.0" right="3.0" top="2.0" />
-                     </HBox.margin>
-                        </Button>
-                        <Button id="edit_tour_btn" fx:id="EditTourBtn" alignment="CENTER" mnemonicParsing="false" onAction="#editTour" prefHeight="25.0" prefWidth="25.0" text="[]" textAlignment="CENTER">
-                     <HBox.margin>
-                        <Insets left="3.0" right="3.0" top="2.0" />
-                     </HBox.margin>
-                        </Button>
-                <Button mnemonicParsing="false" onAction="#makeFavorite" text="#">
-                     <HBox.margin>
-                        <Insets left="3.0" right="3.0" top="2.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
+            <Label id="tour_label" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="2.0" prefHeight="22.0" prefWidth="130.0" text="Tours" HBox.hgrow="SOMETIMES">
+               <HBox.margin>
+                  <Insets bottom="3.0" left="1.0" right="1.0" top="3.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
          </children>
-         <padding>
-            <Insets bottom="5.0" left="3.0" right="3.0" top="5.0" />
-         </padding>
-      </GridPane>
+         <GridPane.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </GridPane.margin>
+      </HBox>
+      <VBox alignment="BOTTOM_CENTER" fillWidth="false" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <children>
+            <ListView fx:id="tourList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="150.0" minWidth="150.0" onMouseClicked="#selectTour" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </ListView>
+         </children>
+         <GridPane.margin>
+            <Insets bottom="14.0" top="8.0" />
+         </GridPane.margin>
+      </VBox>
+      <HBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+         <children>
+            <Button id="add_tour_btn" fx:id="AddTourBtn" alignment="CENTER" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#addTour" text="+">
+               <HBox.margin>
+                  <Insets left="3.0" right="3.0" top="2.0" />
+               </HBox.margin>
+            </Button>
+            <Button id="rem_tour_btn" fx:id="RemoveTourBtn" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#removeTour" text="-" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets left="3.0" right="3.0" top="2.0" />
+               </HBox.margin>
+            </Button>
+            <Button id="edit_tour_btn" fx:id="EditTourBtn" alignment="CENTER" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#editTour" text="[]" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets left="3.0" right="3.0" top="2.0" />
+               </HBox.margin>
+            </Button>
+            <Button minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#makeFavorite" text="#">
+               <HBox.margin>
+                  <Insets left="3.0" right="3.0" top="2.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
-</AnchorPane>
+   <padding>
+      <Insets bottom="5.0" left="3.0" right="3.0" top="5.0" />
+   </padding>
+</GridPane>
