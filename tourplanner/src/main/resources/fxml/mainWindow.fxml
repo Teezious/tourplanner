@@ -16,6 +16,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#importTour" text="Import" />
                   <MenuItem mnemonicParsing="false" onAction="#exportTour" text="Export" />
                   <MenuItem mnemonicParsing="false" onAction="#fileReport" text="Report" />
+                  <MenuItem mnemonicParsing="false" onAction="#fileSummary" text="Summary"/>
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">

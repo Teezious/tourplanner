@@ -6,17 +6,21 @@ import at.matthias.tourplanner.models.TourItem;
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.colors.DeviceGray;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.AreaBreak;
+import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -42,45 +46,89 @@ public class Reporthandler {
     throw new IllegalArgumentException("Utility Class");
   }
 
-  public static void file(TourItem t) {
-    if (t != null) {
-      tour = t;
-      logs = new Loghandler().get(tour.getId());
-      String subPath = new XMLReader().getFullPath("report");
-      String path = subPath + tour.getName() + tour.getId() + ".pdf";
-
-      try {
-        logger.info("Creating document...");
-        fontBold = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
-        font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
-        PdfDocument pdf = new PdfDocument(new PdfWriter(path));
-
-        Document doc = new Document(pdf);
-
-        addTitlePage(doc);
-        addImage(doc);
-        addTourData(doc);
-        if (logs != null && !logs.isEmpty()) {
-          doc.add(new AreaBreak());
-          addSpeed(doc);
-          addTime(doc);
-          addBreaks(doc);
-          doc.add(new AreaBreak());
-          doc.add(chartToImg(Charthandler.generateActivityChart(logs)));
-          doc.add(new AreaBreak());
-          doc.add(chartToImg(Charthandler.generateWeatherChart(logs)));
-          doc.add(new AreaBreak());
-          doc.add(chartToImg(Charthandler.generateDegreesChart(logs)));
-
-          doc.close();
+  public static void fileSummary(String path, TourItem t) {
+    if (t != null && path != null) {
+      if (Files.exists(Paths.get(path))) {
+        if (!path.endsWith("/")) {
+          logger.info("Does not end with /");
+          path = path + "/";
         }
-      }
+        path = path + t.getName() + "_summary.pdf";
+        tour = t;
+        logs = new Loghandler().get(tour.getId());
 
-      catch (Exception e) {
-        logger.error("Error creating PDF file! " + e);
+        try {
+          logger.info("Creating document...");
+          fontBold = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
+          font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
+          PdfDocument pdf = new PdfDocument(new PdfWriter(path));
+
+          Document doc = new Document(pdf);
+
+          addTitlePage(doc);
+          addImage(doc);
+          addTourData(doc);
+          if (logs != null && !logs.isEmpty()) {
+            doc.add(new AreaBreak());
+            addSpeed(doc);
+            addTime(doc);
+            addBreaks(doc);
+            doc.add(new AreaBreak());
+            doc.add(chartToImg(Charthandler.generateActivityChart(logs)));
+            doc.add(new AreaBreak());
+            doc.add(chartToImg(Charthandler.generateWeatherChart(logs)));
+            doc.add(new AreaBreak());
+            doc.add(chartToImg(Charthandler.generateDegreesChart(logs)));
+
+            doc.close();
+          }
+        }
+
+        catch (Exception e) {
+          logger.error("Error creating PDF file! " + e);
+        }
+      } else {
+        logger.error("Error creating PDF! TourItem is null");
       }
-    } else {
-      logger.error("Error creating PDF! TourItem is null");
+    }
+  }
+
+  public static void fileReport(String path, TourItem t) {
+    if (t != null && path != null) {
+      if (Files.exists(Paths.get(path))) {
+        if (!path.endsWith("/")) {
+          logger.info("Does not end with /");
+          path = path + "/";
+        }
+        path = path + t.getName() + "_report.pdf";
+        tour = t;
+        logs = new Loghandler().get(tour.getId());
+
+        try {
+          logger.info("Creating document...");
+          fontBold = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
+          font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
+          PdfDocument pdf = new PdfDocument(new PdfWriter(path));
+
+          Document doc = new Document(pdf);
+
+          addTitlePage(doc);
+          addImage(doc);
+          addTourData(doc);
+          if (logs != null && !logs.isEmpty()) {
+            doc.add(new AreaBreak());
+            addLogData(doc);
+
+            doc.close();
+          }
+        }
+
+        catch (Exception e) {
+          logger.error("Error creating PDF file! " + e);
+        }
+      } else {
+        logger.error("Error creating PDF! TourItem is null");
+      }
     }
   }
 
@@ -211,5 +259,41 @@ public class Reporthandler {
     byte[] byteArray = bas.toByteArray();
     ImageData data = ImageDataFactory.create(byteArray);
     return new Image(data);
+  }
+
+  public static void addLogData(Document doc) {
+    Table table = new Table(UnitValue.createPercentArray(9)).useAllAvailableWidth();
+    Cell cell = new Cell(1, 3)
+                    .add(new Paragraph("Log Table"))
+                    .setFont(font)
+                    .setFontSize(13)
+                    .setFontColor(DeviceGray.WHITE)
+                    .setBackgroundColor(DeviceGray.BLACK)
+                    .setTextAlignment(TextAlignment.CENTER);
+    table.addHeaderCell(cell); // Table header
+
+    table.addCell("Date");
+    table.addCell("Time");
+    table.addCell("Distance in km");
+    table.addCell("Rating");
+    table.addCell("Speed");
+    table.addCell("Breaks");
+    table.addCell("Degrees");
+    table.addCell("Weather");
+    table.addCell("Activity");
+
+    for (LogItem log : logs) {
+      table.addCell(new Cell(1, 1).add(new Paragraph(log.getDate().toString())));
+      table.addCell(new Cell(1, 1).add(new Paragraph(Integer.toString(log.getTime()))));
+      table.addCell(new Cell(1, 1).add(new Paragraph(Integer.toString(log.getDistance()))));
+      table.addCell(new Cell(1, 1).add(new Paragraph(Float.toString(log.getRating()))));
+      table.addCell(new Cell(1, 1).add(new Paragraph(Float.toString(log.getSpeed()))));
+      table.addCell(new Cell(1, 1).add(new Paragraph(Integer.toString(log.getBreaks()))));
+      table.addCell(new Cell(1, 1).add(new Paragraph(Integer.toString(log.getDegrees()))));
+      table.addCell(new Cell(1, 1).add(new Paragraph(log.getWeather())));
+      table.addCell(new Cell(1, 1).add(new Paragraph(log.getActivity())));
+    }
+
+    doc.add(table);
   }
 }

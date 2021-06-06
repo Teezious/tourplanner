@@ -22,7 +22,7 @@
 | 03.06.2021 | 4h   |
 | 04.06.2021 | 6h   |
 | 05.06.2021 | 5h   |
-| 06.05.2021 | 6h   |
+| 06.05.2021 | 10h  |
 
 
 ### Technical Steps
@@ -176,6 +176,11 @@
     - added new controller for import export
     - added new functions in filehandler for import export
     - added new fxml for import export
+    - simplified fxml -> GUI now adaptive to size change
+    - created summary report option
+    - simplified main controller
+    - path for reports can now be specified
+
 
 
 

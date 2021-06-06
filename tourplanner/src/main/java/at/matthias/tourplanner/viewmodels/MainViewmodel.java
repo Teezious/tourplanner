@@ -19,9 +19,6 @@ public class MainViewmodel implements TourObserver {
     this.tovm.addObserver(this);
     this.tivm.addSearchObserver(tovm);
   }
-  public void fileReport() {
-    Reporthandler.file(currentTour);
-  }
 
   @Override
   public void updateCurrentTour(TourItem tour) {
