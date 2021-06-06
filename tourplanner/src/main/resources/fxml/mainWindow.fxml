@@ -12,12 +12,12 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/15.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.matthias.tourplanner.views.MainController">
    <children>
-      <MenuBar prefHeight="29.0" prefWidth="1055.0" GridPane.columnSpan="2">
+      <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1055.0" GridPane.columnSpan="2">
          <menus>
             <Menu mnemonicParsing="false" text="Tour">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Import" />
-                  <MenuItem mnemonicParsing="false" text="Export" />
+                  <MenuItem mnemonicParsing="false" text="Import" onAction="#importTour"/>
+                  <MenuItem mnemonicParsing="false" text="Export" onAction="#exportTour"/>
                   <MenuItem mnemonicParsing="false" text="Report" onAction="#fileReport" />
                </items>
             </Menu>

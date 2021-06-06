@@ -11,47 +11,46 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.apache.log4j.Logger;
 public class AddTourController {
-    @FXML private TextField name;
-    @FXML private TextField start;
-    @FXML private TextField end;
-    @FXML private TextArea description;
-    private final AddTourViewmodel atvm;
-    private static final Logger logger = Logger.getLogger(AddTourController.class);
+  @FXML private TextField name;
+  @FXML private TextField start;
+  @FXML private TextField end;
+  @FXML private TextArea description;
+  private final AddTourViewmodel atvm;
+  private static final Logger logger = Logger.getLogger(AddTourController.class);
 
-    public AddTourController() {
-        logger.info("initializing AddTourController");
-        atvm = new AddTourViewmodel();
+  public AddTourController() {
+    logger.info("initializing AddTourController");
+    atvm = new AddTourViewmodel();
+  }
+
+  public void createTour(ActionEvent c) {
+    if (name.getText() != null && start.getText() != null && end.getText() != null) {
+      atvm.add(name.getText(), start.getText(), end.getText(), description.getText());
+
+      XMLReader reader = new XMLReader();
+      switchScene(reader.getPath("mainwindow"));
+
+    } else {
+      logger.info("Some Fields seem to be empty! Adding Tour unsuccesful");
     }
+    // TO DO else error msg?
+  }
 
-    public void createTour(ActionEvent c) {
+  public void cancelTour(ActionEvent c) {
+    XMLReader reader = new XMLReader();
+    switchScene(reader.getPath("mainwindow"));
+  }
 
-        if (name.getText() != null && start.getText() != null && end.getText() != null) {
-            atvm.add(name.getText(), start.getText(), end.getText(), description.getText());
-
-            XMLReader reader = new XMLReader();
-            switchWindow(reader.getPath("mainwindow"));
-
-        } else {
-            logger.info("Some Fields seem to be empty! Adding Tour unsuccesful");
-        }
-        // TO DO else error msg?
+  private void switchScene(String path) {
+    Parent root;
+    logger.info("Switching Scene to MainWindow");
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource(path));
+      root = loader.load();
+      name.getScene().setRoot(root);
+    } catch (IOException e) {
+      logger.error("Error switching to MainWindow" + e);
     }
-
-    public void cancelTour(ActionEvent c) {
-        XMLReader reader = new XMLReader();
-        switchWindow(reader.getPath("mainwindow"));
-    }
-
-    private void switchWindow(String path) {
-        Parent root;
-        logger.info("Switching Scene to MainWindow");
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(path));
-            root = loader.load();
-            name.getScene().setRoot(root);
-        } catch (IOException e) {
-            logger.error("Error switching to MainWindow" + e);
-        }
-    }
+  }
 }

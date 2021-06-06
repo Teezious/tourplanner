@@ -8,7 +8,9 @@
     <editlog>/fxml/editLog.fxml</editlog>
     <mainwindow>/fxml/mainWindow.fxml</mainwindow>
     <addtour>/fxml/addTour.fxml</addtour>
+    <importExport>/fxml/path.fxml</importExport>
     <edittour>/fxml/editTour.fxml</edittour>
-    <report>/report</report>
+    <report>/report/</report>
+    <logs>/logs/</logs>
     <imageAbsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/img/</imageAbsolute>
 </paths>

@@ -22,7 +22,7 @@
 | 03.06.2021 | 4h   |
 | 04.06.2021 | 6h   |
 | 05.06.2021 | 5h   |
-| 06.05.2021 | 3h   |
+| 06.05.2021 | 6h   |
 
 
 ### Technical Steps
@@ -170,7 +170,12 @@
     - added more unit tests
     - slight structural changes
     - when start and endpoint change old map image is now being deleted properlyk
-    - changed image handling to absolute pathe (ugly but the only way i got it to wor)
+    - changed image handling to absolute pathe (ugly but the only way i got it to work)
+    - added export
+    - added import
+    - added new controller for import export
+    - added new functions in filehandler for import export
+    - added new fxml for import export
 
 
 

@@ -1,5 +1,6 @@
 package at.matthias.tourplanner;
 
+import at.matthias.tourplanner.DL.XMLReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javafx.application.Application;
@@ -20,9 +21,6 @@ public class Main extends Application {
   }
 
   public static void main(String[] args) {
-    Date date = new Date();
-    String LogDate = new SimpleDateFormat("dd.MM.yyyy-H:m").format(date);
-    System.setProperty("logFilename", LogDate);
     launch(args);
   }
 }

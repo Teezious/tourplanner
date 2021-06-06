@@ -6,12 +6,14 @@ import at.matthias.tourplanner.models.TourItem;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TourhandlerTest {
+  private static final Logger logger = Logger.getLogger(LoghandlerTest.class);
   public static String imgPath1 = null;
   public static String imgPath2 = null;
   @Test
@@ -92,7 +94,7 @@ public class TourhandlerTest {
     if (imgPath2 != null) {
       assertFalse(Files.exists(Paths.get(imgPath2)));
     } else {
-      System.out.println("Foldimages: Test Failure wrong Path");
+      logger.warn("Foldimages: Test Failure wrong Path");
       assertTrue(false);
     }
   }
@@ -110,7 +112,7 @@ public class TourhandlerTest {
         if (imgPath2 != null && !imgPath2.equals("")) {
           assertTrue(Files.exists(Paths.get(NewImgPath2)) && !NewImgPath2.equals(imgPath2));
         } else {
-          System.out.println("imgPath2 Error: " + imgPath2);
+          logger.warn("imgPath2 Error: " + imgPath2);
           assertTrue(false);
         }
         imgPath2 = NewImgPath2;
@@ -166,9 +168,9 @@ public class TourhandlerTest {
       assertFalse(Files.exists(Paths.get(imgPath2)));
       assertFalse(Files.exists(Paths.get(imgPath1)));
     } else {
-      System.out.println("Mimages: Test Failure wrong Path");
-      System.out.println("imgPath2: " + imgPath2);
-      System.out.println("imgPath1: " + imgPath1);
+      logger.warn("Mimages: Test Failure wrong Path");
+      logger.warn("imgPath2: " + imgPath2);
+      logger.warn("imgPath1: " + imgPath1);
       assertTrue(false);
     }
   }
