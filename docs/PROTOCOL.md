@@ -21,7 +21,8 @@
 | 02.06.2021 | 2h   |
 | 03.06.2021 | 4h   |
 | 04.06.2021 | 6h   |
-| 05.06.2021 | 3h   |
+| 05.06.2021 | 5h   |
+| 06.05.2021 | 3h   |
 
 
 ### Technical Steps
@@ -161,7 +162,15 @@
   - Tasks:
     - added feature to add a favorite tour
     - favorite tour is differently colored in the listview
-   
+    - started adding first unit tests
+- 06.06.2021
+  - Problems:
+    - new problems with image path
+  - Tasks:
+    - added more unit tests
+    - slight structural changes
+    - when start and endpoint change old map image is now being deleted properlyk
+    - changed image handling to absolute pathe (ugly but the only way i got it to wor)
 
 
 

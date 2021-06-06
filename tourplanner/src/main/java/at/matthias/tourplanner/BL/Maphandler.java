@@ -29,7 +29,6 @@ public class Maphandler {
         APIcomm client = new APIcomm();
         var request = createDirectionsURL(start, end);      // TODO Split this
         RouteItem route = client.directionRequest(request); // TODO Split this
-        logger.warn(imagePath + " in requesthandler");
         request = getMapURL(route.getSessionId());
         byte[] byteimg = client.imageRequest(request);
         if (byteimg != null) {
@@ -53,7 +52,7 @@ public class Maphandler {
         return route;
     }
 
-    private URL createDirectionsURL(String start, String end) {
+    public URL createDirectionsURL(String start, String end) {
         URL request = null;
         try {
             request = new URL(this.url + "/directions/v2/route?key=" + this.key + "&from=" + start + "&to=" + end + "&unit=k");
@@ -63,7 +62,7 @@ public class Maphandler {
         return request;
     }
 
-    private URL getMapURL(String sessionID) {
+    public URL getMapURL(String sessionID) {
         URL mapurl = null;
         try {
             mapurl = new URL(this.url + "/staticmap/v5/map?key=" + this.key + "&session=" + sessionID + "&size=600,400");

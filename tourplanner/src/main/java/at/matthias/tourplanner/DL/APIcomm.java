@@ -12,47 +12,46 @@ import java.net.http.HttpResponse;
 import org.apache.log4j.Logger;
 
 public class APIcomm {
-    private static final Logger logger = Logger.getLogger(APIcomm.class);
+  private static final Logger logger = Logger.getLogger(APIcomm.class);
 
-    public RouteItem directionRequest(URL url) {
+  public RouteItem directionRequest(URL url) {
+    try {
+      ObjectMapper om = new ObjectMapper();
+      om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
-        try {
-            ObjectMapper om = new ObjectMapper();
-            om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder(url.toURI()).header("accept", "application/json").build();
-            var response = client.send(request, HttpResponse.BodyHandlers.ofString()).body();
-            RouteItem route = om.readValue(response.substring(9), RouteItem.class); // What TODO here
-            return route;
-        } catch (IOException | URISyntaxException e) {
-            logger.error("Error creating directionRequest!" + e);
-            return null;
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            logger.error("Error creating directionRequest!" + e);
-            return null;
-        }
+      HttpClient client = HttpClient.newHttpClient();
+      HttpRequest request =
+          HttpRequest.newBuilder(url.toURI()).header("accept", "application/json").build();
+      var response = client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+      RouteItem route = om.readValue(response.substring(9), RouteItem.class);
+      return route;
+    } catch (IOException | URISyntaxException e) {
+      logger.error("Error creating directionRequest!" + e);
+      return null;
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      logger.error("Error creating directionRequest!" + e);
+      return null;
     }
+  }
 
-    public byte[] imageRequest(URL url) {
+  public byte[] imageRequest(URL url) {
+    try {
+      HttpClient client = HttpClient.newHttpClient();
+      HttpRequest request =
+          HttpRequest.newBuilder(url.toURI()).header("accept", "image.jpeg").build();
 
-        try {
+      byte[] response = client.send(request, HttpResponse.BodyHandlers.ofByteArray()).body();
 
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder(url.toURI()).header("accept", "image.jpeg").build();
+      return response;
 
-            byte[] response = client.send(request, HttpResponse.BodyHandlers.ofByteArray()).body();
-
-            return response;
-
-        } catch (IOException | URISyntaxException e) {
-            logger.error("Error creating imageRquest!" + e);
-            return new byte[0];
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            logger.error("Error creating imageRquest!" + e);
-            return new byte[0];
-        }
+    } catch (IOException | URISyntaxException e) {
+      logger.error("Error creating imageRquest!" + e);
+      return new byte[0];
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      logger.error("Error creating imageRquest!" + e);
+      return new byte[0];
     }
+  }
 }

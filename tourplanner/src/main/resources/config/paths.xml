@@ -9,6 +9,6 @@
     <mainwindow>/fxml/mainWindow.fxml</mainwindow>
     <addtour>/fxml/addTour.fxml</addtour>
     <edittour>/fxml/editTour.fxml</edittour>
-    <report>/resources/report/</report>
+    <report>/report</report>
     <imageAbsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/img/</imageAbsolute>
 </paths>
