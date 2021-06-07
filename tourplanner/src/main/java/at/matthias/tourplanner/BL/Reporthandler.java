@@ -32,7 +32,6 @@ import java.util.Collections;
 import java.util.List;
 import javax.imageio.ImageIO;
 import org.apache.log4j.Logger;
-import org.apache.log4j.helpers.Loader;
 import org.jfree.chart.JFreeChart;
 
 public class Reporthandler {
