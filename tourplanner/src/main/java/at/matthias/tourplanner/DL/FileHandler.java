@@ -21,8 +21,10 @@ public class FileHandler {
   private FileHandler() {
     throw new IllegalArgumentException("Utility Class");
   }
+  // remove file at specified path
   public static void remove(String path) {
     try {
+      // only remove when file exists
       if (Files.exists(Paths.get(path))) {
         Files.delete(Paths.get(path));
         logger.info("Successfully deleted File");
@@ -33,9 +35,11 @@ public class FileHandler {
       logger.error("Error deleting File" + e);
     }
   }
-
+  // reads a file
+  // specify path to filename
   public static String read(String path) {
     StringBuilder statements = new StringBuilder();
+    // cut "file:" extension to read it
     if (path.contains("file:")) {
       String[] cut = path.split(":");
       path = cut[1];
@@ -53,20 +57,22 @@ public class FileHandler {
     logger.warn("read String is null");
     return null;
   }
-
+  // export a tour
+  // path specifies file where the tour should be saved
   public static void exportTour(String path, TourItem t) {
     logger.info("Export Tour .....");
     try {
+      // only export when directory exists
       if (Files.exists(Paths.get(path))) {
         XmlMapper mapper = new XmlMapper();
-        String xml = mapper.writeValueAsString(t);
+        String xml = mapper.writeValueAsString(t); // turn touritem to string
         if (!path.endsWith("/")) {
           logger.info("Does not end with /");
-          path = path + "/";
+          path = path + "/"; // add slash for filename
         }
         String filepath = path + t.getName() + ".xml";
         File file = new File(filepath);
-        FileWriter fileWriter = new FileWriter(file);
+        FileWriter fileWriter = new FileWriter(file); // write to file
         fileWriter.write(xml);
         fileWriter.close();
       } else {
@@ -77,16 +83,23 @@ public class FileHandler {
     }
   }
 
+  // import a tour
+  // path specifies file where the tour can be found
   public static void importTour(String path) {
     try {
+      // only import when file exists
       if (Files.exists(Paths.get(path))) {
         XmlMapper mapper = new XmlMapper();
         File file = new File(path);
-        String xml = inputStreamToString(new FileInputStream(file));
-        TourItem t = mapper.readValue(xml, TourItem.class);
-        Tourhandler th = new Tourhandler();
-        th.add(t.getName(), t.getStart(), t.getEnd(), t.getDescription());
-
+        String xml = inputStreamToString(new FileInputStream(file)); // open file get stream
+        if (xml != null) {
+          TourItem t = mapper.readValue(xml, TourItem.class); // convert to tour item
+          Tourhandler th = new Tourhandler();
+          if (t != null) {
+            th.add(
+                t.getName(), t.getStart(), t.getEnd(), t.getDescription()); // add tour item to db
+          }
+        }
       } else {
         logger.warn("Import path does not exist");
       }
@@ -94,6 +107,8 @@ public class FileHandler {
       logger.error("Error importing file! " + e);
     }
   }
+
+  // converts a inputstream to a string
   public static String inputStreamToString(InputStream is) throws IOException {
     StringBuilder sb = new StringBuilder();
     String line;

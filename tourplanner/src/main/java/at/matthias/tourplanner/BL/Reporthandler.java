@@ -49,36 +49,40 @@ public class Reporthandler {
   public static void fileSummary(String path, TourItem t) {
     if (t != null && path != null) {
       if (Files.exists(Paths.get(path))) {
+        // only file summary when file exists
         if (!path.endsWith("/")) {
           logger.info("Does not end with /");
-          path = path + "/";
+          path = path + "/"; // add slash to create filename
         }
-        path = path + t.getName() + "_summary.pdf";
+        path = path + t.getName() + "_summary.pdf"; // filename
         tour = t;
-        logs = new Loghandler().get(tour.getId());
+        logs = new Loghandler().getLogByTour(tour.getId()); // get logs associated with tour
 
         try {
           logger.info("Creating document...");
-          fontBold = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
+          fontBold = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD); // define font
           font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
-          PdfDocument pdf = new PdfDocument(new PdfWriter(path));
+          PdfDocument pdf = new PdfDocument(new PdfWriter(path)); // new pdf
 
           Document doc = new Document(pdf);
 
-          addTitlePage(doc);
-          addImage(doc);
-          addTourData(doc);
+          addTitlePage(doc); // adds title
+          addImage(doc); // adds image
+          addTourData(doc); // adds tour data
+
+          // if logs exist add additional infos
           if (logs != null && !logs.isEmpty()) {
-            doc.add(new AreaBreak());
+            doc.add(new AreaBreak()); // page break
             addSpeed(doc);
             addTime(doc);
             addBreaks(doc);
             doc.add(new AreaBreak());
-            doc.add(chartToImg(Charthandler.generateActivityChart(logs)));
+            doc.add(chartToImg(Charthandler.generateActivityChart(logs))); // add Activity pie chart
             doc.add(new AreaBreak());
-            doc.add(chartToImg(Charthandler.generateWeatherChart(logs)));
+            doc.add(chartToImg(Charthandler.generateWeatherChart(logs))); // add Weather pie chart
             doc.add(new AreaBreak());
-            doc.add(chartToImg(Charthandler.generateDegreesChart(logs)));
+            doc.add(chartToImg(
+                Charthandler.generateDegreesChart(logs))); // add Degree Time series chart
 
             doc.close();
           }
@@ -96,27 +100,30 @@ public class Reporthandler {
   public static void fileReport(String path, TourItem t) {
     if (t != null && path != null) {
       if (Files.exists(Paths.get(path))) {
+        // only file summary when file exists
         if (!path.endsWith("/")) {
           logger.info("Does not end with /");
-          path = path + "/";
+          path = path + "/"; // add slash to create filename
         }
         path = path + t.getName() + "_report.pdf";
         tour = t;
-        logs = new Loghandler().get(tour.getId());
+        logs = new Loghandler().getLogByTour(tour.getId());
 
         try {
           logger.info("Creating document...");
-          fontBold = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
+          fontBold = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD); // define font
           font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
-          PdfDocument pdf = new PdfDocument(new PdfWriter(path));
+          PdfDocument pdf = new PdfDocument(new PdfWriter(path)); // new pdf
 
           Document doc = new Document(pdf);
 
-          addTitlePage(doc);
-          addImage(doc);
-          addTourData(doc);
+          addTitlePage(doc); // adds title
+          addImage(doc); // adds image
+          addTourData(doc); // tour data
+
+          // if logs exist add log table
           if (logs != null && !logs.isEmpty()) {
-            doc.add(new AreaBreak());
+            doc.add(new AreaBreak()); // page break
             addLogData(doc);
 
             doc.close();
@@ -134,16 +141,20 @@ public class Reporthandler {
 
   private static void addTitlePage(Document doc) {
     logger.info("Adding Title");
-    Text title = new Text(tour.getName() + " Report").setFont(fontBold).setFontSize(18);
+    Text title =
+        new Text(tour.getName() + " Report").setFont(fontBold).setFontSize(18); // defines title
     Paragraph p = new Paragraph().add(title);
-    p.setTextAlignment(TextAlignment.CENTER);
+    p.setTextAlignment(TextAlignment.CENTER); // centralize
     doc.add(p);
     doc.add(new Paragraph(" "));
   }
 
+  // adds image
   private static void addImage(Document doc) throws MalformedURLException {
     logger.info("Adding Map image");
-    String imgPath = new XMLReader().getPath("imageAbsolute") + tour.getImage() + ".jpg";
+    String imgPath =
+        new XMLReader().getPath("imageAbsolute") + tour.getImage() + ".jpg"; // get image path
+    // if image exist add it
     if (Files.exists(Paths.get(imgPath))) {
       ImageData data = ImageDataFactory.create(imgPath);
       Image img = new Image(data);
@@ -151,7 +162,7 @@ public class Reporthandler {
       doc.add(new Paragraph(" "));
     }
   }
-
+  // sets tour data
   private static void addTourData(Document doc) {
     logger.info("adding Tour Data");
     doc.add(new Paragraph("Name: " + tour.getName()).setFont(font).setFontSize(14));
@@ -162,24 +173,26 @@ public class Reporthandler {
     doc.add(new Paragraph(" "));
   }
 
+  // adds speed data
   private static void addSpeed(Document doc) {
     logger.info("adding Speed Info");
     doc.add(new Paragraph("Speed Stats").setFont(fontBold).setTextAlignment(TextAlignment.CENTER));
     doc.add(new Paragraph(" "));
     List<Float> speed = new ArrayList<>();
     for (LogItem log : logs) {
-      speed.add(log.getSpeed());
+      speed.add(log.getSpeed()); // add all speed to list
     }
-    Float min = Collections.min(speed);
-    Float max = Collections.max(speed);
-    Double avg = speed.stream().mapToDouble(d -> d).average().orElse(0.0);
-    com.itextpdf.layout.element.List list = new com.itextpdf.layout.element.List()
+    Float min = Collections.min(speed); // calculate min
+    Float max = Collections.max(speed); // calculate max
+    Double avg = speed.stream().mapToDouble(d -> d).average().orElse(0.0); // calculate avg
+    com.itextpdf.layout.element.List list = new com.itextpdf.layout.element
+                                                .List() // create new list
                                                 .setSymbolIndent(12)
                                                 .setListSymbol("\u2022")
                                                 .setFont(font)
                                                 .setFontSize(14);
     list.setTextAlignment(TextAlignment.CENTER);
-    ListItem item;
+    ListItem item; // add list item min max and average
     item = new ListItem("Average Speed: " + avg);
     list.add(item);
     item = new ListItem("Maximum Speed: " + max);
@@ -190,23 +203,25 @@ public class Reporthandler {
     doc.add(new Paragraph(" "));
   }
 
+  // adds time data
   private static void addTime(Document doc) {
     logger.info("adding Time Info");
     doc.add(new Paragraph("Time Stats").setFont(fontBold).setTextAlignment(TextAlignment.CENTER));
     doc.add(new Paragraph(" "));
     List<Integer> time = new ArrayList<>();
     for (LogItem log : logs) {
-      time.add(log.getTime());
+      time.add(log.getTime()); // add all time to list
     }
-    Integer min = Collections.min(time);
-    Integer max = Collections.max(time);
-    Double avg = time.stream().mapToDouble(d -> d).average().orElse(0.0);
-    com.itextpdf.layout.element.List list = new com.itextpdf.layout.element.List()
+    Integer min = Collections.min(time); // calculate min
+    Integer max = Collections.max(time); // calculate max
+    Double avg = time.stream().mapToDouble(d -> d).average().orElse(0.0); // calculate avg
+    com.itextpdf.layout.element.List list = new com.itextpdf.layout.element
+                                                .List() // create new list
                                                 .setSymbolIndent(12)
                                                 .setListSymbol("\u2022")
                                                 .setFont(font)
                                                 .setFontSize(14);
-    ListItem item;
+    ListItem item; // add new ListItems to list
     list.setTextAlignment(TextAlignment.CENTER);
     item = new ListItem("Average Time (min): " + avg);
     list.add(item);
@@ -217,25 +232,28 @@ public class Reporthandler {
     doc.add(list);
     doc.add(new Paragraph(" "));
   }
-
+  // add amount break info
   private static void addBreaks(Document doc) {
     logger.info("adding Break Info");
     doc.add(new Paragraph("Break Stats").setFont(fontBold).setTextAlignment(TextAlignment.CENTER));
     doc.add(new Paragraph(" "));
     List<Integer> breaks = new ArrayList<>();
+
     for (LogItem log : logs) {
-      breaks.add(log.getBreaks());
+      breaks.add(log.getBreaks()); // add all breaks to list
     }
-    Integer min = Collections.min(breaks);
-    Integer max = Collections.max(breaks);
-    Double avg = breaks.stream().mapToDouble(d -> d).average().orElse(0.0);
-    com.itextpdf.layout.element.List list = new com.itextpdf.layout.element.List()
+
+    Integer min = Collections.min(breaks); // calculate min
+    Integer max = Collections.max(breaks); // calculate max
+    Double avg = breaks.stream().mapToDouble(d -> d).average().orElse(0.0); // calculate avg
+    com.itextpdf.layout.element.List list = new com.itextpdf.layout.element
+                                                .List() // new List
                                                 .setSymbolIndent(12)
                                                 .setListSymbol("\u2022")
                                                 .setFont(font)
                                                 .setFontSize(14);
     list.setTextAlignment(TextAlignment.CENTER);
-    ListItem item;
+    ListItem item; // add list items
     item = new ListItem("Average Breaks: " + avg);
     list.add(item);
     item = new ListItem("Maximum Breaks: " + max);
@@ -246,6 +264,7 @@ public class Reporthandler {
     doc.add(new Paragraph(" "));
   }
 
+  // Converts a JFreeChart to Img
   public static Image chartToImg(JFreeChart chart) {
     logger.info("Converting chart to IMG");
     BufferedImage objBufferedImage = chart.createBufferedImage(600, 800);
@@ -261,6 +280,7 @@ public class Reporthandler {
     return new Image(data);
   }
 
+  // adds a Log Table
   public static void addLogData(Document doc) {
     Table table = new Table(UnitValue.createPercentArray(9)).useAllAvailableWidth();
     Cell cell = new Cell(1, 3)
@@ -270,8 +290,9 @@ public class Reporthandler {
                     .setFontColor(DeviceGray.WHITE)
                     .setBackgroundColor(DeviceGray.BLACK)
                     .setTextAlignment(TextAlignment.CENTER);
-    table.addHeaderCell(cell); // Table header
+    table.addHeaderCell(cell); // add Table header
 
+    // Define Cells for Log
     table.addCell("Date");
     table.addCell("Time");
     table.addCell("Distance in km");
@@ -282,6 +303,7 @@ public class Reporthandler {
     table.addCell("Weather");
     table.addCell("Activity");
 
+    // for each log add its information to a cell
     for (LogItem log : logs) {
       table.addCell(new Cell(1, 1).add(new Paragraph(log.getDate().toString())));
       table.addCell(new Cell(1, 1).add(new Paragraph(Integer.toString(log.getTime()))));
@@ -294,6 +316,6 @@ public class Reporthandler {
       table.addCell(new Cell(1, 1).add(new Paragraph(log.getActivity())));
     }
 
-    doc.add(table);
+    doc.add(table); // add doc
   }
 }

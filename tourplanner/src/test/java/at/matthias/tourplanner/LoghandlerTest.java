@@ -35,7 +35,7 @@ public class LoghandlerTest {
         LocalDate ld = LocalDate.of(2020, Month.JANUARY, 8);
         LogItem l = new LogItem(ld, 60, 90, 7, 1, 27, "SUNNY", "Testing1");
         lh.add(t.getId(), l);
-        List<LogItem> ll = lh.get(t.getId());
+        List<LogItem> ll = lh.getLogByTour(t.getId());
         for (LogItem li : ll) {
           assertEquals("Testing1", li.getActivity());
           logId1 = li.getId();
@@ -62,7 +62,7 @@ public class LoghandlerTest {
         LocalDate ld = LocalDate.of(2020, Month.JANUARY, 8);
         LogItem l = new LogItem(ld, 60, 90, 7, 1, 27, "SUNNY", "Testing2");
         lh.add(t.getId(), l);
-        List<LogItem> ll = lh.get(t.getId());
+        List<LogItem> ll = lh.getLogByTour(t.getId());
         for (LogItem li : ll) {
           assertEquals("Testing2", li.getActivity());
           logId2 = li.getId();
@@ -75,7 +75,7 @@ public class LoghandlerTest {
   @Test
   public void CEditTest() {
     Loghandler lh = new Loghandler();
-    List<LogItem> ll = lh.get(tourId1);
+    List<LogItem> ll = lh.getLogByTour(tourId1);
     LogItem l = null;
     for (LogItem li : ll) {
       if (li.getActivity().equals("Testing1")) {
@@ -87,7 +87,7 @@ public class LoghandlerTest {
       l.setActivity("Testing3");
       lh.edit(l);
     }
-    ll = lh.get(tourId1);
+    ll = lh.getLogByTour(tourId1);
     for (LogItem li : ll) {
       assertEquals("Testing3", li.getActivity());
       break;
@@ -100,8 +100,8 @@ public class LoghandlerTest {
     lh.remove(logId1);
     lh.remove(logId2);
 
-    List<LogItem> ll1 = lh.get(tourId1);
-    List<LogItem> ll2 = lh.get(tourId2);
+    List<LogItem> ll1 = lh.getLogByTour(tourId1);
+    List<LogItem> ll2 = lh.getLogByTour(tourId2);
     assertTrue(ll1.isEmpty() && ll2.isEmpty());
 
     List<TourItem> tl = th.get()

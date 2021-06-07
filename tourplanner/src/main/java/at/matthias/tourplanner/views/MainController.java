@@ -28,38 +28,41 @@ public class MainController implements Initializable {
     mvm = new MainViewmodel(tourOverviewController.getTovm(), tourInfosController.getTivm());
   }
 
+  // file Report action
   public void fileReport(ActionEvent a) {
     logger.info("Filing new Report....");
     switchScene(PathController.Mode.REPORT);
   }
-
+  // file Summary action
   public void fileSummary(ActionEvent e) {
     logger.info("Filing new Report....");
     switchScene(PathController.Mode.SUMMARY);
   }
 
-  @FXML
+  @FXML // Import tour action
   public void importTour(ActionEvent a) {
     logger.info("Importing....");
     switchScene(PathController.Mode.IMPORT);
   }
-  @FXML
+  @FXML // expor Tour action
   public void exportTour(ActionEvent a) {
     logger.info("Exporting....");
     switchScene(PathController.Mode.EXPORT);
   }
 
+  // Switch Scene to path
   public void switchScene(PathController.Mode m) {
     XMLReader reader = new XMLReader();
     Parent root;
     logger.info("Switching Scene to Pathfxml");
     try {
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource(reader.getPath("importExport")));
+      loader.setLocation(
+          getClass().getResource(reader.getPath("importExport"))); // get fxml location
       root = loader.load();
       PathController c = loader.getController();
-      c.setTour(mvm.getCurrentTour());
-      c.setMode(m);
+      c.setTour(mvm.getCurrentTour()); // set Tour
+      c.setMode(m); // set Mode
       menuBar.getScene().setRoot(root);
     } catch (IOException e) {
       logger.error("Error Switching Scene to Pathfxml!" + e);

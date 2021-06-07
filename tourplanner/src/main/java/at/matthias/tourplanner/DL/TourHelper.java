@@ -20,6 +20,7 @@ public class TourHelper extends Database {
       "update tours set favorite = not (select favorite from tours where id = ?) where id = ?";
   private static final Logger logger = Logger.getLogger(TourHelper.class);
 
+  // add new Tour to DB
   public void add(String name, String start, String end, String description, Float distance,
       String imgId, boolean favorite) {
     Connection conn = getConn();
@@ -45,6 +46,7 @@ public class TourHelper extends Database {
       logger.error("Error adding Tour! Connection is null");
     }
   }
+  // remove Tour from DB
   public void remove(TourItem toBeRemoved) {
     Connection conn = getConn();
     if (conn != null) {
@@ -62,6 +64,7 @@ public class TourHelper extends Database {
       logger.error("Error removing TourItem! Connection is null");
     }
   }
+  // edit Tour in DB
   public void edit(int id, String name, String start, String end, String description,
       Float distance, String imgID) {
     Connection conn = getConn();
@@ -86,7 +89,7 @@ public class TourHelper extends Database {
       logger.error("Error editing Tour! Connection is null");
     }
   }
-
+  // gets all tours in DB
   public ResultSet get() {
     Connection conn = getConn();
     if (conn != null) {
@@ -108,7 +111,7 @@ public class TourHelper extends Database {
       return null;
     }
   }
-
+  // gets specific tour in DB
   public ResultSet get(int id) {
     Connection conn = getConn();
     if (conn != null) {
@@ -133,6 +136,7 @@ public class TourHelper extends Database {
     return null;
   }
 
+  // switches favorite boolean in db
   public void makeFavorite(int tourId) {
     Connection conn = getConn();
     if (conn != null) {

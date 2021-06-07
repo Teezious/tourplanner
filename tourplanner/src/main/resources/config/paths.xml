@@ -4,11 +4,9 @@
     <sqlcreate>/db/create_tables.sql</sqlcreate>
     <sqldrop>/db/drop_tables.sql</sqldrop>
     <dbaccess>/config/dbAccess.xml</dbaccess>
-    <addlog>/fxml/addLog.fxml</addlog>
-    <editlog>/fxml/editLog.fxml</editlog>
+    <logFxml>/fxml/log.fxml</logFxml>
     <mainwindow>/fxml/mainWindow.fxml</mainwindow>
-    <addtour>/fxml/addTour.fxml</addtour>
+    <tourFxml>/fxml/tour.fxml</tourFxml>
     <importExport>/fxml/path.fxml</importExport>
-    <edittour>/fxml/editTour.fxml</edittour>
     <imageAbsolute>/home/matthias/Nextcloud/FHT/SS21/SWE2/tourplanner/tourplanner/src/main/resources/img/</imageAbsolute>
 </paths>

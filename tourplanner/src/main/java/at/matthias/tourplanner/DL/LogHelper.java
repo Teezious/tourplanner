@@ -12,12 +12,14 @@ public class LogHelper extends Database {
   private static final String REMOVELOG = "delete from logs where id = ?";
   private static final String EDITLOG =
       "update logs set date  = ?, time  = ?, distance  = ?, rating  = ?, avg_speed  = ?, breaks  = ?, degrees = ?, weather = ?, activity = ? where id = ?";
-  private static final String GETLOGBYID =
+  private static final String GETLOGBYTOUR =
       "select date, time, distance, rating, avg_speed, breaks, degrees, weather, activity, id from logs where fk_tour_id = ?";
+  private static final String GETLOGBYID =
+      "select date, time, distance, rating, avg_speed, breaks, degrees, weather, activity, id from logs where id = ?";
   private static final Logger logger = Logger.getLogger(LogHelper.class);
 
+  // adds new log to a tour
   public void add(int tourId, LogItem log) {
-    Connection conn = getConn();
     if (conn != null) {
       try (PreparedStatement ps = getConn().prepareStatement(ADDLOG)) {
         ps.setInt(1, tourId);
@@ -43,9 +45,8 @@ public class LogHelper extends Database {
       logger.error("Error adding Log! Connection is null");
     }
   }
-
+  // removes specific log
   public void remove(int id) {
-    Connection conn = getConn();
     if (conn != null) {
       try (PreparedStatement ps = getConn().prepareStatement(REMOVELOG)) {
         ps.setInt(1, id);
@@ -61,9 +62,8 @@ public class LogHelper extends Database {
       logger.error("Error removing Log! Connection is null");
     }
   }
-
+  // edits specific log
   public void edit(LogItem log) {
-    Connection conn = getConn();
     if (conn != null) {
       try (PreparedStatement ps = getConn().prepareStatement(EDITLOG)) {
         ps.setDate(1, java.sql.Date.valueOf(log.getDate()));
@@ -89,12 +89,28 @@ public class LogHelper extends Database {
       logger.error("Error editing Tour! Connection is null");
     }
   }
+  // get all logs associated with a tour
+  public ResultSet getLogByTour(int tourId) {
+    if (conn != null) {
+      try (PreparedStatement ps = getConn().prepareStatement(GETLOGBYTOUR)) {
+        ps.setInt(1, tourId);
+        logger.info("Getting Logs");
+        return ps.executeQuery();
 
-  public ResultSet get(int tourId) {
-    Connection conn = getConn();
+      } catch (Exception e) {
+        logger.error("Error getting Logs!" + e);
+      }
+    } else {
+      logger.error("Error getting Logs! Connection is null");
+    }
+
+    return null;
+  }
+  // gets specific log by id
+  public ResultSet getLog(int logId) {
     if (conn != null) {
       try (PreparedStatement ps = getConn().prepareStatement(GETLOGBYID)) {
-        ps.setInt(1, tourId);
+        ps.setInt(1, logId);
         logger.info("Getting Logs");
         return ps.executeQuery();
 

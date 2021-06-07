@@ -22,22 +22,24 @@ public class Charthandler {
     throw new IllegalArgumentException("Utility Class");
   }
 
+  // generates a weather piechart
   public static JFreeChart generateWeatherChart(List<LogItem> logs) {
     logger.info("Creating Weather Chart");
     List<String> weather = new ArrayList<>();
     for (LogItem log : logs) {
-      weather.add(log.getWeather());
+      weather.add(log.getWeather()); // save weather in a seperate list
     }
     DefaultPieDataset dataSet = new DefaultPieDataset();
-    Map<String, Long> counts =
-        weather.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+    Map<String, Long> counts = weather.stream().collect(Collectors.groupingBy(
+        e -> e, Collectors.counting())); // count occurence of different Weather
 
     for (Map.Entry<String, Long> pair : counts.entrySet()) {
-      dataSet.setValue(pair.getKey(), pair.getValue());
+      dataSet.setValue(pair.getKey(), pair.getValue()); // set dataset
     }
 
-    JFreeChart chart = ChartFactory.createPieChart("Weather", dataSet, true, true, false);
-    chart.getPlot().setBackgroundPaint(Color.WHITE);
+    JFreeChart chart =
+        ChartFactory.createPieChart("Weather", dataSet, true, true, false); // create chart
+    chart.getPlot().setBackgroundPaint(Color.WHITE); // set background color
 
     return chart;
   }
@@ -46,19 +48,20 @@ public class Charthandler {
     logger.info("Creating Activity Chart");
     List<String> activity = new ArrayList<>();
     for (LogItem log : logs) {
-      activity.add(log.getActivity());
+      activity.add(log.getActivity()); // save activity in a seperate list
     }
 
-    Map<String, Long> counts =
-        activity.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+    Map<String, Long> counts = activity.stream().collect(Collectors.groupingBy(
+        e -> e, Collectors.counting())); // count occurence of different activites
 
     DefaultPieDataset dataSet = new DefaultPieDataset();
     for (Map.Entry<String, Long> pair : counts.entrySet()) {
-      dataSet.setValue(pair.getKey(), pair.getValue());
+      dataSet.setValue(pair.getKey(), pair.getValue()); // set dataset
     }
 
-    JFreeChart chart = ChartFactory.createPieChart("Activity", dataSet, true, true, false);
-    chart.getPlot().setBackgroundPaint(Color.WHITE);
+    JFreeChart chart =
+        ChartFactory.createPieChart("Activity", dataSet, true, true, false); // create piechart
+    chart.getPlot().setBackgroundPaint(Color.WHITE); // set background color
 
     return chart;
   }
@@ -69,16 +72,17 @@ public class Charthandler {
     TimeSeries series = new TimeSeries("Degrees");
     for (LogItem log : logs) {
       LocalDate ld = log.getDate();
-      Day d = new Day(ld.getDayOfMonth(), ld.getMonthValue(), ld.getYear());
-      series.add(d, log.getDegrees());
+      Day d = new Day(ld.getDayOfMonth(), ld.getMonthValue(), ld.getYear()); // Create new Day
+      series.add(d, log.getDegrees()); // Day Degree pair to series
     }
-    dataset.addSeries(series);
+    dataset.addSeries(series); // set dataset
 
-    JFreeChart chart = ChartFactory.createTimeSeriesChart("Temperature over Time", // Chart
-        "Date", // X-Axis Label
-        "C°", // Y-Axis Label
-        dataset);
-    chart.getPlot().setBackgroundPaint(Color.WHITE);
+    JFreeChart chart =
+        ChartFactory.createTimeSeriesChart("Temperature over Time", // Time Series Chart
+            "Date", // X-Axis Label
+            "C°", // Y-Axis Label
+            dataset);
+    chart.getPlot().setBackgroundPaint(Color.WHITE); // set background color
 
     return chart;
   }

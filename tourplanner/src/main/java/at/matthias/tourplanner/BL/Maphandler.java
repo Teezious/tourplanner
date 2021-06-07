@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import javax.imageio.ImageIO;
 import org.apache.log4j.Logger;
 
@@ -24,11 +26,12 @@ public class Maphandler {
     this.url = reader.readXMLElement(path, "url");
   }
 
+  // gets distance for a route and saves image for a route
   public RouteItem requestHandler(String start, String end, String imagePath) {
     logger.info("new Map- and directionRequest");
     APIcomm client = new APIcomm();
-    var request = createDirectionsURL(start, end); // TODO Split this
-    RouteItem route = client.directionRequest(request); // TODO Split this
+    var request = createDirectionsURL(start, end); // TODO split this
+    RouteItem route = client.directionRequest(request);
     request = getMapURL(route.getSessionId());
     byte[] byteimg = client.imageRequest(request);
     if (byteimg != null) {
@@ -51,25 +54,27 @@ public class Maphandler {
     return route;
   }
 
+  // creates direction url
   public URL createDirectionsURL(String start, String end) {
-    URL request = null;
     try {
-      request = new URL(this.url + "/directions/v2/route?key=" + this.key + "&from=" + start
-          + "&to=" + end + "&unit=k");
+      String directionurl = this.url + "/directions/v2/route?key=" + this.key
+          + "&from=" + URLEncoder.encode(start, StandardCharsets.UTF_8)
+          + "&to=" + URLEncoder.encode(end, StandardCharsets.UTF_8) + "&unit=k";
+      return new URL(directionurl);
     } catch (MalformedURLException e) {
       logger.error("Error creating Directions URL!" + e);
+      return null;
     }
-    return request;
   }
-
+  // creates map url
   public URL getMapURL(String sessionID) {
-    URL mapurl = null;
     try {
-      mapurl = new URL(this.url + "/staticmap/v5/map?key=" + this.key + "&session=" + sessionID
-          + "&size=400,400");
+      String mapurl = this.url + "/staticmap/v5/map?key=" + this.key + "&session=" + sessionID
+          + "&size=400,400";
+      return new URL(mapurl);
     } catch (MalformedURLException e) {
       logger.error("Error creating Map URL!" + e);
+      return null;
     }
-    return mapurl;
   }
 }

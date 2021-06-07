@@ -18,45 +18,51 @@ public class Tourhandler {
   private final TourHelper tourHelper = new TourHelper();
   private static final Logger logger = Logger.getLogger(Tourhandler.class);
 
+  // make a tour favorite
   public void makeFavorite(int tourId) {
     tourHelper.makeFavorite(tourId);
   }
-
+  // add a tour
   public void add(String name, String start, String end, String description) {
     Maphandler maphandler = new Maphandler();
     String imgId = UUID.randomUUID().toString();
     XMLReader reader = new XMLReader();
     String absImgPath = reader.getPath("imageAbsolute") + imgId + ".jpg";
-    Float distance = maphandler.requestHandler(start, end, absImgPath).getDistance();
+    Float distance = maphandler.requestHandler(start, end, absImgPath)
+                         .getDistance(); // get distance and create new image
     tourHelper.add(name, start, end, description, distance, imgId, false);
   }
-
+  // remove a tour
   public void remove(TourItem toBeRemoved) {
     XMLReader reader = new XMLReader();
     String imgPath = reader.getPath("imageAbsolute") + toBeRemoved.getImage() + ".jpg";
     FileHandler.remove(imgPath);
     tourHelper.remove(toBeRemoved);
   }
-
+  // edit tour
   public void edit(int id, String name, String start, String end, String description) {
     TourItem te = get(id);
+    // Start or Endpoint have changed -> new distance and new Image
     if (!te.getStart().equals(start) || !te.getEnd().equals(end)) {
       XMLReader reader = new XMLReader();
       String imgPath = reader.getPath("imageAbsolute") + te.getImage() + ".jpg";
-      FileHandler.remove(imgPath);
+      FileHandler.remove(imgPath); // remove old image
       Maphandler maphandler = new Maphandler();
       String imgId = UUID.randomUUID().toString();
       String newImgPath = reader.getPath("imageAbsolute") + imgId + ".jpg";
-      Float distance = maphandler.requestHandler(start, end, newImgPath).getDistance();
-      tourHelper.edit(id, name, start, end, description, distance, imgId);
+      Float distance = maphandler.requestHandler(start, end, newImgPath)
+                           .getDistance(); // get distance and create new image
+      tourHelper.edit(id, name, start, end, description, distance, imgId); // make edit call to db
     } else {
-      tourHelper.edit(id, name, start, end, description, te.getDistance(), te.getImage());
+      tourHelper.edit(id, name, start, end, description, te.getDistance(),
+          te.getImage()); // make edit call to db
     }
   }
-
+  // gets all tours
   public List<TourItem> get() {
     ArrayList<TourItem> items = new ArrayList<>();
     ResultSet rs = tourHelper.get();
+    // resolve Resultset
     if (rs != null) {
       try {
         while (rs.next()) {
@@ -74,9 +80,11 @@ public class Tourhandler {
     return Collections.emptyList();
   }
 
+  // gets specifi TourItem
   public TourItem get(int id) {
     TourItem tour = null;
     ResultSet rs = tourHelper.get(id);
+    // resolve Resultset
     if (rs != null) {
       try {
         while (rs.next()) {
@@ -91,11 +99,11 @@ public class Tourhandler {
   }
 
   public List<TourItem> search(String name) {
-    List<TourItem> tours = get();
+    List<TourItem> tours = get(); // get list of tours
     if (name != null) {
       return tours.stream()
           .filter(x -> x.getName().toLowerCase().contains(name.toLowerCase()))
-          .collect(Collectors.toList());
+          .collect(Collectors.toList()); // filter and return list
     }
     return Collections.emptyList();
   }

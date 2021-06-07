@@ -19,7 +19,7 @@ public class MaphandlerTest {
   public void MapURLTest() {
     String url = mp.getMapURL("sessionID").toString();
     String toBe =
-        "https://www.mapquestapi.com/staticmap/v5/map?key=qFXS91XhDmibs35MAOGUUG3XwqzxQMMb&session=sessionID&size=600,400";
+        "https://www.mapquestapi.com/staticmap/v5/map?key=qFXS91XhDmibs35MAOGUUG3XwqzxQMMb&session=sessionID&size=400,400";
     assertEquals(toBe, url);
   }
 }

@@ -4,6 +4,7 @@ import at.matthias.tourplanner.BL.Reporthandler;
 import at.matthias.tourplanner.DL.FileHandler;
 import at.matthias.tourplanner.DL.XMLReader;
 import at.matthias.tourplanner.models.TourItem;
+import at.matthias.tourplanner.viewmodels.PathViewmodel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,45 +27,51 @@ public class PathController {
   }
   @FXML private TextField pathField;
   private static final Logger logger = Logger.getLogger(PathController.class);
+  private final PathViewmodel pvm;
   @Getter @Setter private TourItem tour;
   @Getter @Setter private Mode mode;
 
+  public PathController() {
+    logger.info("initializing PathController");
+    pvm = new PathViewmodel();
+  }
+
   public void cancel(ActionEvent e) {
     logger.info("received Cancel");
-    XMLReader reader = new XMLReader();
-    switchScene(reader.getPath("mainwindow"));
+    switchScene();
   }
 
   public void enter(ActionEvent e) {
     logger.info("received Enter");
     String path = pathField.getText();
+    // depending on mode calls different function in pvm
     switch (mode) {
       case EXPORT:
         logger.info("Exporting...");
-        FileHandler.exportTour(path, tour);
+        pvm.exportTour(path, tour);
         break;
       case IMPORT:
         logger.info("Importing...");
-        FileHandler.importTour(path);
+        pvm.importTour(path);
         break;
-
       case SUMMARY:
         logger.info("Filing Summary...");
-        Reporthandler.fileSummary(path, tour);
+        pvm.fileSummary(path, tour);
         break;
       case REPORT:
         logger.info("Filing Report...");
-        Reporthandler.fileReport(path, tour);
+        pvm.fileReport(path, tour);
         break;
 
       default:
         break;
     }
-    XMLReader reader = new XMLReader();
-    switchScene(reader.getPath("mainwindow"));
+    switchScene();
   }
-
-  private void switchScene(String path) {
+  // switch back to mainwindow
+  private void switchScene() {
+    XMLReader reader = new XMLReader();
+    String path = reader.getPath("mainwindow");
     Parent root;
     logger.info("Switching Scene to MainWindow");
     try {

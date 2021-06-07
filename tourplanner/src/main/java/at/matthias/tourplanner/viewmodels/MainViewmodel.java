@@ -1,5 +1,4 @@
 package at.matthias.tourplanner.viewmodels;
-import at.matthias.tourplanner.BL.Reporthandler;
 import at.matthias.tourplanner.models.TourItem;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,12 +14,12 @@ public class MainViewmodel implements TourObserver {
     logger.info("initialising MainViewModel");
     this.tovm = tovm;
     this.tivm = tivm;
-    this.tovm.addObserver(tivm);
-    this.tovm.addObserver(this);
-    this.tivm.addSearchObserver(tovm);
+    this.tovm.addObserver(tivm); // initialize observers
+    this.tovm.addObserver(this); // initialize observers
+    this.tivm.addSearchObserver(tovm); // initialize observers
   }
 
-  @Override
+  @Override // new curren tour has been received
   public void updateCurrentTour(TourItem tour) {
     logger.info("New Current Tour");
     currentTour = tour;

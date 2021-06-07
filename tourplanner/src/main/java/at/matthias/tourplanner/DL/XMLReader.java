@@ -14,10 +14,12 @@ import org.xml.sax.SAXException;
 public class XMLReader {
   private static final Logger logger = Logger.getLogger(XMLReader.class);
 
+  // path specifies path to db config
   public Map<String, String> readDbConfig(String path) {
     logger.info("Reading DB Config");
     HashMap<String, String> dbConfig = new HashMap<>();
 
+    // read the db config elements
     String dburl = readXMLElement(path, "dburl");
     String dbname = readXMLElement(path, "dbname");
     String user = readXMLElement(path, "user");
@@ -30,7 +32,8 @@ public class XMLReader {
 
     return dbConfig;
   }
-
+  // path specifies xml file to be read
+  // element specifiex which element should be read
   public String readXMLElement(String path, String element) {
     String result = null;
     if (path != null && element != null) {
@@ -54,11 +57,13 @@ public class XMLReader {
     return result;
   }
 
+  // element specifies which path should be gotten
+  // function returns absolute path
   public String getFullPath(String element) {
     String fullPath = "";
     if (element != null) {
       String path = this.getClass().getResource("/config/paths.xml").toString();
-
+      // remove "file:"
       if (path.contains("file:")) {
         String[] cut = path.split(":");
         path = cut[1];
@@ -75,6 +80,7 @@ public class XMLReader {
           if (result != null) {
             fullPath = this.getClass().getResource(result).toString();
           }
+          // remove "file:"
           if (fullPath.contains("file:")) {
             String[] cut = fullPath.split(":");
             fullPath = cut[1];
@@ -88,8 +94,11 @@ public class XMLReader {
 
     return fullPath;
   }
+  // element specifies which path should be gotten
+  // function returns relative path
   public String getPath(String element) {
     String result = "";
+    // remove "file:"
     if (element != null) {
       String path = this.getClass().getResource("/config/paths.xml").toString();
       if (path.contains("file:")) {

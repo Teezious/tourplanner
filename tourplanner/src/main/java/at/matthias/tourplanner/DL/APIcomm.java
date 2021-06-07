@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 public class APIcomm {
   private static final Logger logger = Logger.getLogger(APIcomm.class);
 
+  // executes direcion request saves in RouteItem which then is returned
   public RouteItem directionRequest(URL url) {
     try {
       ObjectMapper om = new ObjectMapper();
@@ -23,8 +24,7 @@ public class APIcomm {
       HttpRequest request =
           HttpRequest.newBuilder(url.toURI()).header("accept", "application/json").build();
       var response = client.send(request, HttpResponse.BodyHandlers.ofString()).body();
-      RouteItem route = om.readValue(response.substring(9), RouteItem.class);
-      return route;
+      return om.readValue(response.substring(9), RouteItem.class); // save in RouteItem
     } catch (IOException | URISyntaxException e) {
       logger.error("Error creating directionRequest!" + e);
       return null;
@@ -35,22 +35,22 @@ public class APIcomm {
     }
   }
 
+  // makes request to get mapquest image
   public byte[] imageRequest(URL url) {
     try {
       HttpClient client = HttpClient.newHttpClient();
       HttpRequest request =
           HttpRequest.newBuilder(url.toURI()).header("accept", "image.jpeg").build();
 
-      byte[] response = client.send(request, HttpResponse.BodyHandlers.ofByteArray()).body();
-
-      return response;
+      return client.send(request, HttpResponse.BodyHandlers.ofByteArray())
+          .body(); // return byte[] response
 
     } catch (IOException | URISyntaxException e) {
-      logger.error("Error creating imageRquest!" + e);
+      logger.error("Error creating imageRequest!" + e);
       return new byte[0];
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
-      logger.error("Error creating imageRquest!" + e);
+      logger.error("Error creating imageRequest!" + e);
       return new byte[0];
     }
   }
